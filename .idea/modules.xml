@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/NPUPincheSystem.iml" filepath="$PROJECT_DIR$/.idea/NPUPincheSystem.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PincheSystem/PincheSystem.iml" filepath="$PROJECT_DIR$/PincheSystem/PincheSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PincheSystem-back/PincheSystem-back.iml" filepath="$PROJECT_DIR$/PincheSystem-back/PincheSystem-back.iml" />
     </modules>
   </component>
 </project>
