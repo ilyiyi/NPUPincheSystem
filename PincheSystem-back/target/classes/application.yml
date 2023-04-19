@@ -28,9 +28,16 @@ spring:
       allow_unquoted_control_chars: true
       allow_single_quotes: true
   mvc:
+    view:
+      suffix: .html
+      prefix: /static/
     pathmatch:
       matching-strategy: ant_path_matcher
-
+#    static-path-pattern: /static/**
+#
+#  web:
+#    resources:
+#      static-locations: classpath:/
 mybatis:
   #  mapper对应的xml文件存放路径
   mapper-locations: mapper/*.xml

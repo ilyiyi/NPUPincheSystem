@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping(value = "/user")
 public class UserController {
 
-    @PostMapping("/register")
+    @GetMapping("/register")
     public String register(){
-        return "register.html";
+        return "register";
     }
 
     @GetMapping(value = "/login")
     public String login() {
-        return "login.html";
+        return "login";
     }
 }
