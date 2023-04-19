@@ -28,6 +28,8 @@ spring:
       allow_unquoted_control_chars: true
       allow_single_quotes: true
   mvc:
+    view:
+      suffix: .html
     pathmatch:
       matching-strategy: ant_path_matcher
 
