@@ -45,4 +45,9 @@
     select id, username, password, mobile, sex, role, create_time, update_time, is_delete
     from user
   </select>
+  <select id="selectByUsername" resultType="com.devhub.pinchesystemback.domain.User">
+    select *
+    from user
+    where username = #{username}
+  </select>
 </mapper>
