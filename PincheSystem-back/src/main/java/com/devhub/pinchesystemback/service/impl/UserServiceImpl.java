@@ -24,12 +24,9 @@ public class UserServiceImpl implements UserService {
         if(username.length() == 0 || password.length() < 6) {
             return false;
         }
-        if(userMapper.selectByUsername(username) != null){
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setMobile(mobile);
-            userMapper.insert(user);
+        User user1 = userMapper.selectByUsername(username);
+        if(user1 == null){
+            userMapper.insert(username,password,mobile);
             return true;
         }
         return false;

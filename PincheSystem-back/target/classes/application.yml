@@ -38,9 +38,9 @@ spring:
 #  web:
 #    resources:
 #      static-locations: classpath:/
-mybatis:
+#mybatis:
   #  mapper对应的xml文件存放路径
-  mapper-locations: mapper/*.xml
+#  mapper-locations: mapper/*.xml
 
 logging:
   level:

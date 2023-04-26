@@ -31,16 +31,16 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid RegisterParam registerParam, Model model) {
+    public String register(@Valid RegisterParam registerParam) {
         String username = registerParam.getUsername();
         String password = registerParam.getPassword();
         String mobile = registerParam.getMobile();
-        if (userService.register(username, password, mobile)) {
-            model.addAttribute("msg", "rs");
-        } else {
-            model.addAttribute("msg", "rf");
+        boolean flag = userService.register(username, password, mobile);
+        if (flag) {
+            return "/login";
         }
-        return "register";
+
+        return "/";
     }
 
     @GetMapping(value = "/login")
