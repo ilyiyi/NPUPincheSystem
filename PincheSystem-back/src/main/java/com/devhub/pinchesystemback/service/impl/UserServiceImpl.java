@@ -40,6 +40,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User login(String username, String password) {
+        User user = userMapper.selectByUsername(username);
+        if (user.getPassword().equals(password)) {
+            return user;
+        }
         return null;
     }
 
