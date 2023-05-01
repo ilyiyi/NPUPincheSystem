@@ -1,6 +1,7 @@
 package com.devhub.pinchesystemback.service;
 
 import com.devhub.pinchesystemback.domain.User;
+import com.devhub.pinchesystemback.vo.UserVO;
 
 /**
  * @author awater
@@ -19,10 +20,9 @@ public interface UserService {
     /**
      * 根据userId获取用户的信息
      */
-    User getInfo(Long userId);
+    UserVO getInfo(Long userId);
 
-    /**
-     * 根据userId,修改指定用户的信息(昵称和性别)
-     */
-    void modifyInfo(Long userId, String username, Integer sex,String department);
+    void modifyInfo(Long userId, String username, String password, String mobile, String sex);
+
+    boolean isDeleted(Long userId);
 }

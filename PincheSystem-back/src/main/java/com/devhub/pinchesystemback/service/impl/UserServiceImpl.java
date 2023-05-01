@@ -1,19 +1,33 @@
 package com.devhub.pinchesystemback.service.impl;
 
+import com.devhub.pinchesystemback.advice.annotation.Idempotent;
+import com.devhub.pinchesystemback.constant.ResultCodeEnum;
 import com.devhub.pinchesystemback.domain.User;
+import com.devhub.pinchesystemback.exception.BusinessException;
+import com.devhub.pinchesystemback.exception.NotFoundException;
 import com.devhub.pinchesystemback.mapper.UserMapper;
 import com.devhub.pinchesystemback.service.UserService;
+import com.devhub.pinchesystemback.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 用户注册
@@ -26,7 +40,7 @@ public class UserServiceImpl implements UserService {
         }
         User user1 = userMapper.selectByUsername(username);
         if(user1 == null){
-            userMapper.insert(username,password,mobile);
+            userMapper.insert(username,passwordEncoder.encode(password),mobile);
             return true;
         }
         return false;
@@ -39,12 +53,18 @@ public class UserServiceImpl implements UserService {
      * @param password
      */
     @Override
+    @Idempotent
     public User login(String username, String password) {
-        User user = userMapper.selectByUsername(username);
-        if (user.getPassword().equals(password)) {
-            return user;
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        }catch (AuthenticationException e){
+            log.warn("[登录失败]  尝试登录失败，失败原因：{}", e.getMessage());
+            throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD);
         }
-        return null;
+
+        return (User) authentication.getPrincipal();
+
     }
 
     /**
@@ -53,20 +73,34 @@ public class UserServiceImpl implements UserService {
      * @param userId
      */
     @Override
-    public User getInfo(Long userId) {
-        return null;
+    public UserVO getInfo(Long userId) {
+        return userMapper.selectVOById(userId);
     }
 
     /**
      * 根据userId,修改指定用户的信息(昵称和性别)
      *
-     * @param userId
-     * @param username
-     * @param sex
-     * @param department
+     * @param userId 用户id
+     * @param username 用户名
+     * @param sex 性别
+     * @param password 密码
+     * @param mobile 联系方式
      */
     @Override
-    public void modifyInfo(Long userId, String username, Integer sex, String department) {
+    public void modifyInfo(Long userId, String username, String password, String mobile, String sex) {
+        int match = userMapper.updateByPrimaryKey(userId,username,passwordEncoder.encode(password),mobile,sex);
+        if (match == 0) {
+            throw new NotFoundException("userId为" + userId + "的用户不存在");
+        }
+    }
 
+    /**
+     * @param userId 用户id
+     * @return 是否被删除
+     */
+    @Override
+    public boolean isDeleted(Long userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        return user == null || user.getIsDelete() == 1;
     }
 }

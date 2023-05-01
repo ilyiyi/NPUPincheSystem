@@ -5,6 +5,8 @@ import com.devhub.pinchesystemback.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -40,14 +42,16 @@ public class TokenFilter extends OncePerRequestFilter {
         String authorization = request.getHeader("authorization");
 
         if (StringUtils.hasText(authorization)) {
+            User user;
             try {
-               jwtUtil.getUserFromToken(authorization);
+               user = jwtUtil.getUserFromToken(authorization);
             } catch (Exception e) {
                 log.warn("在解析token时出错，错误原因:{}", e.getMessage());
                 throw new BadCredentialsException(e.getMessage());
             }
-
-
+            SecurityContextHolder.getContext().setAuthentication(
+                    new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities())
+            );
 
         }
 
