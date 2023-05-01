@@ -22,8 +22,8 @@ import javax.xml.ws.Response;
  * @author awater
  */
 @Controller
-//@Slf4j
-//@RequestMapping(value = "/user")
+@Slf4j
+@RequestMapping(value = "/user")
 public class UserController {
 
     @Resource
@@ -50,13 +50,13 @@ public class UserController {
         return "/";
     }
 
-    @GetMapping(value = "login")
+    @GetMapping("/login")
     public String login() {
         return "login";
     }
 
-    @PostMapping("login")
-    public String login(@Valid @RequestBody LoginParam loginParam, HttpServletResponse response) {
+    @PostMapping("/login")
+    public String login(@Valid LoginParam loginParam, HttpServletResponse response) {
         User user = userService.login(loginParam.getUsername(),loginParam.getPassword());
         if(user != null){
             String token = jwtUtil.getTokenFromUser(user);
@@ -66,11 +66,9 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("/submit-form")
-    public ModelAndView handleFormSubmission(@RequestParam String name, @RequestParam String message) {
-        ModelAndView mav = new ModelAndView("login"); // 视图名称
-        mav.addObject("name", name);
-        mav.addObject("message", message);
-        return mav;
+    @GetMapping("/info")
+    public String getUserInfo(Long id){
+        userService.getInfo(id);
+        return "myInfo";
     }
 }

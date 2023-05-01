@@ -32,7 +32,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-12" >
-                        <form class="tm-login-form">
+                        <form class="tm-login-form" action="/user/login" method="post">
                             <div class="input-group">
                                 <label for="username" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">电话</label>
                                 <input name="username" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" id="username" value="admin" required>
@@ -42,8 +42,8 @@
                                 <input name="password" type="password" class="form-control validate" id="password" value="1234" required>
                             </div>
                             <div class="input-group mt-3">
-                                <button type="submit" class="btn btn-primary d-inline-block mx-auto" action="/user/login" method="post" >Login</button>
-                                <button type="submit" class="btn btn-primary d-inline-block mx-auto" action="/user/register" method="post" >Register</button>
+                                <button type="submit" class="btn btn-primary d-inline-block mx-auto">Login</button>
+                                <button type="submit" class="btn btn-primary d-inline-block mx-auto">Register</button>
                             </div>
                         </form>
                     </div>
