@@ -1,6 +1,7 @@
 package com.devhub.pinchesystemback.mapper;
 
 import com.devhub.pinchesystemback.domain.User;
+import com.devhub.pinchesystemback.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +16,11 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Long id);
 
+    UserVO selectVOById(Long id);
+
     User selectByUsername(String username);
 
     List<User> selectAll();
 
-    int updateByPrimaryKey(User row);
+    int updateByPrimaryKey(Long id,String username, String password, String mobile,String sex);
 }
