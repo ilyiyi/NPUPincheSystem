@@ -34,19 +34,16 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-#    static-path-pattern: /static/**
-#
-#  web:
-#    resources:
-#      static-locations: classpath:/
-#mybatis:
-  #  mapper对应的xml文件存放路径
-#  mapper-locations: mapper/*.xml
+  # redis配置
+  redis:
+    host: 60.204.151.229
+    port: 6379
+    password: 123456
 
 logging:
   level:
     #    把日志级别设置为DEBUG,可以在控制台打印出SQL语句,方便调试
-   com.devhub.pinchesystemback.mapper: DEBUG
+    com.devhub.pinchesystemback.mapper: DEBUG
 
 pagehelper:
   #  配置分页插件
@@ -62,4 +59,3 @@ jwt:
   secret: devhub
   #  jwt工具类设定的有效时间,以天为单位
   expiration: 7
-
