@@ -24,7 +24,7 @@ public class Order {
     /**
      * 拼车信息id
      */
-    private Long orderinfoId;
+    private Long infoId;
     /**
      * 发车时间
      */

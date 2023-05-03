@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devhub.pinchesystemback.mapper.OrderMapper">
+
+    <resultMap id="OrderResultMap" type="com.devhub.pinchesystemback.domain.Order">
+        <id column="order_id" jdbcType="BIGINT" property="orderId"/>
+        <result column="passenger_num" jdbcType="TINYINT" property="passengerNum"/>
+        <result column="ending" jdbcType="VARCHAR" property="ending"/>
+        <result column="info_id" jdbcType="BIGINT" property="infoId"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="price" jdbcType="FLOAT" property="price"/>
+        <result column="order_state" jdbcType="TINYINT" property="orderState"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="order_id" keyProperty="orderId">
+        insert into orders(passenger_num, ending, info_id, start_time, price, order_state, remark)
+        values (#{passengerNum}, #{ending}, #{infoId}, #{startTime}, #{price}, #{orderState}, #{remark})
+    </insert>
+    <update id="updateByOrderId">
+        update orders
+        <set>
+            <if test="passengerNum != null">
+                passenger_num = #{passengerNum}
+            </if>
+            <if test="ending != null">
+                #{ending}
+            </if>
+            <if test="infoId != null">
+                #{infoId}
+            </if>
+            <if test="startTime != null">
+                #{startTime}
+            </if>
+            <if test="price != null">
+                #{price}
+            </if>
+            <if test="orderState != null">
+                #{orderState}
+            </if>
+            <if test="remark != null">
+                #{remark}
+            </if>
+
+        </set>
+    </update>
+    <delete id="deleteByOrderId">
+        delete
+        from orders
+        where order_id = #{id}
+    </delete>
+    <select id="selectAll" resultType="com.devhub.pinchesystemback.domain.Order">
+        select *
+        from orders
+    </select>
+</mapper>

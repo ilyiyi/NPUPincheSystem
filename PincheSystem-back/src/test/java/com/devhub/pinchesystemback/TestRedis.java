@@ -29,7 +29,7 @@ public class TestRedis {
         set.add(2);
         set.add(3);
         set.add(4);
-        redisUtil.sSet("user:1", set.toArray(new Integer[0]));
+        redisUtil.sSet("user:1", (Object) set.toArray(new Integer[0]));
     }
 
 }

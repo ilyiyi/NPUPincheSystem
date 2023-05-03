@@ -3,6 +3,7 @@ package com.devhub.pinchesystemback.filter;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.jboss.logging.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,7 +45,8 @@ public class TokenFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(authorization)) {
             User user;
             try {
-               user = jwtUtil.getUserFromToken(authorization);
+                user = jwtUtil.getUserFromToken(authorization);
+                MDC.put("currentUser", user);
             } catch (Exception e) {
                 log.warn("在解析token时出错，错误原因:{}", e.getMessage());
                 throw new BadCredentialsException(e.getMessage());

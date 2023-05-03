@@ -58,15 +58,15 @@ public class RedisUtil {
         }
     }
 
-    public long sSize(String key) {
+    public Long sSize(String key) {
         try {
             if (Boolean.TRUE.equals(template.hasKey(key))) {
                 return template.opsForSet().size(key);
             }
-            return 0;
+            return 0L;
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return 0L;
         }
     }
 
@@ -76,6 +76,16 @@ public class RedisUtil {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public boolean sRemove(String key, Object... values) {
+        try {
+            Long count = template.opsForSet().remove(key, values);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

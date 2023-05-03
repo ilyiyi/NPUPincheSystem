@@ -22,7 +22,8 @@ public class TestController {
 
     @GetMapping("/set")
     public String sSet(Long... ids) {
-        redisUtil.sSet("user:1", ids);
-        return "/";
+        redisUtil.sSet("user:1", (Object) ids);
+        return "index";
     }
+
 }
