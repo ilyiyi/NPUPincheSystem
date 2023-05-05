@@ -20,10 +20,10 @@ public class TestController {
         return "index";
     }
 
-    @GetMapping("/set")
-    public String sSet(Long... ids) {
-        redisUtil.sSet("user:1", (Object) ids);
-        return "index";
-    }
+//    @GetMapping("/set")
+//    public String sSet(Long... ids) {
+//        redisUtil.sSet("user:1", (Object) ids);
+//        return "index";
+//    }
 
 }

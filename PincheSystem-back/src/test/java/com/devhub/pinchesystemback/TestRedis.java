@@ -1,5 +1,6 @@
 package com.devhub.pinchesystemback;
 
+import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,19 @@ public class TestRedis {
         set.add(2);
         set.add(3);
         set.add(4);
-        redisUtil.sSet("user:1", (Object) set.toArray(new Integer[0]));
+        redisUtil.sSet("user_15", 6L);
     }
 
+    @Test
+    public void testHash() {
+        User user = new User();
+        user.setId(1L);
+        redisUtil.setObject("cur", user);
+        System.out.println(redisUtil.getCurrentUser("cur"));
+    }
+
+    @Test
+    public void testSet() {
+        redisUtil.sSet("set", 1L, 2, 3, 4);
+    }
 }

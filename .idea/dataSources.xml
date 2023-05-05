@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://60.204.151.229:3306/pinche</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="@60.204.151.229" uuid="f476fa22-227e-4e0a-aafe-ca0fcb38575e">
+      <driver-ref>redis</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>jdbc.RedisDriver</jdbc-driver>
+      <jdbc-url>jdbc:redis://60.204.151.229:6379/</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

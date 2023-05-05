@@ -1,9 +1,11 @@
 package com.devhub.pinchesystemback.utils;
 
+import com.devhub.pinchesystemback.domain.User;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +18,24 @@ public class RedisUtil {
     @Resource
     private RedisTemplate<String, Object> template;
 
+    public  User getCurrentUser(String key) {
+        Object obj = template.opsForHash().get(key, "userId");
+        Long userId = null;
+        User user = new User();
+        if(obj instanceof Long){
+           userId = (Long) obj;
+        }
+        if (obj instanceof Integer) {
+            userId = ((Integer) obj).longValue();
+        }
+        user.setId(userId);
+        return user;
+    }
+    public boolean setObject(String key, User value) {
+
+        template.opsForHash().put(key,"userId",value.getId());
+        return true;
+    }
     public boolean setExpire(String key, Long expire) {
         try {
             if (expire > 0) {
@@ -35,15 +55,15 @@ public class RedisUtil {
      * @param value 值
      * @return 是否成功
      */
-    public boolean sSet(String key, Object... value) {
-        try {
-            template.opsForSet().add(key, value);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+//    public boolean sSet(String key, Object... value) {
+//        try {
+//            template.opsForSet().add(key, value);
+//            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 
     public boolean sSet(String key, Long expire, Object... value) {
         try {

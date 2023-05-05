@@ -47,6 +47,7 @@ public class TokenFilter extends OncePerRequestFilter {
             try {
                 user = jwtUtil.getUserFromToken(authorization);
                 MDC.put("currentUser", user);
+                MDC.get("currentUser");
             } catch (Exception e) {
                 log.warn("在解析token时出错，错误原因:{}", e.getMessage());
                 throw new BadCredentialsException(e.getMessage());

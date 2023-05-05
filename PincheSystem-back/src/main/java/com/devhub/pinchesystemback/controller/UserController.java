@@ -9,22 +9,19 @@ import com.devhub.pinchesystemback.pararm.LoginParam;
 import com.devhub.pinchesystemback.pararm.ModifyParam;
 import com.devhub.pinchesystemback.pararm.RegisterParam;
 import com.devhub.pinchesystemback.service.UserService;
-import com.devhub.pinchesystemback.service.impl.UserServiceImpl;
 import com.devhub.pinchesystemback.utils.JwtUtil;
+import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 
 /**
  * @author awater
@@ -39,6 +36,9 @@ public class UserController {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @GetMapping("/register")
     public String register(){
@@ -69,6 +69,7 @@ public class UserController {
         if(UserRoleEnum.ORDINARY_USER.getRole() == user.getRole()){
             String token = jwtUtil.getTokenFromUser(user);
             response.setHeader("token",token);
+            redisUtil.setObject("cur",user);
             return "myInfo";
         }else {
             throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "非普通用户账户无法在此登录");
