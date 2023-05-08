@@ -23,11 +23,10 @@ public class OrderServiceImpl implements OrderService {
      * 保存订单
      *
      * @param order 订单信息
-     * @return 是否成功
      */
     @Override
-    public Long saveOrder(Order order) {
-        return mapper.insert(order);
+    public void saveOrder(Order order) {
+        mapper.insert(order);
     }
 
     /**
@@ -45,11 +44,10 @@ public class OrderServiceImpl implements OrderService {
      * 根据订单id删除订单
      *
      * @param id 订单id
-     * @return 是否成功
      */
     @Override
-    public boolean deleteOrder(Long id) {
-        return mapper.deleteByOrderId(id) > 0;
+    public void deleteOrder(Long id) {
+        mapper.deleteByOrderId(id);
     }
 
     /**

@@ -12,9 +12,8 @@ public interface OrderService {
      * 保存订单
      *
      * @param order 订单信息
-     * @return 是否成功
      */
-    Long saveOrder(Order order);
+    void saveOrder(Order order);
 
     /**
      * 更新订单
@@ -28,9 +27,8 @@ public interface OrderService {
      * 根据订单id删除订单
      *
      * @param id 订单id
-     * @return 是否成功
      */
-    boolean deleteOrder(Long id);
+    void deleteOrder(Long id);
 
     /**
      * 分页查询订单
