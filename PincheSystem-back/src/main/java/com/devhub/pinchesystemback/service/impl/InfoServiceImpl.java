@@ -61,7 +61,9 @@ public class InfoServiceImpl implements InfoService {
      */
     @Override
     public Info getInfo(Long infoId) {
-        return infoMapper.selectByPrimaryKey(infoId);
+        Info info = infoMapper.selectByPrimaryKey(infoId);
+        System.out.println(info.toString());
+        return info;
     }
 
     /**
@@ -79,9 +81,9 @@ public class InfoServiceImpl implements InfoService {
      *
      * @return 所有拼车信息
      */
-    public PageInfo<Info> getInfos(int currentPage, int pageSize) {
+    public PageInfo<Info> getInfos(Long ownerId, int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-        List<Info> infos = infoMapper.selectAll();
+        List<Info> infos = infoMapper.selectAllByOwnerId(ownerId);
         return new PageInfo<>(infos);
     }
 }

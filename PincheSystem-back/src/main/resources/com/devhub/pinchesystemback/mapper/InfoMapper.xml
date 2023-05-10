@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.devhub.pinchesystemback.mapper.InfoMapper">
-  <resultMap id="BaseResultMap" type="com.devhub.pinchesystemback.domain.Info">
+  <resultMap id="InfoResultMap" type="com.devhub.pinchesystemback.domain.Info">
     <id column="info_id" jdbcType="BIGINT" property="infoId" />
     <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
     <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
@@ -36,18 +36,24 @@
       remark = #{remark,jdbcType=VARCHAR}
     where info_id = #{infoId,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="InfoResultMap">
     select info_id, owner_id, owner_name, days, ending, car_num, price, remain, remark
     from info
     where info_id = #{infoId,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="InfoResultMap">
     select info_id, owner_id, owner_name, days, ending, car_num, price, remain, remark
     from info
   </select>
-  <select id="selectByOwner" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByOwner" parameterType="java.lang.Long" resultMap="InfoResultMap">
     select info_id, owner_id, owner_name, days, ending, car_num, price, remain, remark
     from info
-    where info_id = #{ownerId,jdbcType=BIGINT}
+    where owner_id = #{ownerId,jdbcType=BIGINT}
   </select>
+  <select id="selectAllByOwnerId" resultMap="InfoResultMap">
+    select info_id, owner_id, owner_name, days, ending, car_num, price, remain, remark
+    from info
+    where owner_id = #{ownerId,jdbcType=BIGINT}
+  </select>
+
 </mapper>

@@ -17,5 +17,9 @@ public interface OrderMapper {
 
     int updateByOrderId(Order order);
 
+    Order getOrderByOrderId(Long orderId);
+
     List<Order> selectAll();
+
+    List<Order> selectAllByInfoId(Long infoId);
 }

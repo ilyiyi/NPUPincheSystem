@@ -1,16 +1,26 @@
 package com.devhub.pinchesystemback.controller;
 
 import com.devhub.pinchesystemback.domain.Info;
+import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.pararm.InfoParam;
+import com.devhub.pinchesystemback.pararm.OrderReviewParam;
+import com.devhub.pinchesystemback.pararm.PageParam;
 import com.devhub.pinchesystemback.service.InfoService;
 import com.devhub.pinchesystemback.service.OrderService;
 import com.devhub.pinchesystemback.utils.RedisUtil;
+import com.devhub.pinchesystemback.vo.CommonResult;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -50,18 +60,24 @@ public class OwnerController {
     /**
      * 拼车信息的撤销
      */
-    @DeleteMapping("/info/{id}}")
-    public void infoCancel(@PathVariable long id) {
-        if(infoService.cancel(id)){
-            log.info("删除成功！");
+    @DeleteMapping("/info1/{id}")
+    @ResponseBody
+    public CommonResult infoCancel(@PathVariable("id") long id) {
+        System.out.println("hh");
+        if(!infoService.cancel(id)){
+            log.info("删除失败！");
         }
+        log.info("删除成功！");
+        new CommonResult();
+        return CommonResult.success();
     }
 
     /**
      * 拼车信息的修改
      */
-    @PutMapping("/info/modify/{id}")
-    public void infoModify(@PathVariable long id, InfoParam infoParam) {
+    @PutMapping("/info/{id}")
+    @ResponseBody
+    public void infoModify(@PathVariable long id, @RequestBody InfoParam infoParam) {
         try {
             User currentUser = redisUtil.getCurrentUser("cur");
             Info info = new Info();
@@ -76,10 +92,12 @@ public class OwnerController {
         }
     }
 
-    private void setInfo(InfoParam infoParam, User currentUser, Info info) {
+    private void setInfo(InfoParam infoParam, User currentUser, Info info) throws ParseException {
         info.setOwnerId(currentUser.getId());
         info.setOwnerName(infoParam.getOwnerName());
-        info.setDays(infoParam.getDays());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = df.parse(infoParam.getDays());
+        info.setDays(date);
         info.setEnding(infoParam.getEnding());
         info.setCarNum(infoParam.getCarNum());
         info.setPrice(infoParam.getPrice());
@@ -88,13 +106,13 @@ public class OwnerController {
     }
 
     /**
-     * 查看自己发布的所有拼车信息
+     * 分页查看自己发布的所有拼车信息
      */
     @GetMapping("/info")
     @ResponseBody
-    public List<Info> searcherAllInfo(){
+    public PageInfo<Info> searcherAllInfo(@RequestBody PageParam pageParam){
         User currentUser = redisUtil.getCurrentUser("cur");
-        return infoService.getInfos(currentUser.getId());
+        return infoService.getInfos(currentUser.getId(), pageParam.getCurrentPage(), pageParam.getPageSize());
 
     }
 
@@ -102,7 +120,7 @@ public class OwnerController {
      * 根据id查看拼车信息
      * @param id 拼车信息ID
      */
-    @PutMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @ResponseBody
     public Info infoSearch(@PathVariable long id){
         return infoService.getInfo(id);
@@ -112,8 +130,15 @@ public class OwnerController {
      * 查看自己的所有订单
      */
     @GetMapping("/order")
-    public void getAllOrders(){
-
+    @ResponseBody
+    public PageInfo<List<Order>> getAllOrders(@RequestBody PageParam pageParam){
+        User currentUser = redisUtil.getCurrentUser("cur");
+        List<Info> infos = infoService.getInfos(currentUser.getId());
+        List<Long> infoIds = new ArrayList<>();
+        for (Info info: infos) {
+            infoIds.add(info.getInfoId());
+        }
+        return orderService.selectOrders(infoIds, pageParam.getCurrentPage(), pageParam.getPageSize());
     }
 
     /**
@@ -121,15 +146,19 @@ public class OwnerController {
      * @param id 订单id
      */
     @GetMapping("/order/{id}")
-    public void getOrder(@PathVariable long id){
-
+    @ResponseBody
+    public Order getOrder(@PathVariable long id){
+        return orderService.getOrder(id);
     }
 
     /**
      * 审核订单
      */
     @PostMapping("/order/review")
-    private void orderReview(){
-
+    @ResponseBody
+    private CommonResult orderReview(@RequestBody OrderReviewParam orderReviewParam){
+        orderService.reviewOrder(orderReviewParam.getOrderId(), orderReviewParam.getOrderState());
+        new CommonResult();
+        return CommonResult.success();
     }
 }

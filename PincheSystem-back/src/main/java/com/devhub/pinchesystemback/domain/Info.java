@@ -1,12 +1,21 @@
-package com.devhub.pinchesystemback.pararm;
+package com.devhub.pinchesystemback.domain;
 
 import lombok.Data;
 
-/**
- * 拼车信息参数
- */
+import java.util.Date;
+
 @Data
-public class InfoParam {
+public class Info {
+    /**
+     * 拼车信息id
+     */
+    private Long infoId;
+
+    /**
+     * 发布者id
+     */
+    private Long ownerId;
+
     /**
      * 发布者姓名
      */
@@ -15,7 +24,7 @@ public class InfoParam {
     /**
      * 发车日期
      */
-    private String days;
+    private Date days;
 
     /**
      * 目的地
@@ -41,4 +50,5 @@ public class InfoParam {
      * 备注
      */
     private String remark;
+
 }

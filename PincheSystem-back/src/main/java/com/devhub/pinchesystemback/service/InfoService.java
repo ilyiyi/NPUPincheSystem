@@ -33,7 +33,7 @@ public interface InfoService {
     Info getInfo(Long infoId);
 
     /**
-     * 获取所有拼车信息
+     * 根据ID获取所有拼车信息
      * @return 所有拼车信息
      */
     List<Info> getInfos(Long ownerId);
@@ -43,5 +43,5 @@ public interface InfoService {
      *
      * @return 所有拼车信息
      */
-    PageInfo<Info> getInfos(int currentPage, int pageSize);
+    PageInfo<Info> getInfos(Long ownerId,int currentPage, int pageSize);
 }

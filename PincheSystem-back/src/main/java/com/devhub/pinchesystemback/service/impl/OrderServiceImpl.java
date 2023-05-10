@@ -1,6 +1,10 @@
 package com.devhub.pinchesystemback.service.impl;
 
+import com.devhub.pinchesystemback.constant.ResultCodeEnum;
+import com.devhub.pinchesystemback.domain.Info;
 import com.devhub.pinchesystemback.domain.Order;
+import com.devhub.pinchesystemback.exception.BusinessException;
+import com.devhub.pinchesystemback.mapper.InfoMapper;
 import com.devhub.pinchesystemback.mapper.OrderMapper;
 import com.devhub.pinchesystemback.service.OrderService;
 import com.github.pagehelper.PageHelper;
@@ -8,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +24,9 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderMapper mapper;
 
+    @Resource
+    private InfoMapper infoMapper;
+
     /**
      * 保存订单
      *
@@ -26,7 +34,18 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public void saveOrder(Order order) {
-        mapper.insert(order);
+        Long infoId = order.getInfoId();
+        Info info = infoMapper.selectByPrimaryKey(infoId);
+        if (info!=null) {
+            int remain = info.getRemain()-order.getPassengerNum();
+            if(remain>=0){
+                mapper.insert(order);
+            }else {
+                throw new BusinessException(ResultCodeEnum.SEAT_NOT_ENOUGH,"座位余量不足，请换车或减少拼车人数！");
+            }
+        }else {
+            throw new BusinessException(ResultCodeEnum.INFO_NOT_EXIST, "拼车信息不存在，请重试！");
+        }
     }
 
     /**
@@ -51,6 +70,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
+     * @param orderId 订单id
+     * @return 订单
+     */
+    @Override
+    public Order getOrder(Long orderId) {
+        return mapper.getOrderByOrderId(orderId);
+    }
+
+    /**
      * 分页查询订单
      *
      * @param pageSize    每页数据条数
@@ -62,5 +90,37 @@ public class OrderServiceImpl implements OrderService {
         PageHelper.startPage(currentPage, pageSize);
         List<Order> orders = mapper.selectAll();
         return new PageInfo<>(orders);
+    }
+
+    /**
+     * @param infoIds 订单id
+     * @param currentPage 当前页面
+     * @param pageSize 页面大小
+     * @return 订单列表
+     */
+    @Override
+    public PageInfo<List<Order>> selectOrders(List<Long> infoIds, int currentPage, int pageSize) {
+        PageHelper.startPage(currentPage, pageSize);
+        List<List<Order>> orders = new ArrayList<>();
+        for (Long infoId: infoIds){
+            orders.add(mapper.selectAllByInfoId(infoId));
+        }
+        return new PageInfo<>(orders);
+    }
+
+    /**
+     * 审核订单
+     *
+     * @param orderId 订单id
+     * @param orderState 订单状态
+     */
+    @Override
+    public void reviewOrder(Long orderId, Byte orderState) {
+        Order order = mapper.getOrderByOrderId(orderId);
+        if (order == null) {
+            throw new BusinessException(ResultCodeEnum.PARAM_VALIDATE_FAILED,"订单不存在！");
+        }
+        order.setOrderState(orderState);
+        mapper.updateByOrderId(order);
     }
 }

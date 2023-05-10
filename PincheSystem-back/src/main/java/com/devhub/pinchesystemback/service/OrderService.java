@@ -3,6 +3,8 @@ package com.devhub.pinchesystemback.service;
 import com.devhub.pinchesystemback.domain.Order;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * @author wak
  */
@@ -30,6 +32,8 @@ public interface OrderService {
      */
     void deleteOrder(Long id);
 
+    Order getOrder(Long orderId);
+
     /**
      * 分页查询订单
      *
@@ -38,4 +42,11 @@ public interface OrderService {
      * @return 页数据信息
      */
     PageInfo<Order> selectOrders(int currentPage, int pageSize);
+
+    PageInfo<List<Order>> selectOrders(List<Long> infoIds, int currentPage, int pageSize);
+
+    /**
+     * 审核订单
+     */
+    void reviewOrder(Long orderId,Byte orderState);
 }

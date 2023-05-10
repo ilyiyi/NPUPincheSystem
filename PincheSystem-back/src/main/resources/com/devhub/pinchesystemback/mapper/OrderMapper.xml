@@ -21,30 +21,14 @@
     </insert>
     <update id="updateByOrderId">
         update orders
-        <set>
-            <if test="passengerNum != null">
-                passenger_num = #{passengerNum}
-            </if>
-            <if test="ending != null">
-                #{ending}
-            </if>
-            <if test="infoId != null">
-                #{infoId}
-            </if>
-            <if test="startTime != null">
-                #{startTime}
-            </if>
-            <if test="price != null">
-                #{price}
-            </if>
-            <if test="orderState != null">
-                #{orderState}
-            </if>
-            <if test="remark != null">
-                #{remark}
-            </if>
-
-        </set>
+        set passenger_num = #{passengerNum},
+            ending = #{ending},
+            info_id = #{infoId},
+            start_time = #{startTime},
+            price = #{price},
+            order_state = #{orderState},
+            remark = #{remark}
+        where order_id = #{orderId};
     </update>
     <delete id="deleteByOrderId">
         delete
@@ -54,5 +38,15 @@
     <select id="selectAll" resultType="com.devhub.pinchesystemback.domain.Order">
         select *
         from orders
+    </select>
+    <select id="selectAllByInfoId" resultMap="OrderResultMap">
+        select *
+        from orders
+        where info_id = #{infoId}
+    </select>
+    <select id="getOrderByOrderId" resultMap="OrderResultMap">
+        select *
+        from orders
+        where order_id = #{orderId};
     </select>
 </mapper>

@@ -21,7 +21,22 @@ public enum ResultCodeEnum {
     /**
      * 重复操作
      */
-    REPEAT_OPERATION(10004, "重复操作");
+    REPEAT_OPERATION(10004, "重复操作"),
+
+    /**
+     * 座位余量不足
+     */
+    SEAT_NOT_ENOUGH(1005,"座位余量不足"),
+
+    /**
+     * 拼车信息不存在
+     */
+    INFO_NOT_EXIST(1006,"拼车信息不存在"),
+
+    /**
+     * 订单不存在
+     */
+    ORDER_NOT_EXIST(1007,"订单不存在");
 
     private final int code;
     private final String message;

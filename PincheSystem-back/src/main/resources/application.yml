@@ -34,6 +34,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+    hiddenmethod:
+      filter:
+        enabled: true
   # redis配置
   redis:
     host: 60.204.151.229

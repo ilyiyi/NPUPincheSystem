@@ -15,7 +15,10 @@ public interface InfoMapper {
 
     List<Info> selectAll();
 
+    List<Info> selectAllByOwnerId(Long ownerId);
+
     List<Info> selectByOwner(Long ownerId);
 
     int updateByPrimaryKey(Info row);
+
 }
