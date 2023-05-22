@@ -35,6 +35,14 @@
         from orders
         where order_id = #{id}
     </delete>
+    <delete id="deleteByOrderIds">
+        delete
+        from orders
+        where order_id in
+        <foreach collection="ids" item="id" close=")" open="(" separator=",">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </delete>
     <select id="selectAll" resultType="com.devhub.pinchesystemback.domain.Order">
         select *
         from orders
@@ -48,5 +56,10 @@
         select *
         from orders
         where order_id = #{orderId};
+    </select>
+    <select id="getOrderByInfoId" resultType="long">
+        select order_id
+        from orders
+        where info_id = #{infoId};
     </select>
 </mapper>

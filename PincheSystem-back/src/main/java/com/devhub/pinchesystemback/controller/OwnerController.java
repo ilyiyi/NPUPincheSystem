@@ -60,7 +60,7 @@ public class OwnerController {
     /**
      * 拼车信息的撤销
      */
-    @DeleteMapping("/info1/{id}")
+    @DeleteMapping("/info/cancel/{id}")
     @ResponseBody
     public CommonResult infoCancel(@PathVariable("id") long id) {
         System.out.println("hh");

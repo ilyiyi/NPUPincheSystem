@@ -120,7 +120,12 @@ public class OrderServiceImpl implements OrderService {
         if (order == null) {
             throw new BusinessException(ResultCodeEnum.PARAM_VALIDATE_FAILED,"订单不存在！");
         }
+        /*修改订单状态*/
         order.setOrderState(orderState);
         mapper.updateByOrderId(order);
+        /*修改拼车信息*/
+        Info info = infoMapper.selectByPrimaryKey(order.getInfoId());
+        info.setRemain((byte) (info.getRemain()-order.getPassengerNum()));
+        infoMapper.updateByPrimaryKey(info);
     }
 }

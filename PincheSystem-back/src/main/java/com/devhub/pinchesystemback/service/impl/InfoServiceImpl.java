@@ -3,6 +3,7 @@ package com.devhub.pinchesystemback.service.impl;
 import com.devhub.pinchesystemback.domain.Info;
 import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.mapper.InfoMapper;
+import com.devhub.pinchesystemback.mapper.OrderMapper;
 import com.devhub.pinchesystemback.service.InfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -16,6 +17,9 @@ public class InfoServiceImpl implements InfoService {
 
     @Autowired
     private InfoMapper infoMapper;
+
+    @Autowired
+    private OrderMapper orderMapper;
 
     /**
      * 发布拼车信息
@@ -35,6 +39,8 @@ public class InfoServiceImpl implements InfoService {
      */
     @Override
     public boolean cancel(Long infoId) {
+        List<Long> orderIds = orderMapper.getOrderByInfoId(infoId);
+        orderMapper.deleteByOrderIds(orderIds);
         infoMapper.deleteByPrimaryKey(infoId);
         return infoId == null;
     }
