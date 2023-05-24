@@ -45,4 +45,20 @@ public class TestRedis {
     public void testSet() {
         redisUtil.sSet("set", 1L, 2, 3, 4);
     }
+
+    @Test
+    public void testZSet() {
+        template.opsForZSet().add("wak", 1, 6);
+        template.opsForZSet().add("wak", 2, 5);
+        template.opsForZSet().add("wak", 3, 4);
+        template.opsForZSet().add("wak", 4, 3);
+        template.opsForZSet().add("wak", 5, 2);
+        template.opsForZSet().add("wak", 6, 1);
+
+        Set<Object> wak = template.opsForZSet().range("wak", 0, -1);
+
+        for (Object o : wak) {
+            System.out.println(o);
+        }
+    }
 }
