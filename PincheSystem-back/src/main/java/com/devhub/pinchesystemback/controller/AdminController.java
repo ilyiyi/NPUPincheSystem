@@ -1,8 +1,15 @@
 package com.devhub.pinchesystemback.controller;
 
+import com.devhub.pinchesystemback.constant.ResultCodeEnum;
+import com.devhub.pinchesystemback.constant.UserRoleEnum;
 import com.devhub.pinchesystemback.domain.Info;
 import com.devhub.pinchesystemback.domain.User;
+import com.devhub.pinchesystemback.exception.BusinessException;
+import com.devhub.pinchesystemback.pararm.LoginParam;
 import com.devhub.pinchesystemback.service.AdminService;
+import com.devhub.pinchesystemback.service.UserService;
+import com.devhub.pinchesystemback.utils.JwtUtil;
+import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.CommonResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +28,28 @@ public class AdminController {
 
     @Resource
     private AdminService adminService;
+
+    @Resource
+    private UserService userService;
+
+    @Resource
+    private JwtUtil jwtUtil;
+
+    @Resource
+    private RedisUtil redisUtil;
+
+    @PostMapping("/login")
+    public String login(@Valid LoginParam loginParam, HttpServletResponse response) {
+        User user = userService.login(loginParam.getUsername(), loginParam.getPassword());
+        if (UserRoleEnum.ADMINISTRATOR.getRole() == user.getRole()) {
+            String token = jwtUtil.getTokenFromUser(user);
+            response.setHeader("token", token);
+            redisUtil.setObject("curAdmin", user);
+            return "deals";
+        } else {
+            throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "非普通用户账户无法在此登录");
+        }
+    }
 
     /**
      * 根据开始结束时间或车主id查询全部拼车记录

@@ -18,12 +18,12 @@ public class RedisUtil {
     @Resource
     private RedisTemplate<String, Object> template;
 
-    public  User getCurrentUser(String key) {
+    public User getCurrentUser(String key) {
         Object obj = template.opsForHash().get(key, "userId");
         Long userId = null;
         User user = new User();
-        if(obj instanceof Long){
-           userId = (Long) obj;
+        if (obj instanceof Long) {
+            userId = (Long) obj;
         }
         if (obj instanceof Integer) {
             userId = ((Integer) obj).longValue();
@@ -31,11 +31,14 @@ public class RedisUtil {
         user.setId(userId);
         return user;
     }
+
     public boolean setObject(String key, User value) {
 
-        template.opsForHash().put(key,"userId",value.getId());
+        template.opsForHash().put(key, "userId", value.getId());
+        template.opsForHash().put(key, "username", value.getUsername());
         return true;
     }
+
     public boolean setExpire(String key, Long expire) {
         try {
             if (expire > 0) {
@@ -64,7 +67,6 @@ public class RedisUtil {
 //            return false;
 //        }
 //    }
-
     public boolean sSet(String key, Long expire, Object... value) {
         try {
             template.opsForSet().add(key, value);
