@@ -59,7 +59,7 @@ public class AdminController {
      * @param id    车主id
      * @return 拼车记录
      */
-    @GetMapping("outRecord")
+    @GetMapping("/outRecord")
     public CommonResult recordsOut(Date begin, Date end, Long id) {
         if (end.before(begin)) {
             return CommonResult.failure("开始时间晚于结束时间!");
