@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
+  <component name="AdditionalModuleElements">
+    <content url="file://$MODULE_DIR$/src/main/java/com/devhub/pinchesystemback">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java/com/devhub/pinchesystemback" isTestSource="false" packagePrefix="com.devhub.pinchesystemback" />
+    </content>
+  </component>
   <component name="FacetManager">
     <facet type="JRebel" name="JRebel">
       <configuration>
@@ -7,14 +12,19 @@
           <map>
             <entry key="com.zeroturnaround.jrebel.FormatVersion" value="7.0.0" />
             <entry key="jrebelEnabled" value="true" />
+            <entry key="lastExternalPluginCheckTime" value="1685540554945" />
             <entry key="rebelXmlGenerationInvariantToken" value="PGFwcGxpY2F0aW9uIGdlbmVyYXRlZC1ieT0iaW50ZWxsaWoiPjxpZD5QaW5jaGVTeXN0ZW0tYmFjazwvaWQ+PGNsYXNzcGF0aD48ZGlyIG5hbWU9IkM6L1VzZXJzLzEzNjI3L0Rlc2t0b3AvY29kZS9qYXZhL+mhueebruWunuS+iy9OUFVQaW5jaGVTeXN0ZW0vUGluY2hlU3lzdGVtLWJhY2svdGFyZ2V0L2NsYXNzZXMiPjwvZGlyPjwvY2xhc3NwYXRoPjwvYXBwbGljYXRpb24+" />
           </map>
         </option>
-        <option name="version" value="5" />
+        <option name="version" value="8" />
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset" name="Spring 应用程序上下文" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/com/devhub/pinchesystemback/PincheSystemBackApplication.java</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
 </module>
