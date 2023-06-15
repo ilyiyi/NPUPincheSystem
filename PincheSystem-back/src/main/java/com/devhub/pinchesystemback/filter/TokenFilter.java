@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -41,13 +42,17 @@ public class TokenFilter extends OncePerRequestFilter {
         log.info("[新请求]\n<方法>  {}\n<URI>  {}\n<Query>  {}\n<主机>  {}",
                 request.getMethod(), request.getRequestURI(), request.getQueryString(), request.getRemoteHost());
         String authorization = request.getHeader("authorization");
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if ("token".equals(cookie.getName())) {
+                authorization = cookie.getValue();
+            }
+        }
 
         if (StringUtils.hasText(authorization)) {
             User user;
             try {
                 user = jwtUtil.getUserFromToken(authorization);
-                MDC.put("currentUser", user);
-                MDC.get("currentUser");
             } catch (Exception e) {
                 log.warn("在解析token时出错，错误原因:{}", e.getMessage());
                 throw new BadCredentialsException(e.getMessage());

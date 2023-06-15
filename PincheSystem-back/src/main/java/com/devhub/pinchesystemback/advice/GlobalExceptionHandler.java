@@ -9,14 +9,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -28,7 +31,7 @@ import java.util.List;
  * 请求的顺序：Filter(过滤器)->Interceptor(拦截器)->Controller->Service->Mapper
  * 有人也管Mapper叫做DAO层
  */
-@RestControllerAdvice
+@ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
 
@@ -40,83 +43,89 @@ public class GlobalExceptionHandler {
      * 所以这里捕获BindException不仅可以顺带捕获它的子类MethodArgumentNotValidException，还可以捕获request中query参数的校验失败，相当于一个方法处理了多种不同类型的参数校验失败
      */
     @ExceptionHandler(BindException.class)
-    public CommonResult handleBindException(BindException e, HttpServletRequest request) {
+    public String handleBindException(BindException e, HttpServletRequest request, Model model) {
         String message = formatBindException(e);
+        model.addAttribute("errorMessage", message);
         log.warn(formatException(e, request, message, false));
-        return CommonResult.failure(ResultCodeEnum.PARAM_VALIDATE_FAILED.getCode(), message);
+        return "error";
     }
 
 
     /**
      * 请求方式不支持
      */
-    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public CommonResult handleMethodNotAllowed(Exception e, HttpServletRequest request) {
+    public String handleMethodNotAllowed(Exception e, HttpServletRequest request, Model model) {
         log.warn(formatException(e, request, null, false));
-        return CommonResult.failure("请求方式不支持");
+        model.addAttribute("errorMessage", "请求方式不支持");
+        return "error";
     }
 
 
     /**
      * 请求格式不对
      */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ServletRequestBindingException.class, MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class})
-    public CommonResult handleBadRequest(Exception e, HttpServletRequest request) {
+    public String handleBadRequest(Exception e, HttpServletRequest request, Model model) {
+        model.addAttribute("errorMessage", "请求格式不对");
         log.warn(formatException(e, request, null, false));
-        return CommonResult.failure("请求格式不对");
+        return "error";
     }
 
 
     /**
      * 请求的接口权限不足，例如一个普通用户去请求管理员才能用的接口（这是授权的时候抛出的异常，在进入Controller之前就被拦住，更不会进入Service层）
      */
-    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
-    public CommonResult handleAccessDeniedException(Exception e, HttpServletRequest request) {
+    public String handleAccessDeniedException(Exception e, HttpServletRequest request, Model model) {
+
+        model.addAttribute("errorMessage", "权限不足");
         log.warn(formatException(e, request, null, false));
-        return CommonResult.failure("权限不足");
+        return "error";
     }
 
     /**
      * 请求的操作非法，例如一个普通用户要删除其他普通用户发布的内容（已通过授权并进入了Controller层，但是在Service层发现操作非法而抛出的异常）
      */
-    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(IllegalOperationException.class)
-    public CommonResult handleIllegalOperationException(Exception e, HttpServletRequest request) {
+    public String handleIllegalOperationException(Exception e, HttpServletRequest request, Model model) {
+
+        model.addAttribute("errorMessage", "操作非法");
         log.warn(formatException(e, request, null, false));
-        return CommonResult.failure("操作非法");
+        return "error";
     }
 
     /**
      * 请求资源不存在
      */
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
-    public CommonResult handleNotFoundException(Exception e, HttpServletRequest request) {
+    public String handleNotFoundException(Exception e, HttpServletRequest request, Model model) {
+
+        model.addAttribute("errorMessage", "请求资源不存在");
         log.warn(formatException(e, request, null, true));
-        return CommonResult.failure("请求资源不存在");
+        return "error";
     }
 
     /**
      * 业务异常，可细分为多种情况，可见ResultCodeEnum
      */
     @ExceptionHandler(BusinessException.class)
-    public CommonResult handleBusinessException(BusinessException e, HttpServletRequest request) {
+    public String handleBusinessException(BusinessException e, HttpServletRequest request, Model model) {
+
         log.warn(formatException(e, request, null, true));
-        return CommonResult.failure(e.getCode(), e.getMessage());
+        model.addAttribute("errorMessage", e.getMessage());
+        return "error";
     }
 
 
     /**
      * 如果前面的处理器都没拦截住，最后兜底
      */
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public CommonResult handleException(Exception e, HttpServletRequest request) {
-        log.warn(formatException(e, request, null, true));
-        return CommonResult.failure("服务器内部错误");
+    public String handleException(Exception e, HttpServletRequest request, Model model) {
+
+        model.addAttribute("errorMessage", "服务器内部错误");
+        return "error";
     }
 
 

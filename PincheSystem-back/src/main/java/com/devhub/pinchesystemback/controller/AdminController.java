@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Date;
@@ -39,8 +40,8 @@ public class AdminController {
     private RedisUtil redisUtil;
 
     @PostMapping("/login")
-    public String login(@Valid LoginParam loginParam, HttpServletResponse response) {
-        User user = userService.login(loginParam.getUsername(), loginParam.getPassword());
+    public String login(@Valid LoginParam loginParam, HttpServletResponse response, HttpServletRequest request) {
+        User user = userService.login(loginParam.getUsername(), loginParam.getPassword(), request);
         if (UserRoleEnum.ADMINISTRATOR.getRole() == user.getRole()) {
             String token = jwtUtil.getTokenFromUser(user);
             response.setHeader("token", token);

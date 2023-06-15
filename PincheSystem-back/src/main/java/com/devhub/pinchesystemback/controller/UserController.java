@@ -20,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -41,7 +43,7 @@ public class UserController {
     private RedisUtil redisUtil;
 
     @GetMapping("/register")
-    public String register(){
+    public String register() {
         return "register";
     }
 
@@ -54,7 +56,6 @@ public class UserController {
         if (flag) {
             return "login";
         }
-
         return "/";
     }
 
@@ -64,14 +65,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid LoginParam loginParam, HttpServletResponse response) {
-        User user = userService.login(loginParam.getUsername(),loginParam.getPassword());
-        if(UserRoleEnum.ORDINARY_USER.getRole() == user.getRole()){
+    public String login(@Valid LoginParam loginParam, HttpServletResponse response, HttpServletRequest request) {
+        User user = userService.login(loginParam.getUsername(), loginParam.getPassword(), request);
+        if (UserRoleEnum.ORDINARY_USER.getRole() == user.getRole()) {
             String token = jwtUtil.getTokenFromUser(user);
-            response.setHeader("token",token);
-            redisUtil.setObject("cur",user);
+            response.setHeader("token", token);
+            Cookie cookie = new Cookie("token", token);
+            response.addCookie(cookie);
+            redisUtil.setObject("cur", user);
             return "myInfo";
-        }else {
+        } else {
             throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "非普通用户账户无法在此登录");
         }
     }
@@ -79,15 +82,15 @@ public class UserController {
     @GetMapping("/info")
     @PreAuthorize("hasAnyRole('USER')")
     @ResponseBody
-    public UserVO getOwnInfo(@AuthenticationPrincipal User user){
+    public UserVO getOwnInfo(@AuthenticationPrincipal User user) {
         return userService.getInfo(user.getId());
     }
 
     @GetMapping("/{userId}")
     @ResponseBody
     public UserVO getUserInfo(@PathVariable Long userId) {
-        if(userService.isDeleted(userId)){
-            throw new NotFoundException("用户id为"+userId+"的用户不存在或已被删除");
+        if (userService.isDeleted(userId)) {
+            throw new NotFoundException("用户id为" + userId + "的用户不存在或已被删除");
         }
         return userService.getInfo(userId);
     }
@@ -95,8 +98,21 @@ public class UserController {
     @PutMapping("/info")
     @PreAuthorize("hasAnyRole('USER')")
     @ResponseBody
-    public Object modifyOwnInfo(@AuthenticationPrincipal User user, ModifyParam modifyParam){
+    public Object modifyOwnInfo(@AuthenticationPrincipal User user, ModifyParam modifyParam) {
         userService.modifyInfo(user.getId(), modifyParam.getUsername(), modifyParam.getPassword(), modifyParam.getMobile(), modifyParam.getSex());
         return new UserVO();
     }
+
+    @PostMapping("/logout")
+    @PreAuthorize("hasAnyRole('USER')")
+    public String userLogout(HttpServletRequest request) {
+        if (request != null) {
+            boolean out = userService.userLogout(request);
+            if (out) {
+                return "login";
+            }
+        }
+        return "error";
+    }
+
 }

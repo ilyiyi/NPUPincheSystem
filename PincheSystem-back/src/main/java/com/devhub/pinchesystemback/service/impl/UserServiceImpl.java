@@ -17,6 +17,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
@@ -31,16 +33,15 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 用户注册
-     *
      */
     @Override
     public boolean register(String username, String password, String mobile) {
-        if(username.length() == 0 || password.length() < 6) {
+        if (username.length() == 0 || password.length() < 6) {
             return false;
         }
         User user1 = userMapper.selectByUsername(username);
-        if(user1 == null){
-            userMapper.insert(username,passwordEncoder.encode(password),mobile);
+        if (user1 == null) {
+            userMapper.insert(username, passwordEncoder.encode(password), mobile);
             return true;
         }
         return false;
@@ -54,17 +55,25 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Idempotent
-    public User login(String username, String password) {
+    public User login(String username, String password, HttpServletRequest request) {
         Authentication authentication;
         try {
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        }catch (AuthenticationException e){
+        } catch (AuthenticationException e) {
             log.warn("[登录失败]  尝试登录失败，失败原因：{}", e.getMessage());
             throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD);
         }
 
-        return (User) authentication.getPrincipal();
+        User user = (User) authentication.getPrincipal();
+        User safeUser = getSafeUser(user);
+        request.getSession().setAttribute("loginUser", safeUser);
+        return safeUser;
 
+    }
+
+    public User getSafeUser(User user) {
+        user.setPassword(null);
+        return user;
     }
 
     /**
@@ -80,15 +89,15 @@ public class UserServiceImpl implements UserService {
     /**
      * 根据userId,修改指定用户的信息(昵称和性别)
      *
-     * @param userId 用户id
+     * @param userId   用户id
      * @param username 用户名
-     * @param sex 性别
+     * @param sex      性别
      * @param password 密码
-     * @param mobile 联系方式
+     * @param mobile   联系方式
      */
     @Override
     public void modifyInfo(Long userId, String username, String password, String mobile, String sex) {
-        int match = userMapper.updateByPrimaryKey(userId,username,passwordEncoder.encode(password),mobile,sex);
+        int match = userMapper.updateByPrimaryKey(userId, username, passwordEncoder.encode(password), mobile, sex);
         if (match == 0) {
             throw new NotFoundException("userId为" + userId + "的用户不存在");
         }
@@ -102,5 +111,11 @@ public class UserServiceImpl implements UserService {
     public boolean isDeleted(Long userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         return user == null || user.getIsDelete() == 1;
+    }
+
+    @Override
+    public boolean userLogout(HttpServletRequest request) {
+        request.getSession().removeAttribute("loginUser");
+        return true;
     }
 }
