@@ -1,0 +1,921 @@
+# Created at 2023-05-31T21:50:25.054
+TestSet has not finished before stream error has appeared >> initializing exit by non-null configuration: null
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.maven.surefire.booter.MasterProcessCommand.decode(MasterProcessCommand.java:115)
+	at org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:391)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+# Created at 2023-05-31T21:50:25.531
+Unexpected IOException with stream: 21:50:25.529 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.devhub.pinchesystemback.PincheSystemBackApplicationTests]: using defaults.
+
+
+# Created at 2023-05-31T21:50:25.534
+Unexpected IOException with stream: 21:50:25.532 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+
+
+# Created at 2023-05-31T21:50:25.566
+Unexpected IOException with stream: 21:50:25.565 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1a245833, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@673fdbce, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@5965d37, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7a5ceedd, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4201c465, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5b799640, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6cb107fd, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@710636b0, org.springframework.test.context.event.EventPublishingTestExecutionListener@3de8f619, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2ab4bc72, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4e5ed836, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@eadd4fb, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@740fb309, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@7bd7d6d6, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@43f02ef2]
+
+
+# Created at 2023-05-31T21:50:25.576
+Unexpected IOException with stream: 21:50:25.574 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@f1da57d testClass = PincheSystemBackApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@194fad1 testClass = PincheSystemBackApplicationTests, locations = '{}', classes = '{class com.devhub.pinchesystemback.PincheSystemBackApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6069db50, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@67c27493, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@145f66e3, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@31304f14, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@65fb9ffc, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@754ba872], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+
+
+# Created at 2023-05-31T21:50:26.272
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:26.281
+Unexpected IOException with stream:   .   ____          _            __ _ _
+
+
+# Created at 2023-05-31T21:50:26.283
+Unexpected IOException with stream:  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+
+
+# Created at 2023-05-31T21:50:26.312
+Unexpected IOException with stream: ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+
+
+# Created at 2023-05-31T21:50:26.321
+Unexpected IOException with stream:  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+
+
+# Created at 2023-05-31T21:50:26.323
+Unexpected IOException with stream:   '  |____| .__|_| |_|_| |_\__, | / / / /
+
+
+# Created at 2023-05-31T21:50:26.325
+Unexpected IOException with stream:  =========|_|==============|___/=/_/_/_/
+
+
+# Created at 2023-05-31T21:50:26.328
+Unexpected IOException with stream:  :: Spring Boot ::                (v2.7.5)
+
+
+# Created at 2023-05-31T21:50:26.329
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:26.474
+Unexpected IOException with stream: 2023-05-31 21:50:26.470  INFO 32444 --- [           main] c.d.p.PincheSystemBackApplicationTests   : Starting PincheSystemBackApplicationTests using Java 1.8.0_261 on LAPTOP-13JQHQ6D with PID 32444 (started by awater in C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back)
+
+
+# Created at 2023-05-31T21:50:26.477
+Unexpected IOException with stream: 2023-05-31 21:50:26.475  INFO 32444 --- [           main] c.d.p.PincheSystemBackApplicationTests   : The following 1 profile is active: "dev"
+
+
+# Created at 2023-05-31T21:50:28.452
+Unexpected IOException with stream: 2023-05-31 21:50:28.451  INFO 32444 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+
+
+# Created at 2023-05-31T21:50:28.461
+Unexpected IOException with stream: 2023-05-31 21:50:28.460  INFO 32444 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+
+
+# Created at 2023-05-31T21:50:28.528
+Unexpected IOException with stream: 2023-05-31 21:50:28.527  INFO 32444 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 0 Redis repository interfaces.
+
+
+# Created at 2023-05-31T21:50:32.829
+Unexpected IOException with stream: 2023-05-31 21:50:32.827  INFO 32444 --- [           main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+
+
+# Created at 2023-05-31T21:50:33.461
+Unexpected IOException with stream: 2023-05-31 21:50:33.459  INFO 32444 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+
+
+# Created at 2023-05-31T21:50:35.257
+Unexpected IOException with stream: 2023-05-31 21:50:35.256  INFO 32444 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2d47b06, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@59371066, org.springframework.security.web.context.SecurityContextPersistenceFilter@1d3a03fe, org.springframework.security.web.header.HeaderWriterFilter@aa0dbca, org.springframework.web.filter.CorsFilter@48106381, org.springframework.security.web.authentication.logout.LogoutFilter@56266bda, com.devhub.pinchesystemback.filter.TokenFilter@3c544c9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5f7cd50e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7e1d8d41, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@22e813fc, org.springframework.security.web.session.SessionManagementFilter@16a09809, org.springframework.security.web.access.ExceptionTranslationFilter@48277712, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@cf10c92]
+
+
+# Created at 2023-05-31T21:50:35.481
+Unexpected IOException with stream: 2023-05-31 21:50:35.479  INFO 32444 --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+
+
+# Created at 2023-05-31T21:50:35.529
+Unexpected IOException with stream: 2023-05-31 21:50:35.526  INFO 32444 --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+
+
+# Created at 2023-05-31T21:50:35.644
+Unexpected IOException with stream: 2023-05-31 21:50:35.642  INFO 32444 --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+
+
+# Created at 2023-05-31T21:50:36.350
+Unexpected IOException with stream: 2023-05-31 21:50:36.349  INFO 32444 --- [           main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: loginUsingPOST_1
+
+
+# Created at 2023-05-31T21:50:36.419
+Unexpected IOException with stream: 2023-05-31 21:50:36.416  INFO 32444 --- [           main] c.d.p.PincheSystemBackApplicationTests   : Started PincheSystemBackApplicationTests in 10.769 seconds (JVM running for 12.351)
+
+
+# Created at 2023-05-31T21:50:36.463
+Unexpected IOException: 5,1,com.devhub.pinchesystemback.PincheSystemBackApplicationTests,contextLoads,null,null,null
+
+
+# Created at 2023-05-31T21:50:37.042
+Unexpected IOException: 6,1,com.devhub.pinchesystemback.PincheSystemBackApplicationTests,contextLoads,null,null,null
+
+
+# Created at 2023-05-31T21:50:37.047
+Unexpected IOException: 2,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.devhub.pinchesystemback.PincheSystemBackApplicationTests,null,null,null
+
+
+# Created at 2023-05-31T21:50:37.049
+Unexpected IOException: 1,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.devhub.pinchesystemback.TestOrderMapper,null,null,null
+
+
+# Created at 2023-05-31T21:50:37.052
+Unexpected IOException with stream: 2023-05-31 21:50:37.051  INFO 32444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.devhub.pinchesystemback.TestOrderMapper], using SpringBootContextLoader
+
+
+# Created at 2023-05-31T21:50:37.054
+Unexpected IOException with stream: 2023-05-31 21:50:37.053  INFO 32444 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.devhub.pinchesystemback.TestOrderMapper]: no resource found for suffixes {-context.xml, Context.groovy}.
+
+
+# Created at 2023-05-31T21:50:37.058
+Unexpected IOException with stream: 2023-05-31 21:50:37.056  INFO 32444 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.devhub.pinchesystemback.TestOrderMapper]: TestOrderMapper does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+
+
+# Created at 2023-05-31T21:50:37.064
+Unexpected IOException with stream: 2023-05-31 21:50:37.062  INFO 32444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.devhub.pinchesystemback.PincheSystemBackApplication for test class com.devhub.pinchesystemback.TestOrderMapper
+
+
+# Created at 2023-05-31T21:50:37.069
+Unexpected IOException with stream: 2023-05-31 21:50:37.067  INFO 32444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+
+
+# Created at 2023-05-31T21:50:37.073
+Unexpected IOException with stream: 2023-05-31 21:50:37.069  INFO 32444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@a240452, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@460e5ffe, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@1a4cbcc6, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7cecab19, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@56402642, org.springframework.test.context.support.DirtiesContextTestExecutionListener@620572db, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1d5048d1, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@47d9c01, org.springframework.test.context.event.EventPublishingTestExecutionListener@5358c8fa, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1a02ebe0, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@58b3eb1, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6d7e2795, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@78743dd8, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@752494dd, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@2986427e]
+
+
+# Created at 2023-05-31T21:50:37.091
+Unexpected IOException: 5,1,com.devhub.pinchesystemback.TestOrderMapper,testOrderInsert,null,null,null
+
+
+# Created at 2023-05-31T21:50:37.154
+Unexpected IOException with stream: 2023-05-31 21:50:37.152  INFO 32444 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+
+
+# Created at 2023-05-31T21:50:37.808
+Unexpected IOException with stream: 2023-05-31 21:50:37.806  INFO 32444 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+
+
+# Created at 2023-05-31T21:50:37.822
+Unexpected IOException with stream: 2023-05-31 21:50:37.820 DEBUG 32444 --- [           main] c.d.p.mapper.OrderMapper.insert          : ==>  Preparing: insert into orders(passenger_num, ending, info_id, start_time, price, order_state, remark) values (?, ?, ?, ?, ?, ?, ?)
+
+
+# Created at 2023-05-31T21:50:37.864
+Unexpected IOException with stream: 2023-05-31 21:50:37.863 DEBUG 32444 --- [           main] c.d.p.mapper.OrderMapper.insert          : ==> Parameters: 2(Byte), end(String), 1(Long), 2023-05-31 21:50:37.098(Timestamp), 10.0(Double), 1(Byte), re(String)
+
+
+# Created at 2023-05-31T21:50:37.940
+Unexpected IOException with stream: 2023-05-31 21:50:37.938 DEBUG 32444 --- [           main] c.d.p.mapper.OrderMapper.insert          : <==    Updates: 1
+
+
+# Created at 2023-05-31T21:50:37.971
+Unexpected IOException with stream: 1
+
+# Created at 2023-05-31T21:50:37.972
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:37.979
+Unexpected IOException: 6,1,com.devhub.pinchesystemback.TestOrderMapper,testOrderInsert,null,null,null
+
+
+# Created at 2023-05-31T21:50:37.981
+Unexpected IOException: 2,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.devhub.pinchesystemback.TestOrderMapper,null,null,null
+
+
+# Created at 2023-05-31T21:50:37.983
+Unexpected IOException: 1,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.devhub.pinchesystemback.TestRedis,null,null,null
+
+
+# Created at 2023-05-31T21:50:37.986
+Unexpected IOException with stream: 2023-05-31 21:50:37.984  INFO 32444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.devhub.pinchesystemback.TestRedis], using SpringBootContextLoader
+
+
+# Created at 2023-05-31T21:50:37.989
+Unexpected IOException with stream: 2023-05-31 21:50:37.988  INFO 32444 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.devhub.pinchesystemback.TestRedis]: no resource found for suffixes {-context.xml, Context.groovy}.
+
+
+# Created at 2023-05-31T21:50:37.991
+Unexpected IOException with stream: 2023-05-31 21:50:37.989  INFO 32444 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.devhub.pinchesystemback.TestRedis]: TestRedis does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+
+
+# Created at 2023-05-31T21:50:37.995
+Unexpected IOException with stream: 2023-05-31 21:50:37.994  INFO 32444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.devhub.pinchesystemback.PincheSystemBackApplication for test class com.devhub.pinchesystemback.TestRedis
+
+
+# Created at 2023-05-31T21:50:37.999
+Unexpected IOException with stream: 2023-05-31 21:50:37.998  INFO 32444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+
+
+# Created at 2023-05-31T21:50:38.001
+Unexpected IOException with stream: 2023-05-31 21:50:38.000  INFO 32444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3428420d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@523ade68, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@b529d7e, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3664c596, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@40aad17d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@44e79e9e, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5bc14211, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4b99648a, org.springframework.test.context.event.EventPublishingTestExecutionListener@5d2e65bd, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@254513e8, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@74450c9b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@74f89bad, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5ad50b02, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@570299e3, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@bff764c]
+
+
+# Created at 2023-05-31T21:50:38.011
+Unexpected IOException: 5,1,com.devhub.pinchesystemback.TestRedis,testSet,null,null,null
+
+
+# Created at 2023-05-31T21:50:39.839
+Unexpected IOException: 6,1,com.devhub.pinchesystemback.TestRedis,testSet,null,null,null
+
+
+# Created at 2023-05-31T21:50:39.842
+Unexpected IOException: 5,1,com.devhub.pinchesystemback.TestRedis,testHash,null,null,null
+
+
+# Created at 2023-05-31T21:50:39.972
+Unexpected IOException with stream: User(id=1, username=null, password=null, mobile=null, sex=null, role=null, createTime=null, updateTime=null, isDelete=null)
+
+# Created at 2023-05-31T21:50:39.973
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:39.979
+Unexpected IOException: 6,1,com.devhub.pinchesystemback.TestRedis,testHash,null,null,null
+
+
+# Created at 2023-05-31T21:50:39.982
+Unexpected IOException: 5,1,com.devhub.pinchesystemback.TestRedis,testPush,null,null,null
+
+
+# Created at 2023-05-31T21:50:39.986
+Unexpected IOException with stream: org.springframework.data.redis.RedisSystemException: Unknown redis exception; nested exception is java.lang.IllegalArgumentException: Members must not be empty
+
+# Created at 2023-05-31T21:50:39.987
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:39.989
+Unexpected IOException with stream: 	at org.springframework.data.redis.FallbackExceptionTranslationStrategy.getFallback(FallbackExceptionTranslationStrategy.java:53)
+
+# Created at 2023-05-31T21:50:39.990
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:39.992
+Unexpected IOException with stream: 	at org.springframework.data.redis.FallbackExceptionTranslationStrategy.translate(FallbackExceptionTranslationStrategy.java:43)
+
+# Created at 2023-05-31T21:50:39.993
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:39.995
+Unexpected IOException with stream: 	at org.springframework.data.redis.connection.lettuce.LettuceConnection.convertLettuceAccessException(LettuceConnection.java:278)
+
+# Created at 2023-05-31T21:50:39.997
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:39.998
+Unexpected IOException with stream: 	at org.springframework.data.redis.connection.lettuce.LettuceConnection.lambda$doInvoke$4(LettuceConnection.java:947)
+
+# Created at 2023-05-31T21:50:39.998
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:39.999
+Unexpected IOException with stream: 	at org.springframework.data.redis.connection.lettuce.LettuceInvoker$Synchronizer.invoke(LettuceInvoker.java:665)
+
+# Created at 2023-05-31T21:50:40.000
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.001
+Unexpected IOException with stream: 	at org.springframework.data.redis.connection.lettuce.LettuceInvoker.just(LettuceInvoker.java:109)
+
+# Created at 2023-05-31T21:50:40.002
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.004
+Unexpected IOException with stream: 	at org.springframework.data.redis.connection.lettuce.LettuceSetCommands.sAdd(LettuceSetCommands.java:58)
+
+# Created at 2023-05-31T21:50:40.005
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.007
+Unexpected IOException with stream: 	at org.springframework.data.redis.connection.DefaultedRedisConnection.sAdd(DefaultedRedisConnection.java:810)
+
+# Created at 2023-05-31T21:50:40.008
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.010
+Unexpected IOException with stream: 	at org.springframework.data.redis.core.DefaultSetOperations.lambda$add$0(DefaultSetOperations.java:52)
+
+# Created at 2023-05-31T21:50:40.011
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.012
+Unexpected IOException with stream: 	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:224)
+
+# Created at 2023-05-31T21:50:40.013
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.015
+Unexpected IOException with stream: 	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:191)
+
+# Created at 2023-05-31T21:50:40.016
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.017
+Unexpected IOException with stream: 	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:97)
+
+# Created at 2023-05-31T21:50:40.018
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.019
+Unexpected IOException with stream: 	at org.springframework.data.redis.core.DefaultSetOperations.add(DefaultSetOperations.java:52)
+
+# Created at 2023-05-31T21:50:40.020
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.021
+Unexpected IOException with stream: 	at com.devhub.pinchesystemback.utils.RedisUtil.sSet(RedisUtil.java:72)
+
+# Created at 2023-05-31T21:50:40.023
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.024
+Unexpected IOException with stream: 	at com.devhub.pinchesystemback.TestRedis.testPush(TestRedis.java:33)
+
+# Created at 2023-05-31T21:50:40.025
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.026
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2023-05-31T21:50:40.028
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.029
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2023-05-31T21:50:40.030
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.031
+Unexpected IOException with stream: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2023-05-31T21:50:40.033
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.034
+Unexpected IOException with stream: 	at java.lang.reflect.Method.invoke(Method.java:498)
+
+# Created at 2023-05-31T21:50:40.035
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.037
+Unexpected IOException with stream: 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+
+# Created at 2023-05-31T21:50:40.038
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.039
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+
+# Created at 2023-05-31T21:50:40.041
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.042
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+
+# Created at 2023-05-31T21:50:40.044
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.046
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+
+# Created at 2023-05-31T21:50:40.048
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.049
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+
+# Created at 2023-05-31T21:50:40.050
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.051
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+
+# Created at 2023-05-31T21:50:40.052
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.054
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+
+# Created at 2023-05-31T21:50:40.055
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.056
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+
+# Created at 2023-05-31T21:50:40.057
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.058
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+
+# Created at 2023-05-31T21:50:40.060
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.062
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+
+# Created at 2023-05-31T21:50:40.063
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.065
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+
+# Created at 2023-05-31T21:50:40.066
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.068
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+
+# Created at 2023-05-31T21:50:40.069
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.070
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+
+# Created at 2023-05-31T21:50:40.072
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.073
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+
+# Created at 2023-05-31T21:50:40.074
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.076
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+
+# Created at 2023-05-31T21:50:40.078
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.080
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+
+# Created at 2023-05-31T21:50:40.081
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.082
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+
+# Created at 2023-05-31T21:50:40.083
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.084
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+
+# Created at 2023-05-31T21:50:40.086
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.087
+Unexpected IOException with stream: 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+
+# Created at 2023-05-31T21:50:40.089
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.091
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+
+# Created at 2023-05-31T21:50:40.093
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.095
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+
+# Created at 2023-05-31T21:50:40.097
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.098
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+
+# Created at 2023-05-31T21:50:40.099
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.100
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+
+# Created at 2023-05-31T21:50:40.102
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.103
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+
+# Created at 2023-05-31T21:50:40.105
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.106
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+
+# Created at 2023-05-31T21:50:40.108
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.110
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+
+# Created at 2023-05-31T21:50:40.112
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.114
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+
+# Created at 2023-05-31T21:50:40.116
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.118
+Unexpected IOException with stream: 	at java.util.ArrayList.forEach(ArrayList.java:1259)
+
+# Created at 2023-05-31T21:50:40.119
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.122
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+
+# Created at 2023-05-31T21:50:40.124
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.126
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+
+# Created at 2023-05-31T21:50:40.130
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.131
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+
+# Created at 2023-05-31T21:50:40.133
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.134
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+
+# Created at 2023-05-31T21:50:40.136
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.137
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+
+# Created at 2023-05-31T21:50:40.139
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.141
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+
+# Created at 2023-05-31T21:50:40.143
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.145
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+
+# Created at 2023-05-31T21:50:40.147
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.148
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+
+# Created at 2023-05-31T21:50:40.150
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.152
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+
+# Created at 2023-05-31T21:50:40.153
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.155
+Unexpected IOException with stream: 	at java.util.ArrayList.forEach(ArrayList.java:1259)
+
+# Created at 2023-05-31T21:50:40.156
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.158
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+
+# Created at 2023-05-31T21:50:40.159
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.161
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+
+# Created at 2023-05-31T21:50:40.163
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.164
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+
+# Created at 2023-05-31T21:50:40.165
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.166
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+
+# Created at 2023-05-31T21:50:40.167
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.169
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+
+# Created at 2023-05-31T21:50:40.170
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.171
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+
+# Created at 2023-05-31T21:50:40.172
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.173
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+
+# Created at 2023-05-31T21:50:40.174
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.176
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+
+# Created at 2023-05-31T21:50:40.178
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.180
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+
+# Created at 2023-05-31T21:50:40.182
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.184
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+
+# Created at 2023-05-31T21:50:40.186
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.188
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+
+# Created at 2023-05-31T21:50:40.189
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.191
+Unexpected IOException with stream: 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+
+# Created at 2023-05-31T21:50:40.193
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.196
+Unexpected IOException with stream: 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
+
+# Created at 2023-05-31T21:50:40.199
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.203
+Unexpected IOException with stream: 	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
+
+# Created at 2023-05-31T21:50:40.205
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.214
+Unexpected IOException with stream: 	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
+
+# Created at 2023-05-31T21:50:40.216
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.219
+Unexpected IOException with stream: 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
+
+# Created at 2023-05-31T21:50:40.222
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.224
+Unexpected IOException with stream: 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
+
+# Created at 2023-05-31T21:50:40.225
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.229
+Unexpected IOException with stream: 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:150)
+
+# Created at 2023-05-31T21:50:40.232
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.234
+Unexpected IOException with stream: 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:124)
+
+# Created at 2023-05-31T21:50:40.235
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.237
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+
+# Created at 2023-05-31T21:50:40.239
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.240
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+
+# Created at 2023-05-31T21:50:40.241
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.243
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+
+# Created at 2023-05-31T21:50:40.245
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.247
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+# Created at 2023-05-31T21:50:40.248
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.250
+Unexpected IOException with stream: Caused by: java.lang.IllegalArgumentException: Members must not be empty
+
+# Created at 2023-05-31T21:50:40.251
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.252
+Unexpected IOException with stream: 	at io.lettuce.core.internal.LettuceAssert.notEmpty(LettuceAssert.java:98)
+
+# Created at 2023-05-31T21:50:40.253
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.255
+Unexpected IOException with stream: 	at io.lettuce.core.RedisCommandBuilder.sadd(RedisCommandBuilder.java:1990)
+
+# Created at 2023-05-31T21:50:40.256
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.258
+Unexpected IOException with stream: 	at io.lettuce.core.AbstractRedisAsyncCommands.sadd(AbstractRedisAsyncCommands.java:1437)
+
+# Created at 2023-05-31T21:50:40.259
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.261
+Unexpected IOException with stream: 	at org.springframework.data.redis.connection.lettuce.LettuceInvoker.lambda$just$3(LettuceInvoker.java:109)
+
+# Created at 2023-05-31T21:50:40.262
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.264
+Unexpected IOException with stream: 	at org.springframework.data.redis.connection.lettuce.LettuceConnection.lambda$doInvoke$4(LettuceConnection.java:939)
+
+# Created at 2023-05-31T21:50:40.265
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.267
+Unexpected IOException with stream: 	... 76 more
+
+# Created at 2023-05-31T21:50:40.268
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.274
+Unexpected IOException: 6,1,com.devhub.pinchesystemback.TestRedis,testPush,null,null,null
+
+
+# Created at 2023-05-31T21:50:40.277
+Unexpected IOException: 5,1,com.devhub.pinchesystemback.TestRedis,testZSet,null,null,null
+
+
+# Created at 2023-05-31T21:50:40.569
+Unexpected IOException with stream: 6
+
+# Created at 2023-05-31T21:50:40.570
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.571
+Unexpected IOException with stream: 5
+
+# Created at 2023-05-31T21:50:40.572
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.573
+Unexpected IOException with stream: 4
+
+# Created at 2023-05-31T21:50:40.574
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.575
+Unexpected IOException with stream: 3
+
+# Created at 2023-05-31T21:50:40.576
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.578
+Unexpected IOException with stream: 2
+
+# Created at 2023-05-31T21:50:40.580
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.581
+Unexpected IOException with stream: 1
+
+# Created at 2023-05-31T21:50:40.582
+Unexpected IOException with stream: 
+
+
+# Created at 2023-05-31T21:50:40.586
+Unexpected IOException: 6,1,com.devhub.pinchesystemback.TestRedis,testZSet,null,null,null
+
+
+# Created at 2023-05-31T21:50:40.588
+Unexpected IOException: 2,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.devhub.pinchesystemback.TestRedis,null,null,null
+
+
