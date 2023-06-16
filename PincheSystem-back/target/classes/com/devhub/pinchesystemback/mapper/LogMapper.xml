@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devhub.pinchesystemback.mapper.LogMapper">
+    <resultMap id="BaseResultMap" type="com.devhub.pinchesystemback.domain.Log">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="args" jdbcType="VARCHAR" property="args"/>
+        <result column="total_time" jdbcType="REAL" property="totalTime"/>
+        <result column="operate_user" jdbcType="VARCHAR" property="operateUser"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from log
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.devhub.pinchesystemback.domain.Log"
+            useGeneratedKeys="true">
+        insert into log (url, type, method,
+                         args, total_time, operate_user)
+        values (#{url,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR},
+                #{args,jdbcType=VARCHAR}, #{totalTime,jdbcType=REAL}, #{operateUser,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.devhub.pinchesystemback.domain.Log">
+        update log
+        set url        = #{url,jdbcType=VARCHAR},
+            type       = #{type,jdbcType=VARCHAR},
+            method     = #{method,jdbcType=VARCHAR},
+            args       = #{args,jdbcType=VARCHAR},
+            total_time = #{totalTime,jdbcType=REAL}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select id, url, type, method, args, total_time
+        from log
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, url, type, method, args, total_time
+        from log
+    </select>
+</mapper>

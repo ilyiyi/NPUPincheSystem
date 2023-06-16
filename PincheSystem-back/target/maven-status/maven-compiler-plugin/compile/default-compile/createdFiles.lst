@@ -11,6 +11,7 @@ com\devhub\pinchesystemback\service\impl\InfoServiceImpl.class
 com\devhub\pinchesystemback\service\InfoService.class
 com\devhub\pinchesystemback\controller\UserController.class
 com\devhub\pinchesystemback\mapper\InfoMapper.class
+com\devhub\pinchesystemback\mapper\LogMapper.class
 com\devhub\pinchesystemback\config\SecurityConfig$AuthenticationEntryPointImpl.class
 com\devhub\pinchesystemback\service\impl\UserServiceImpl.class
 com\devhub\pinchesystemback\controller\OrderController.class
@@ -18,8 +19,10 @@ com\devhub\pinchesystemback\controller\OwnerController.class
 com\devhub\pinchesystemback\config\SecurityConfig$UserDetailsServiceImpl.class
 com\devhub\pinchesystemback\controller\TestController.class
 com\devhub\pinchesystemback\utils\RedisUtil.class
+com\devhub\pinchesystemback\service\impl\LogServiceImpl.class
 com\devhub\pinchesystemback\service\impl\AdminServiceImpl.class
 com\devhub\pinchesystemback\exception\BusinessException.class
+com\devhub\pinchesystemback\domain\Log.class
 com\devhub\pinchesystemback\pararm\ModifyParam.class
 com\devhub\pinchesystemback\pararm\LoginParam.class
 com\devhub\pinchesystemback\advice\annotation\Idempotent.class
@@ -35,11 +38,14 @@ com\devhub\pinchesystemback\advice\CommonResultWrapper.class
 com\devhub\pinchesystemback\service\OrderService.class
 com\devhub\pinchesystemback\filter\TokenFilter.class
 com\devhub\pinchesystemback\mapper\OrderMapper.class
+com\devhub\pinchesystemback\advice\annotation\Log.class
 com\devhub\pinchesystemback\domain\User.class
 com\devhub\pinchesystemback\constant\ResultCodeEnum.class
+com\devhub\pinchesystemback\log\LoggingAspect.class
 com\devhub\pinchesystemback\exception\NotFoundException.class
 com\devhub\pinchesystemback\vo\CommonResult.class
 com\devhub\pinchesystemback\vo\UserVO.class
 com\devhub\pinchesystemback\config\RedisConfig.class
+com\devhub\pinchesystemback\service\LogService.class
 com\devhub\pinchesystemback\pararm\PageParam.class
 com\devhub\pinchesystemback\config\SecurityConfig.class
