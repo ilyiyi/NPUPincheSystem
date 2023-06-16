@@ -41,7 +41,21 @@ public class TokenFilter extends OncePerRequestFilter {
         log.info("=================请求进来了=================");
         log.info("[新请求]\n<方法>  {}\n<URI>  {}\n<Query>  {}\n<主机>  {}",
                 request.getMethod(), request.getRequestURI(), request.getQueryString(), request.getRemoteHost());
+
+        String[] paths = {"/user/login", "/login"};
+        String uri = request.getRequestURI();
+        System.out.println(uri);
+        for (String path : paths) {
+            if (path.equals(uri)) {
+                log.info("跳过登录认证");
+                filterChain.doFilter(request, response);
+                return;
+            }
+        }
+
+        log.info("获取token");
         String authorization = request.getHeader("authorization");
+
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if ("token".equals(cookie.getName())) {

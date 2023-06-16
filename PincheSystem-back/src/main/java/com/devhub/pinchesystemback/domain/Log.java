@@ -3,6 +3,8 @@ package com.devhub.pinchesystemback.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 public class Log {
@@ -19,4 +21,6 @@ public class Log {
     private Float totalTime;
 
     private String operateUser;
+
+    private Date time;
 }

@@ -84,6 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
                 .authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/user/register").permitAll()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/admins/login").permitAll()
@@ -93,6 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-ui.html/**").permitAll()
                 .antMatchers("/assets/**").permitAll()
+                .antMatchers("/vendor/**").permitAll()
                 .antMatchers("/**/*.ico").permitAll()
                 .antMatchers("/**/*.css").permitAll()
                 .antMatchers("/**/*.js").permitAll()

@@ -55,14 +55,16 @@ public class UserController {
         boolean flag = userService.register(username, password, mobile);
         if (flag) {
             return "login";
+        } else {
+            throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "用户名或密码错误，请重新登录");
         }
-        return "/";
     }
 
     @GetMapping("/login")
     public String login() {
         return "login";
     }
+
 
     @PostMapping("/login")
     public String login(@Valid LoginParam loginParam, HttpServletResponse response, HttpServletRequest request) {
