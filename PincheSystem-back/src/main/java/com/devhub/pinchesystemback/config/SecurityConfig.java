@@ -2,7 +2,6 @@ package com.devhub.pinchesystemback.config;
 
 
 import com.devhub.pinchesystemback.advice.GlobalExceptionHandler;
-import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.filter.TokenFilter;
 import com.devhub.pinchesystemback.mapper.UserMapper;
 import com.devhub.pinchesystemback.vo.CommonResult;
