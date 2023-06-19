@@ -1,5 +1,6 @@
 package com.devhub.pinchesystemback.controller;
 
+import com.devhub.pinchesystemback.advice.annotation.Log;
 import com.devhub.pinchesystemback.constant.ResultCodeEnum;
 import com.devhub.pinchesystemback.constant.UserRoleEnum;
 import com.devhub.pinchesystemback.domain.User;
@@ -23,6 +24,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -35,9 +37,6 @@ public class UserController {
 
     @Resource
     private UserService userService;
-
-    @Autowired
-    private JwtUtil jwtUtil;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -67,12 +66,11 @@ public class UserController {
 
 
     @PostMapping("/login")
+    @Log
     public String login(@Valid LoginParam loginParam, HttpServletResponse response, HttpServletRequest request) {
         User user = userService.login(loginParam.getUsername(), loginParam.getPassword(), request);
         if (UserRoleEnum.ORDINARY_USER.getRole() == user.getRole()) {
-            String token = jwtUtil.getTokenFromUser(user);
-            response.setHeader("token", token);
-            Cookie cookie = new Cookie("token", token);
+            Cookie cookie = new Cookie("username", user.getUsername());
             response.addCookie(cookie);
             redisUtil.setObject("cur", user);
             return "myInfo";
