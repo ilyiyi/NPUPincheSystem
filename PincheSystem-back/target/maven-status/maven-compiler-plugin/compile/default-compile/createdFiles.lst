@@ -12,11 +12,11 @@ com\devhub\pinchesystemback\service\InfoService.class
 com\devhub\pinchesystemback\controller\UserController.class
 com\devhub\pinchesystemback\mapper\InfoMapper.class
 com\devhub\pinchesystemback\mapper\LogMapper.class
-com\devhub\pinchesystemback\config\SecurityConfig$AuthenticationEntryPointImpl.class
 com\devhub\pinchesystemback\service\impl\UserServiceImpl.class
 com\devhub\pinchesystemback\controller\OrderController.class
 com\devhub\pinchesystemback\controller\OwnerController.class
 com\devhub\pinchesystemback\config\SecurityConfig$UserDetailsServiceImpl.class
+com\devhub\pinchesystemback\controller\PageController.class
 com\devhub\pinchesystemback\controller\TestController.class
 com\devhub\pinchesystemback\utils\RedisUtil.class
 com\devhub\pinchesystemback\service\impl\LogServiceImpl.class
@@ -36,6 +36,7 @@ com\devhub\pinchesystemback\utils\JwtUtil.class
 com\devhub\pinchesystemback\service\impl\OrderServiceImpl.class
 com\devhub\pinchesystemback\advice\CommonResultWrapper.class
 com\devhub\pinchesystemback\service\OrderService.class
+com\devhub\pinchesystemback\interceptor\RequestInterceptor.class
 com\devhub\pinchesystemback\filter\TokenFilter.class
 com\devhub\pinchesystemback\mapper\OrderMapper.class
 com\devhub\pinchesystemback\advice\annotation\Log.class

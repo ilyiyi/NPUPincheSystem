@@ -26,9 +26,6 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     /**
@@ -56,15 +53,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Idempotent
     public User login(String username, String password, HttpServletRequest request) {
-        Authentication authentication;
-        try {
-            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (AuthenticationException e) {
-            log.warn("[登录失败]  尝试登录失败，失败原因：{}", e.getMessage());
-            throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD);
+        User user = userMapper.selectByUsername(username);
+        if (user == null || user.getPassword().equals(passwordEncoder.encode(password))) {
+            throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD,"用户不存在");
         }
-
-        User user = (User) authentication.getPrincipal();
         User safeUser = getSafeUser(user);
         request.getSession().setAttribute("loginUser", safeUser);
         return safeUser;

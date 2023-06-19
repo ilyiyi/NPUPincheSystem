@@ -8,7 +8,6 @@ import com.devhub.pinchesystemback.exception.BusinessException;
 import com.devhub.pinchesystemback.pararm.LoginParam;
 import com.devhub.pinchesystemback.service.AdminService;
 import com.devhub.pinchesystemback.service.UserService;
-import com.devhub.pinchesystemback.utils.JwtUtil;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.CommonResult;
 import org.springframework.stereotype.Controller;
@@ -34,17 +33,13 @@ public class AdminController {
     private UserService userService;
 
     @Resource
-    private JwtUtil jwtUtil;
-
-    @Resource
     private RedisUtil redisUtil;
 
     @PostMapping("/login")
     public String login(@Valid LoginParam loginParam, HttpServletResponse response, HttpServletRequest request) {
         User user = userService.login(loginParam.getUsername(), loginParam.getPassword(), request);
         if (UserRoleEnum.ADMINISTRATOR.getRole() == user.getRole()) {
-            String token = jwtUtil.getTokenFromUser(user);
-            response.setHeader("token", token);
+            response.setHeader("username", user.getUsername());
             redisUtil.setObject("curAdmin", user);
             return "deals";
         } else {

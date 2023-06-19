@@ -25,7 +25,7 @@ public class RequestInterceptor implements HandlerInterceptor {
         User loginUser = (User) request.getSession().getAttribute("loginUser");
         String uri = request.getRequestURI();
         if (loginUser == null) {
-            response.sendRedirect("/public/login");
+            response.sendRedirect("/login");
             return false;
         }
         if (uri.startsWith("/admin") && loginUser.getRole().equals((byte) 0)) {
