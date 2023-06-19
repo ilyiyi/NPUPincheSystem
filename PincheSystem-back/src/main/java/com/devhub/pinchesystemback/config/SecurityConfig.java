@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,6 +37,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
+
+    /**
+     * 这里用来配置我们自定义的登录页面
+     *
+     */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .loginPage("/user/login")   //自定义登录页面
+                .loginProcessingUrl("/user/login") // 登录访问路径
+                .failureUrl("/error") // 处理异常的controller
+//                .authenticationDetailsSource(authenticationDetailsSource)  //自定义的资源要配置进去
+                .defaultSuccessUrl("/hello").permitAll()  // 登录成功后默认页面
+                .and().authorizeRequests()
+                .antMatchers("/", "/hello", "/user/register", "/user/login", "/admin/login", "/assets/**","/vendor/**").permitAll()  //设置哪些页面和请求不需要登录就能访问
+                .anyRequest().authenticated()
+                .and().csrf().disable();  //关闭csrf防护
     }
 
 

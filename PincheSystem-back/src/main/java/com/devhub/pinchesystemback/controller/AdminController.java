@@ -35,6 +35,11 @@ public class AdminController {
     @Resource
     private RedisUtil redisUtil;
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @PostMapping("/login")
     public String login(@Valid LoginParam loginParam, HttpServletResponse response, HttpServletRequest request) {
         User user = userService.login(loginParam.getUsername(), loginParam.getPassword(), request);

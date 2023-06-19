@@ -26,4 +26,8 @@ public class TestController {
 //        return "index";
 //    }
 
+    @GetMapping("error")
+    public String error() {
+        return "error";
+    }
 }
