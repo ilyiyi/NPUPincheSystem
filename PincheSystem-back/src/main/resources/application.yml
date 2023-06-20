@@ -61,3 +61,4 @@ jwt:
   secret: devhub
   #  jwt工具类设定的有效时间,以天为单位
   expiration: 7
+
