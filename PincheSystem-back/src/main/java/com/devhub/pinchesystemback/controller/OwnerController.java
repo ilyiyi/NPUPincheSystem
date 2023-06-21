@@ -42,17 +42,17 @@ public class OwnerController {
      */
     @PostMapping("/info")
     @ResponseBody
-    public CommonResult infoPublish(@RequestBody InfoParam infoParam){
+    public CommonResult infoPublish(@RequestBody InfoParam infoParam) {
         try {
             User currentUser = redisUtil.getCurrentUser("cur");
             Info info = new Info();
             setInfo(infoParam, currentUser, info);
-            if(infoService.publish(info)){
+            if (infoService.publish(info)) {
                 log.info("发布成功！");
                 return CommonResult.success();
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return CommonResult.failure("发布失败，请稍后再试");
@@ -65,7 +65,7 @@ public class OwnerController {
     @ResponseBody
     public CommonResult infoCancel(@PathVariable("id") long id) {
         System.out.println("hh");
-        if(!infoService.cancel(id)){
+        if (!infoService.cancel(id)) {
             log.info("删除失败！");
         }
         log.info("删除成功！");
@@ -84,11 +84,11 @@ public class OwnerController {
             Info info = new Info();
             info.setInfoId(id);
             setInfo(infoParam, currentUser, info);
-            if(infoService.modify(info)){
+            if (infoService.modify(info)) {
                 log.info("修改成功！");
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -111,19 +111,27 @@ public class OwnerController {
      */
     @GetMapping("/info")
     @ResponseBody
-    public PageInfo<Info> searcherAllInfo(@RequestBody PageParam pageParam){
+    public PageInfo<Info> searcherAllInfo(@RequestBody PageParam pageParam) {
         User currentUser = redisUtil.getCurrentUser("cur");
         return infoService.getInfos(currentUser.getId(), pageParam.getCurrentPage(), pageParam.getPageSize());
-
     }
+
+    @GetMapping("allInfo")
+    @ResponseBody
+    public CommonResult listAllInfo() {
+        List<Info> list = infoService.getAllInfos();
+        return CommonResult.success(list);
+    }
+
 
     /**
      * 根据id查看拼车信息
+     *
      * @param id 拼车信息ID
      */
     @GetMapping("/info/{id}")
     @ResponseBody
-    public Info infoSearch(@PathVariable long id){
+    public Info infoSearch(@PathVariable long id) {
         return infoService.getInfo(id);
     }
 
@@ -132,11 +140,11 @@ public class OwnerController {
      */
     @GetMapping("/order")
     @ResponseBody
-    public PageInfo<List<Order>> getAllOrders(@RequestBody PageParam pageParam){
+    public PageInfo<List<Order>> getAllOrders(@RequestBody PageParam pageParam) {
         User currentUser = redisUtil.getCurrentUser("cur");
         List<Info> infos = infoService.getInfos(currentUser.getId());
         List<Long> infoIds = new ArrayList<>();
-        for (Info info: infos) {
+        for (Info info : infos) {
             infoIds.add(info.getInfoId());
         }
         return orderService.selectOrders(infoIds, pageParam.getCurrentPage(), pageParam.getPageSize());
@@ -144,11 +152,12 @@ public class OwnerController {
 
     /**
      * 根据id查看订单
+     *
      * @param id 订单id
      */
     @GetMapping("/order/{id}")
     @ResponseBody
-    public Order getOrder(@PathVariable long id){
+    public Order getOrder(@PathVariable long id) {
         return orderService.getOrder(id);
     }
 
@@ -157,7 +166,7 @@ public class OwnerController {
      */
     @PostMapping("/order/review")
     @ResponseBody
-    private CommonResult orderReview(@RequestBody OrderReviewParam orderReviewParam){
+    private CommonResult orderReview(@RequestBody OrderReviewParam orderReviewParam) {
         orderService.reviewOrder(orderReviewParam.getOrderId(), orderReviewParam.getOrderState());
         new CommonResult();
         return CommonResult.success();

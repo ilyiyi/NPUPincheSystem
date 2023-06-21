@@ -52,15 +52,23 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><form action="/index"><input type="submit" value="主页"></form></li>
-                        <li><form action="/orders"><input type="submit" value="审核"></form></li>
-                        <li><form action="/publish"><input type="submit" value="发布"></form></li>
-                        <li><form action="/myInfo"><input type="submit" value="我的"></form></li>
+                        <li>
+                            <form action="/index"><input type="submit" value="主页"></form>
+                        </li>
+                        <li>
+                            <form action="/orders"><input type="submit" value="审核"></form>
+                        </li>
+                        <li>
+                            <form action="/publish"><input type="submit" value="发布"></form>
+                        </li>
+                        <li>
+                            <form action="/myInfo"><input type="submit" value="我的"></form>
+                        </li>
                         <!--                        <li><a href="reservation.html">Book Yours</a></li>-->
                     </ul>
                     <a class='menu-trigger'>
@@ -162,15 +170,15 @@
 
 <!-- Scripts -->
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-<script src="assets/js/isotope.min.js"></script>
-<script src="assets/js/owl-carousel.js"></script>
-<script src="assets/js/wow.js"></script>
-<script src="assets/js/tabs.js"></script>
-<script src="assets/js/popup.js"></script>
-<script src="assets/js/custom.js"></script>
+<script src="/assets/js/isotope.min.js"></script>
+<script src="/assets/js/owl-carousel.js"></script>
+<script src="/assets/js/wow.js"></script>
+<script src="/assets/js/tabs.js"></script>
+<script src="/assets/js/popup.js"></script>
+<script src="/assets/js/custom.js"></script>
 
 <script>
     function bannerSwitcher() {
@@ -195,13 +203,32 @@
     var dateOfCar = ["2023 年 1 月 1 日", "2023 年 1 月 5 日", "2023 年 12 月 11 日", "2023 年 2 月 10 日", "2023 年 1 月 1 日", "2023 年 1 月 5 日", "2023 年 12 月 11 日"]
     var beginOfArray = 4
     let pageNoOfNow = 2
+
+    var dataList = []
+
+
     $(function () {
+        getData()
         initProcess()
         initBanner()
     })
 
     function bindTapReserve(index) {
-        document.location.href = encodeURI("/orders/generate?name=" + names[index] + "&carNo=" + carNo[index] + "&price=" + price[index] + "&date=" + dateOfCar[index] + "&destination=" + destination[index]);
+        document.location.href = encodeURI("/orders/generate?name=" + dataList[i].ownerName + "&carNo=" + dataList[i].carNum + "&price=" + dataList[i].price + "&date=" + dataList[i].days + "&destination=" + dataList[i].ending);
+    }
+
+    function getData() {
+        $.ajax({
+            url: '/owner/allInfo',
+            type: 'get',
+            success: function (res) {
+                dataList = res.data
+                console.log(dataList)
+            },
+            fail: function () {
+                alert('数据加载失败')
+            }
+        })
     }
 
     function initBanner() {
@@ -210,9 +237,9 @@
             div.innerHTML = `
          <div class="banner-inner-wrapper header-text">
             <div class="main-caption">
-            <h2>${infomation[i]}</h2>
-             <h1>${names[i]}</h1>
-             <div class="border-button"><a>${destination[i]}</a></div>
+            <h2>${dataList[i].remark}</h2>
+             <h1>${dataList[i].ownerName}</h1>
+             <div class="border-button"><a>${dataList[i].ending}</a></div>
             </div>
             <div class="container">
               <div class="row">
@@ -221,15 +248,15 @@
                     <div class="row">
                       <div class="col-lg-3 col-sm-6 col-6">
                         <i class="fa fa-user"></i>
-                        <h4><span>剩余人数:</span><br>${leftPerson[i]}人</h4>
+                        <h4><span>剩余人数:</span><br>${dataList[i].remain}人</h4>
                       </div>
                       <div class="col-lg-3 col-sm-6 col-6">
                         <i class="fa fa-globe"></i>
-                        <h4><span>日期:</span><br>${dateOfCar[i]}</h4>
+                        <h4><span>日期:</span><br>${dataList[i].days}</h4>
                       </div>
                       <div class="col-lg-3 col-sm-6 col-6">
                         <i class="fa fa-home"></i>
-                        <h4><span>价格:</span><br>${price[i]}元</h4>
+                        <h4><span>价格:</span><br>${dataList[i].price}元</h4>
                       </div>
                       <div class="col-lg-3 col-sm-6 col-6">
                         <div class="main-button" onclick="bindTapReserve(${i})">
@@ -252,7 +279,7 @@
 
     //初始化行程
     function initProcess() {
-        let end = beginOfArray + 3 * (pageNoOfNow - 1) > names.length ? names.length : beginOfArray + 3 * (pageNoOfNow - 1)
+        let end = beginOfArray + 3 * (pageNoOfNow - 1) > dataList.length ? dataList.length : beginOfArray + 3 * (pageNoOfNow - 1)
         console.log(end)
         for (var i = beginOfArray + (pageNoOfNow - 2) * 3; i < end; i++) {
             var div = document.createElement("div");
@@ -268,19 +295,19 @@
           </div>
           <div class="col-lg-8 col-sm-7">
             <div class="right-content">
-              <h4>${carNo[i]}</h4>
-              <span>${names[i]}</span>
+              <h4>${dataList[i].carNum}</h4>
+              <span>${dataList[i].ownerName}</span>
               <div class="main-button" onclick="bindTapReserve(${i})" style="color: white">
                 <a>预约</a>
               </div>
-              <p> ${infomation[i]}</p>
+              <p> ${dataList[i].remark}</p>
               <ul class="info">
-                <li><i class="fa fa-user"></i> ${leftPerson[i]}人</li>
-                <li><i class="fa fa-globe"></i> ${destination[i]}</li>
-                <li><i class="fa fa-home"></i> ${price[i]}元</li>
+                <li><i class="fa fa-user"></i> ${dataList[i].remain}人</li>
+                <li><i class="fa fa-globe"></i> ${dataList[i].ending}</li>
+                <li><i class="fa fa-home"></i> ${dataList[i].price}元</li>
               </ul>
               <div class="text-button">
-                <a > ${dateOfCar[i]}</a>
+                <a > ${dataList[i].days}</a>
               </div>
             </div>
           </div>
@@ -306,7 +333,7 @@
     }
 
     function frontPage() {
-        if (pageNoOfNow == 2) {
+        if (pageNoOfNow === 2) {
             return
         }
         pageNoOfNow -= 1
@@ -315,7 +342,7 @@
     }
 
     function backPage() {
-        if (beginOfArray + 3 * (pageNoOfNow - 1) > names.length) {
+        if (beginOfArray + 3 * (pageNoOfNow - 1) > dataList.length) {
             return
         }
         pageNoOfNow += 1

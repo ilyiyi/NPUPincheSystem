@@ -44,4 +44,6 @@ public interface InfoService {
      * @return 所有拼车信息
      */
     PageInfo<Info> getInfos(Long ownerId,int currentPage, int pageSize);
+
+    List<Info> getAllInfos();
 }

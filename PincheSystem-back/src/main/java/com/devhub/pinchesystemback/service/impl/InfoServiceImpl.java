@@ -52,7 +52,7 @@ public class InfoServiceImpl implements InfoService {
      */
     @Override
     public boolean modify(Info info) {
-        if(infoMapper.selectByPrimaryKey(info.getInfoId()) != null){
+        if (infoMapper.selectByPrimaryKey(info.getInfoId()) != null) {
             infoMapper.updateByPrimaryKey(info);
             return true;
         }
@@ -91,5 +91,10 @@ public class InfoServiceImpl implements InfoService {
         PageHelper.startPage(currentPage, pageSize);
         List<Info> infos = infoMapper.selectAllByOwnerId(ownerId);
         return new PageInfo<>(infos);
+    }
+
+    @Override
+    public List<Info> getAllInfos() {
+        return infoMapper.selectAll();
     }
 }

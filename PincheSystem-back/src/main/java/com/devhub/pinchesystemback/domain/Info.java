@@ -1,5 +1,6 @@
 package com.devhub.pinchesystemback.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -24,6 +25,7 @@ public class Info {
     /**
      * 发车日期
      */
+    @JsonFormat(pattern = "yyyy年MM月dd日", timezone = "GMT+8")
     private Date days;
 
     /**

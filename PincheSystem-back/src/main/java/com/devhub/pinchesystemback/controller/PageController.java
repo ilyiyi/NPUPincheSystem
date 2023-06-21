@@ -18,7 +18,7 @@ public class PageController {
     }
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish() {
         return "reservation";
     }
 
@@ -38,5 +38,7 @@ public class PageController {
     }
 
     @GetMapping("/myInfo")
-    public String myInfo(){return "myInfo"; }
+    public String myInfo() {
+        return "myInfo";
+    }
 }
