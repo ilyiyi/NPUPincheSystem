@@ -1,6 +1,7 @@
 package com.devhub.pinchesystemback.service;
 
 import com.devhub.pinchesystemback.domain.Order;
+import com.devhub.pinchesystemback.pararm.OrderParam;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -52,5 +53,5 @@ public interface OrderService {
 
     List<Order> getOrderListByUserId(Long userId);
 
-    boolean generateOrder(Order order);
+    boolean generateOrder(OrderParam param);
 }

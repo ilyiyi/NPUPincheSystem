@@ -3,12 +3,15 @@ package com.devhub.pinchesystemback.service.impl;
 import com.devhub.pinchesystemback.constant.ResultCodeEnum;
 import com.devhub.pinchesystemback.domain.Info;
 import com.devhub.pinchesystemback.domain.Order;
+import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.domain.UserOrder;
 import com.devhub.pinchesystemback.exception.BusinessException;
 import com.devhub.pinchesystemback.mapper.InfoMapper;
 import com.devhub.pinchesystemback.mapper.OrderMapper;
 import com.devhub.pinchesystemback.mapper.UserOrderMapper;
+import com.devhub.pinchesystemback.pararm.OrderParam;
 import com.devhub.pinchesystemback.service.OrderService;
+import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Resource
     private UserOrderMapper userOrderMapper;
+
+    @Resource
+    private RedisUtil redisUtil;
 
     /**
      * 保存订单
@@ -144,10 +150,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean generateOrder(Order order) {
+    public boolean generateOrder(OrderParam param) {
+
+        User currentUser = getCurrentUser();
+
         UserOrder userOrder = new UserOrder();
-        userOrder.setUserId(order.getUserId());
-        userOrder.setOrderId(order.getOrderId());
+        userOrder.setUserId(currentUser.getId());
+        userOrder.setOrderId(param.getOrderId());
+
+        Order order = new Order();
+        order.setPassengerNum(param.getPassengerNum());
+        order.setEnding(param.getEnding());
+        order.setInfoId(param.getInfoId());
+        order.setStartTime(param.getStartTime());
+        order.setPrice(param.getPrice());
+        order.setOrderState(param.getOrderState());
+        order.setRemark(param.getRemark());
+
         return userOrderMapper.insert(userOrder) > 0 && saveOrder(order);
+    }
+
+    public User getCurrentUser() {
+       return  redisUtil.getCurrentUser("cur");
     }
 }

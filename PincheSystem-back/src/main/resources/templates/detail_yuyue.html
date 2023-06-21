@@ -28,7 +28,8 @@
                 ending: destination,
                 price: priceOfCar,
                 remark: document.getElementsByName('remark')[0].value,
-                infoId: infoId
+                infoId: infoId,
+                ownerId: ownerId
             };
 
             $.ajax({
@@ -176,6 +177,7 @@
     var dateOfCar
     var destination
     var infoId
+    var ownerId
     $(function () {
         destination = decodeURI(window.location.href.split("=")[5])
         if (destination === "二号线") {
@@ -219,6 +221,7 @@
         priceOfCar = window.location.href.split("=")[3].split("&")[0];
         dateOfCar = window.location.href.split("=")[4].split("&")[0];
         infoId = window.location.href.split("=")[6].split("&")[0];
+        ownerId = window.location.href.split("=")[7].split("&")[0];
 
 
         document.querySelector("#nameAndCarNo").textContent = decodeURI(nameOfDriver + ": " + carNoOfCar);

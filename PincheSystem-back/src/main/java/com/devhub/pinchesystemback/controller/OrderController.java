@@ -2,6 +2,7 @@ package com.devhub.pinchesystemback.controller;
 
 import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
+import com.devhub.pinchesystemback.pararm.OrderParam;
 import com.devhub.pinchesystemback.service.OrderService;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.CommonResult;
@@ -25,9 +26,9 @@ public class OrderController {
     private RedisUtil redisUtil;
 
     @PostMapping("/generate")
-    public CommonResult generateOrder(@RequestBody Order order) {
+    public CommonResult generateOrder(@RequestBody OrderParam param) {
         try {
-            if (orderService.generateOrder(order)) {
+            if (orderService.generateOrder(param)) {
                 return CommonResult.success();
             }
         } catch (Exception e) {

@@ -1,19 +1,14 @@
-package com.devhub.pinchesystemback.domain;
+package com.devhub.pinchesystemback.pararm;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-/**
- * @author wak
- */
+
 @Data
-public class Order {
-    /**
-     * 订单id
-     */
+public class OrderParam {
+
     private Long orderId;
     /**
      * 乘客数量
@@ -44,12 +39,6 @@ public class Order {
      * 备注
      */
     private String remark;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
+
+    private Long ownerId;
 }
