@@ -68,11 +68,13 @@ public class UserController {
     @PostMapping("/login")
     @Log
     public String login(@Valid LoginParam loginParam, HttpServletResponse response, HttpServletRequest request) {
+        log.info("开始登录！");
         User user = userService.login(loginParam.getUsername(), loginParam.getPassword(), request);
         if (UserRoleEnum.ORDINARY_USER.getRole() == user.getRole()) {
             Cookie cookie = new Cookie("username", user.getUsername());
             response.addCookie(cookie);
             redisUtil.setObject("cur", user);
+            log.info("登录成功！");
             return "myInfo";
         } else {
             throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "非普通用户账户无法在此登录");

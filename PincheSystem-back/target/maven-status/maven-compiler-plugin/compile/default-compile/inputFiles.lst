@@ -31,6 +31,7 @@ C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\
 C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\mapper\UserMapper.java
 C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\utils\JwtUtil.java
 C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\pararm\InfoParam.java
+C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\config\CustomUserDetailsService.java
 C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\pararm\LoginParam.java
 C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\pararm\OrderReviewParam.java
 C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\config\RedisConfig.java
@@ -49,3 +50,4 @@ C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\
 C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\pararm\ModifyParam.java
 C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\service\impl\InfoServiceImpl.java
 C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\service\UserService.java
+C:\Users\13627\Desktop\code\java\项目实例\NPUPincheSystem\PincheSystem-back\src\main\java\com\devhub\pinchesystemback\config\CustomAuthenticationProvider.java

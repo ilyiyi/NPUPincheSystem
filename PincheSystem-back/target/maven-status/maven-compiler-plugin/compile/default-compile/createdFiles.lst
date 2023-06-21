@@ -7,7 +7,9 @@ com\devhub\pinchesystemback\pararm\InfoParam.class
 com\devhub\pinchesystemback\config\SwaggerConfig.class
 com\devhub\pinchesystemback\controller\AdminController.class
 com\devhub\pinchesystemback\PincheSystemBackApplication.class
+com\devhub\pinchesystemback\config\CustomAuthenticationProvider.class
 com\devhub\pinchesystemback\service\impl\InfoServiceImpl.class
+com\devhub\pinchesystemback\config\CustomUserDetailsService.class
 com\devhub\pinchesystemback\service\InfoService.class
 com\devhub\pinchesystemback\controller\UserController.class
 com\devhub\pinchesystemback\mapper\InfoMapper.class
@@ -15,7 +17,6 @@ com\devhub\pinchesystemback\mapper\LogMapper.class
 com\devhub\pinchesystemback\service\impl\UserServiceImpl.class
 com\devhub\pinchesystemback\controller\OrderController.class
 com\devhub\pinchesystemback\controller\OwnerController.class
-com\devhub\pinchesystemback\config\SecurityConfig$UserDetailsServiceImpl.class
 com\devhub\pinchesystemback\controller\PageController.class
 com\devhub\pinchesystemback\controller\TestController.class
 com\devhub\pinchesystemback\utils\RedisUtil.class

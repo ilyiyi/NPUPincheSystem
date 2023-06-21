@@ -1,6 +1,7 @@
 package com.devhub.pinchesystemback.config;
 
 import com.devhub.pinchesystemback.domain.User;
+import com.devhub.pinchesystemback.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,6 +21,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -32,6 +36,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private Authentication checkPassword(User user, String rawPassword, PasswordEncoder encoder) {
         if (encoder.matches(rawPassword, user.getPassword())) {
+            redisUtil.setObject("cur", user);
             return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
         } else {
             throw new BadCredentialsException("Bad credentials");

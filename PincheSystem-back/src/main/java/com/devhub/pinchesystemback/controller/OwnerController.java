@@ -42,19 +42,20 @@ public class OwnerController {
      */
     @PostMapping("/info")
     @ResponseBody
-    public void infoPublish(@RequestBody InfoParam infoParam){
+    public CommonResult infoPublish(@RequestBody InfoParam infoParam){
         try {
             User currentUser = redisUtil.getCurrentUser("cur");
             Info info = new Info();
             setInfo(infoParam, currentUser, info);
             if(infoService.publish(info)){
                 log.info("发布成功！");
+                return CommonResult.success();
             }
 
         }catch (Exception e) {
             e.printStackTrace();
         }
-
+        return CommonResult.failure("发布失败，请稍后再试");
     }
 
     /**
