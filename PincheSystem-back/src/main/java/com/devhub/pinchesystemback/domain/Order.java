@@ -52,4 +52,8 @@ public class Order {
      * 更新时间
      */
     private Date updateTime;
+
+    private Long userId;
+
+    private Long ownerId;
 }

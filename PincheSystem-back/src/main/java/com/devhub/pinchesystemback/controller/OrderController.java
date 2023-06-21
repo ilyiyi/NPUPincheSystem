@@ -4,19 +4,17 @@ import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.service.OrderService;
 import com.devhub.pinchesystemback.utils.RedisUtil;
+import com.devhub.pinchesystemback.vo.CommonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 /**
  * @author wak
  */
-@Controller
+@RestController
 @RequestMapping("/order")
 @Slf4j
 public class OrderController {
@@ -27,43 +25,46 @@ public class OrderController {
     private RedisUtil redisUtil;
 
     @PostMapping("/generate")
-    @ResponseBody
-    public boolean generateOrder(@RequestBody Order order) {
+    public CommonResult generateOrder(@RequestBody Order order) {
         try {
-            User currentUser = getCurrentUser();
-            String key = "user_" + currentUser.getId();
-            orderService.saveOrder(order);
-            log.info(order.getOrderId().toString());
-            redisUtil.sSet(key, -1L, order.getOrderId());
-            return true;
+            if (orderService.generateOrder(order)) {
+                return CommonResult.success();
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return CommonResult.failure("预约失败，请稍后再试");
     }
 
-    public boolean deleteOrder(Long id) {
+    @GetMapping("list")
+    public CommonResult listOrders(@RequestParam Long userId) {
+        return CommonResult.success(orderService.getOrderListByUserId(userId));
+    }
+
+    @DeleteMapping("/{id}")
+    public CommonResult deleteOrder(@PathVariable("id") Long id) {
         try {
-            User currentUser = getCurrentUser();
-            String key = "user_" + currentUser.getId();
-            redisUtil.sRemove(key, id);
-            orderService.deleteOrder(id);
-            return true;
+            if (orderService.deleteOrder(id)) {
+                return CommonResult.success();
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return CommonResult.failure("删除失败，请稍后再试");
     }
 
-    public boolean updateOrder(@RequestBody Order order) {
+    @PostMapping("/update")
+    public CommonResult updateOrder(@RequestBody Order order) {
         try {
-
-            return orderService.updateOrder(order);
+            if (orderService.updateOrder(order)) {
+                return CommonResult.success();
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return CommonResult.failure("更新失败，请稍后再试");
     }
+
 
     public User getCurrentUser() {
         return redisUtil.getCurrentUser("cur");

@@ -26,4 +26,6 @@ public interface OrderMapper {
     List<Order> selectAll();
 
     List<Order> selectAllByInfoId(Long infoId);
+
+    List<Order> selectByIds(List<Long> ids);
 }

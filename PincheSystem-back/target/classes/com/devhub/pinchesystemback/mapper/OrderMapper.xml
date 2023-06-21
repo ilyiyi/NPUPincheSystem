@@ -16,8 +16,8 @@
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="order_id" keyProperty="orderId">
-        insert into orders(passenger_num, ending, info_id, start_time, price, order_state, remark)
-        values (#{passengerNum}, #{ending}, #{infoId}, #{startTime}, #{price}, #{orderState}, #{remark})
+        insert into orders(passenger_num, ending, info_id, start_time, price, remark)
+        values (#{passengerNum}, #{ending}, #{infoId}, #{startTime}, #{price}, #{remark})
     </insert>
     <update id="updateByOrderId">
         update orders

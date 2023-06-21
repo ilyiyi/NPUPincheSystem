@@ -15,7 +15,7 @@ public interface OrderService {
      *
      * @param order 订单信息
      */
-    void saveOrder(Order order);
+    boolean saveOrder(Order order);
 
     /**
      * 更新订单
@@ -30,7 +30,7 @@ public interface OrderService {
      *
      * @param id 订单id
      */
-    void deleteOrder(Long id);
+    boolean deleteOrder(Long id);
 
     Order getOrder(Long orderId);
 
@@ -49,4 +49,8 @@ public interface OrderService {
      * 审核订单
      */
     void reviewOrder(Long orderId,Byte orderState);
+
+    List<Order> getOrderListByUserId(Long userId);
+
+    boolean generateOrder(Order order);
 }
