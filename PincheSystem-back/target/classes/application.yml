@@ -20,7 +20,7 @@ spring:
     url: jdbc:mysql://60.204.151.229:3306/pinche?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
   #  配置Json序列化,不要改动
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd
     serialization:
       indent_output: true
       fail_on_empty_beans: false

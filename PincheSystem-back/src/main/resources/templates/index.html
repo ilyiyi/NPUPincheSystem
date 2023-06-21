@@ -209,12 +209,10 @@
 
     $(function () {
         getData()
-        initProcess()
-        initBanner()
     })
 
     function bindTapReserve(index) {
-        document.location.href = encodeURI("/orders/generate?name=" + dataList[i].ownerName + "&carNo=" + dataList[i].carNum + "&price=" + dataList[i].price + "&date=" + dataList[i].days + "&destination=" + dataList[i].ending);
+        document.location.href = encodeURI("/orders/generate?name=" + dataList[index].ownerName + "&carNo=" + dataList[index].carNum + "&price=" + dataList[index].price + "&date=" + dataList[index].days + "&destination=" + dataList[index].ending+"&id="+dataList[index].infoId);
     }
 
     function getData() {
@@ -224,6 +222,8 @@
             success: function (res) {
                 dataList = res.data
                 console.log(dataList)
+                initProcess()
+                initBanner()
             },
             fail: function () {
                 alert('数据加载失败')

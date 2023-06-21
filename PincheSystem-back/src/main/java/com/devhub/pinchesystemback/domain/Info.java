@@ -25,7 +25,6 @@ public class Info {
     /**
      * 发车日期
      */
-    @JsonFormat(pattern = "yyyy年MM月dd日", timezone = "GMT+8")
     private Date days;
 
     /**

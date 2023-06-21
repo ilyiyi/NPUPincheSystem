@@ -5,7 +5,7 @@
         <id column="info_id" jdbcType="BIGINT" property="infoId"/>
         <result column="owner_id" jdbcType="BIGINT" property="ownerId"/>
         <result column="owner_name" jdbcType="VARCHAR" property="ownerName"/>
-        <result column="days" jdbcType="TIMESTAMP" property="days"/>
+        <result column="days" jdbcType="DATE" property="days"/>
         <result column="ending" jdbcType="VARCHAR" property="ending"/>
         <result column="car_num" jdbcType="VARCHAR" property="carNum"/>
         <result column="price" jdbcType="REAL" property="price"/>
