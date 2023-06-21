@@ -22,12 +22,12 @@
     <update id="updateByOrderId">
         update orders
         set passenger_num = #{passengerNum},
-            ending = #{ending},
-            info_id = #{infoId},
-            start_time = #{startTime},
-            price = #{price},
-            order_state = #{orderState},
-            remark = #{remark}
+            ending        = #{ending},
+            info_id       = #{infoId},
+            start_time    = #{startTime},
+            price         = #{price},
+            order_state   = #{orderState},
+            remark        = #{remark}
         where order_id = #{orderId};
     </update>
     <delete id="deleteByOrderId">

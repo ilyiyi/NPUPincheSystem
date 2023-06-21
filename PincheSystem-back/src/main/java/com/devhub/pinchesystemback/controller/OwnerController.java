@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/owner")
 @Slf4j
 public class OwnerController {
