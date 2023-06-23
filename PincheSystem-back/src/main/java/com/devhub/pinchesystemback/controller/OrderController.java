@@ -1,5 +1,6 @@
 package com.devhub.pinchesystemback.controller;
 
+import com.devhub.pinchesystemback.advice.annotation.Log;
 import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.pararm.OrderParam;
@@ -7,10 +8,12 @@ import com.devhub.pinchesystemback.service.OrderService;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.CommonResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author wak
@@ -37,9 +40,12 @@ public class OrderController {
         return CommonResult.failure("预约失败，请稍后再试");
     }
 
-    @GetMapping("list")
-    public CommonResult listOrders(@RequestParam Long userId) {
-        return CommonResult.success(orderService.getOrderListByUserId(userId));
+    @GetMapping("/list")
+    @Log
+    public CommonResult listOrders() {
+        User user = redisUtil.getCurrentUser("cur");
+        List<Order> orders = orderService.getOrderListByUserId(user.getId());
+        return CommonResult.success(orders);
     }
 
     @DeleteMapping("/{id}")

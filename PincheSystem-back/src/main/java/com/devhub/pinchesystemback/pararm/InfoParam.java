@@ -1,11 +1,14 @@
 package com.devhub.pinchesystemback.pararm;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 /**
  * 拼车信息参数
  */
 @Data
+@NoArgsConstructor
 public class InfoParam {
     /**
      * 发布者姓名
@@ -30,6 +33,7 @@ public class InfoParam {
     /**
      * 价格
      */
+    @NonNull
     private Float price;
 
     /**

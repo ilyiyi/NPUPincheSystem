@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author wak
  */
 @Data
-public class Order {
+public class Order implements Serializable {
     /**
      * 订单id
      */

@@ -121,6 +121,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e, HttpServletRequest request, Model model) {
         handleError(model, "服务器内部错误");
+        log.info(formatException(e, request, null, true));
         return "error";
     }
 

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,7 +43,7 @@ public class OwnerController {
      */
     @PostMapping("/info")
     @ResponseBody
-    public CommonResult infoPublish(@RequestBody InfoParam infoParam) {
+    public CommonResult infoPublish(@RequestBody @Valid InfoParam infoParam) {
         try {
             User currentUser = redisUtil.getCurrentUser("cur");
             Info info = new Info();
@@ -164,7 +165,7 @@ public class OwnerController {
     /**
      * 审核订单
      */
-    @PostMapping("/order/review")
+    @PostMapping("/review")
     @ResponseBody
     private CommonResult orderReview(@RequestBody OrderReviewParam orderReviewParam) {
         orderService.reviewOrder(orderReviewParam.getOrderId(), orderReviewParam.getOrderState());

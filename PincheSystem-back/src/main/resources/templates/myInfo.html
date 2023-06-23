@@ -118,7 +118,7 @@
                     </div>
                     <div class="row col-style">
                         <div class="col-12 col-sm-5">
-                            <button type="submit" class="btn btn-primary myButton border border-secondary" id="update"
+                            <button class="btn btn-primary myButton border border-secondary" id="update"
                                     onclick="updateUser()">
                                 更新
                             </button>
@@ -164,16 +164,16 @@
         document.getElementById('#infoForm').reset()
     }
 
-    function updateUser() {
-        var username = document.getElementById('#name')
-        var sex = document.getElementById('#sex')
-        var mobile = document.getElementById('#mobile')
+    const editForm = {
+        username: '',
+        sex: '',
+        mobile: ''
+    };
 
-        var editForm = {
-            username: username,
-            sex: sex,
-            mobile: mobile
-        }
+    function updateUser() {
+        editForm.username = document.getElementById('name').value
+        editForm.sex = document.getElementById('sex').value
+        editForm.mobile = document.getElementById('phone').value
 
         $.ajax({
             url: '/user/info',

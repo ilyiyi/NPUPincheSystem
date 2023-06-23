@@ -10,6 +10,7 @@ import com.devhub.pinchesystemback.pararm.LoginParam;
 import com.devhub.pinchesystemback.pararm.ModifyParam;
 import com.devhub.pinchesystemback.pararm.RegisterParam;
 import com.devhub.pinchesystemback.service.UserService;
+import com.devhub.pinchesystemback.utils.JwtUtil;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.CommonResult;
 import com.devhub.pinchesystemback.vo.UserVO;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -39,6 +42,17 @@ public class UserController {
 
     @Autowired
     private RedisUtil redisUtil;
+
+    @GetMapping("/getCurUserName")
+    @ResponseBody
+    public CommonResult getCurUserId() {
+        Object username
+                = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (username == null) {
+            return CommonResult.failure("获取失败！");
+        }
+        return CommonResult.success(username);
+    }
 
     @GetMapping("/register")
     public String register() {
@@ -100,8 +114,22 @@ public class UserController {
     @PostMapping("/info")
     @PreAuthorize("hasAnyRole('USER')")
     @ResponseBody
-    public CommonResult modifyOwnInfo(@AuthenticationPrincipal User user, @RequestBody ModifyParam param) {
+    public CommonResult modifyOwnInfo(@RequestBody ModifyParam param) {
+        User user = redisUtil.getCurrentUser("cur");
         if (userService.modifyInfo(user.getId(), param)) {
+            String username = param.getUsername();
+            String sex = param.getSex();
+            String mobile = param.getMobile();
+            if (username != null) {
+                user.setUsername(username);
+            }
+            if (sex != null) {
+                user.setSex(sex);
+            }
+            if (mobile != null) {
+                user.setMobile(mobile);
+            }
+            redisUtil.setObject("cur", user);
             return CommonResult.success();
         }
         return CommonResult.failure("更新失败，请稍后再试");

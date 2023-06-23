@@ -2,11 +2,13 @@ package com.devhub.pinchesystemback.filter;
 
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.utils.JwtUtil;
+import com.devhub.pinchesystemback.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.logging.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -31,9 +33,6 @@ import java.io.IOException;
 @Slf4j
 public class TokenFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -41,6 +40,7 @@ public class TokenFilter extends OncePerRequestFilter {
         log.info("=================请求进来了=================");
         log.info("[新请求]\n<方法>  {}\n<URI>  {}\n<Query>  {}\n<主机>  {}",
                 request.getMethod(), request.getRequestURI(), request.getQueryString(), request.getRemoteHost());
+
 
         filterChain.doFilter(request, response);
         log.info("=================请求离开了=================");
