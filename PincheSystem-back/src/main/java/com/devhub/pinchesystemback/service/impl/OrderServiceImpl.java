@@ -155,10 +155,6 @@ public class OrderServiceImpl implements OrderService {
 
         User currentUser = getCurrentUser();
 
-        UserOrder userOrder = new UserOrder();
-        userOrder.setUserId(currentUser.getId());
-        userOrder.setOrderId(param.getOrderId());
-
         Order order = new Order();
         order.setPassengerNum(param.getPassengerNum());
         order.setEnding(param.getEnding());
@@ -168,10 +164,17 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderState(param.getOrderState());
         order.setRemark(param.getRemark());
 
-        return userOrderMapper.insert(userOrder) > 0 && saveOrder(order);
+        if (saveOrder(order)) {
+            UserOrder userOrder = new UserOrder();
+            userOrder.setUserId(currentUser.getId());
+            userOrder.setOrderId(order.getOrderId());
+            return userOrderMapper.insert(userOrder) > 0;
+        }
+
+        return false;
     }
 
     public User getCurrentUser() {
-       return  redisUtil.getCurrentUser("cur");
+        return redisUtil.getCurrentUser("cur");
     }
 }

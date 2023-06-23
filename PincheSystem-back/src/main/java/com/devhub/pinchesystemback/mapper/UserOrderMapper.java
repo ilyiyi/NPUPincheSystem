@@ -1,8 +1,10 @@
 package com.devhub.pinchesystemback.mapper;
 
 import com.devhub.pinchesystemback.domain.UserOrder;
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+@Mapper
 public interface UserOrderMapper {
     int deleteByPrimaryKey(Long id);
 

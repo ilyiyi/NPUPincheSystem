@@ -212,7 +212,7 @@
     })
 
     function bindTapReserve(index) {
-        document.location.href = encodeURI("/orders/generate?name=" + dataList[index].ownerName + "&carNo=" + dataList[index].carNum + "&price=" + dataList[index].price + "&date=" + dataList[index].days + "&destination=" + dataList[index].ending+"&id="+dataList[index].infoId);
+        document.location.href = encodeURI("/orders/generate?name=" + dataList[index].ownerName + "&carNo=" + dataList[index].carNum + "&price=" + dataList[index].price + "&date=" + dataList[index].days + "&destination=" + dataList[index].ending + "&id=" + dataList[index].infoId + "&ownerId=" + dataList[index].ownerId);
     }
 
     function getData() {

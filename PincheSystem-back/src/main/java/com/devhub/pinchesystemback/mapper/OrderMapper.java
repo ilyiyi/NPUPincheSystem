@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    Long insert(Order order);
+    int insert(Order order);
 
     int deleteByOrderId(Long id);
 
