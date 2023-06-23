@@ -10,8 +10,8 @@ import com.devhub.pinchesystemback.pararm.LoginParam;
 import com.devhub.pinchesystemback.pararm.ModifyParam;
 import com.devhub.pinchesystemback.pararm.RegisterParam;
 import com.devhub.pinchesystemback.service.UserService;
-import com.devhub.pinchesystemback.utils.JwtUtil;
 import com.devhub.pinchesystemback.utils.RedisUtil;
+import com.devhub.pinchesystemback.vo.CommonResult;
 import com.devhub.pinchesystemback.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -58,6 +57,7 @@ public class UserController {
             throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "用户名或密码错误，请重新登录");
         }
     }
+
 
     @GetMapping("/login")
     public String login() {
@@ -97,12 +97,14 @@ public class UserController {
         return userService.getInfo(userId);
     }
 
-    @PutMapping("/info")
+    @PostMapping("/info")
     @PreAuthorize("hasAnyRole('USER')")
     @ResponseBody
-    public Object modifyOwnInfo(@AuthenticationPrincipal User user, ModifyParam modifyParam) {
-        userService.modifyInfo(user.getId(), modifyParam.getUsername(), modifyParam.getPassword(), modifyParam.getMobile(), modifyParam.getSex());
-        return new UserVO();
+    public CommonResult modifyOwnInfo(@AuthenticationPrincipal User user, @RequestBody ModifyParam param) {
+        if (userService.modifyInfo(user.getId(), param)) {
+            return CommonResult.success();
+        }
+        return CommonResult.failure("更新失败，请稍后再试");
     }
 
     @PostMapping("/logout")

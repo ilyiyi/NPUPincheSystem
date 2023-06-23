@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -31,10 +31,18 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><form action="/index"><input type="submit" value="主页"></form></li>
-                        <li><form action="/orders"><input type="submit" value="审核"></form></li>
-                        <li><form action="/publish"><input type="submit" value="发布"></form></li>
-                        <li><form action="/myInfo"><input type="submit" value="我的"></form></li>
+                        <li>
+                            <form action="/index"><input type="submit" value="主页"></form>
+                        </li>
+                        <li>
+                            <form action="/orders"><input type="submit" value="审核"></form>
+                        </li>
+                        <li>
+                            <form action="/publish"><input type="submit" value="发布"></form>
+                        </li>
+                        <li>
+                            <form action="/myInfo"><input type="submit" value="我的"></form>
+                        </li>
                         <!--            <li><a href="reservation.html">Book Yours</a></li>-->
                     </ul>
                     <a class='menu-trigger'>
@@ -92,37 +100,32 @@
         </div>
         <div class="row">
             <div class="col-12 text-muted">
-                <form action="">
+                <form action="#" id="infoForm">
                     <div class="form-group col-style">
                         <label for="name">昵称</label>
-                        <input placeholder="Lee" id="name" name="name" type="text"
-                               class="form-control validate border border-secondary">
+                        <input placeholder="请输入用户名" id="name" name="name" type="text"
+                               class="form-control validate border border-secondary" th:value="${cur.getUsername()}">
                     </div>
                     <div class="form-group col-style">
-                        <label for="password">密码</label>
-                        <input placeholder="******" id="password" name="password" type="password"
-                               class="form-control validate border border-secondary">
-                    </div>
-                    <div class="form-group col-style">
-                        <label for="password2">确认密码</label>
-                        <label for="password2">确认密码</label>
-                        <input placeholder="******" id="password2" name="password2" type="password"
-                               class="form-control validate border border-secondary">
+                        <label for="sex">性别</label>
+                        <input placeholder="请输入性别(男/女)" id="sex" name="sex" type="text"
+                               class="form-control validate border border-secondary" th:value="${cur.getSex()}">
                     </div>
                     <div class="form-group col-style">
                         <label for="phone">电话</label>
                         <input placeholder="010-030-0440" id="phone" name="phone" type="tel"
-                               class="form-control validate border border-secondary">
+                               class="form-control validate border border-secondary" th:value="${cur.getMobile()}">
                     </div>
                     <div class="row col-style">
                         <div class="col-12 col-sm-5">
-                            <button type="submit" class="btn btn-primary myButton border border-secondary" id="update">
+                            <button type="submit" class="btn btn-primary myButton border border-secondary" id="update"
+                                    onclick="updateUser()">
                                 更新
                             </button>
                         </div>
                         <div class="col-12 col-sm-5" style="text-align: right;margin-left: 45px">
-                            <button type="submit" class="btn btn-danger myButton border border-secondary"
-                                    id="deleteAccount">清空
+                            <button class="btn btn-danger myButton border border-secondary"
+                                    id="deleteAccount" onclick="clearForm()">清空
                             </button>
                         </div>
                     </div>
@@ -156,6 +159,36 @@
     $(function () {
         initOrderList()
     })
+
+    function clearForm() {
+        document.getElementById('#infoForm').reset()
+    }
+
+    function updateUser() {
+        var username = document.getElementById('#name')
+        var sex = document.getElementById('#sex')
+        var mobile = document.getElementById('#mobile')
+
+        var editForm = {
+            username: username,
+            sex: sex,
+            mobile: mobile
+        }
+
+        $.ajax({
+            url: '/user/info',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(editForm),
+            success: function (res) {
+                console.log('更新成功')
+            },
+            fail: function (res) {
+                console.log(res.message)
+            }
+        })
+
+    }
 
 
     function initOrderList() {

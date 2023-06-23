@@ -1,11 +1,20 @@
 package com.devhub.pinchesystemback.controller;
 
+import com.devhub.pinchesystemback.domain.User;
+import com.devhub.pinchesystemback.utils.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
 
 @Controller
+@Slf4j
 public class PageController {
+
+    @Resource
+    private RedisUtil redisUtil;
 
     @GetMapping("/index")
     public String index() {
@@ -38,7 +47,16 @@ public class PageController {
     }
 
     @GetMapping("/myInfo")
-    public String myInfo() {
+    public String myInfo(Model model) {
+        User currentUser = getCurrentUser();
+        log.info("currentUser");
+        model.addAttribute("cur", currentUser);
+
         return "myInfo";
+    }
+
+
+    private User getCurrentUser() {
+        return redisUtil.getCurrentUser("cur");
     }
 }

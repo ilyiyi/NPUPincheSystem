@@ -32,10 +32,17 @@
     </insert>
     <update id="updateByPrimaryKey" parameterType="com.devhub.pinchesystemback.domain.User">
         update user
-        set username = #{username,jdbcType=VARCHAR},
-            password = #{password,jdbcType=VARCHAR},
-            mobile   = #{mobile,jdbcType=VARCHAR},
-            sex      = #{sex,jdbcType=VARCHAR}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="username != null and username.length() != 0">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null and sex.length() != 0">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null and mobile.length() != 0">
+                mobile = #{mobile,jdbcType=VARCHAR}
+            </if>
+        </trim>
         where id = #{id,jdbcType=BIGINT}
     </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="UserResultMap">

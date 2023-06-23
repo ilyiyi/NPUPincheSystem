@@ -16,49 +16,49 @@ import java.util.*;
 @SpringBootTest
 public class TestRedis {
 
+
     @Resource
-    private RedisTemplate<String, Object> template;
+    private RedisTemplate<String, String> template;
 
     @Resource
     private RedisUtil redisUtil;
 
 
     @Test
-    public void testPush() {
-        Set<Integer> set = new HashSet<>();
-        set.add(1);
-        set.add(2);
-        set.add(3);
-        set.add(4);
-        redisUtil.sSet("user_15", 6L);
-    }
-
-    @Test
-    public void testHash() {
+    public void testSerializeUser() {
         User user = new User();
         user.setId(1L);
-        redisUtil.setObject("cur", user);
-        System.out.println(redisUtil.getCurrentUser("cur"));
+        user.setUsername("wak");
+        user.setMobile("15023546975");
+        user.setSex("男");
+        user.setRole((byte) 0);
+
     }
 
     @Test
-    public void testSet() {
-        redisUtil.sSet("set", 1L, 2, 3, 4);
+    public void testCurrentUser() {
+//        String id = (String) template.opsForHash().get("cur", "userId");
+//        String username = (String) template.opsForHash().get("cur", "username");
+//        String mobile = (String) template.opsForHash().get("cur", "mobile");
+//        String sex = (String) template.opsForHash().get("cur", "sex");
+//        String role = (String) template.opsForHash().get("cur", "role");
+//
+//        System.out.println(Long.parseLong(id));
+//        System.out.println(username);
+//        System.out.println(mobile);
+//        System.out.println(sex);
+//        System.out.println(Byte.parseByte(role));
+//        System.out.println(role);
+        User cur = redisUtil.getCurrentUser("cur");
+        System.out.println(cur);
     }
 
     @Test
-    public void testZSet() {
-        template.opsForZSet().add("wak", 1, 6);
-        template.opsForZSet().add("wak", 2, 5);
-        template.opsForZSet().add("wak", 3, 4);
-        template.opsForZSet().add("wak", 4, 3);
-        template.opsForZSet().add("wak", 5, 2);
-        template.opsForZSet().add("wak", 6, 1);
-
-        Set<Object> wak = template.opsForZSet().range("wak", 0, -1);
-
-        for (Object o : wak) {
-            System.out.println(o);
-        }
+    public void testFormat(){
+        String x = "0";
+        Byte b = 0;
+        System.out.println(b.toString());
+        System.out.println(x);
+        System.out.println(Integer.parseInt(x));
     }
 }

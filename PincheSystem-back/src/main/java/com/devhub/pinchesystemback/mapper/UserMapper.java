@@ -24,7 +24,7 @@ public interface UserMapper {
 
     List<User> selectByOwnerIds(List<Long> ids);
 
-    int updateByPrimaryKey(Long id, String username, String password, String mobile, String sex);
+    int updateByPrimaryKey(Long id, String username, String sex, String mobile);
 
 
 }

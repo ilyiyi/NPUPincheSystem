@@ -16,17 +16,12 @@ public class ModifyParam {
     private String username;
 
     /**
-     * 密码
-     */
-    private String password;
-
-    /**
-     *用户电话号码
-     */
-    private String mobile;
-
-    /**
      * 性别
      */
     private String sex;
+
+    /**
+     * 用户电话号码
+     */
+    private String mobile;
 }

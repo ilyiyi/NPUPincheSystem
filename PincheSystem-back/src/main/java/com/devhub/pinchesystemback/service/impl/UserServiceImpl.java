@@ -6,14 +6,12 @@ import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.exception.BusinessException;
 import com.devhub.pinchesystemback.exception.NotFoundException;
 import com.devhub.pinchesystemback.mapper.UserMapper;
+import com.devhub.pinchesystemback.pararm.ModifyParam;
 import com.devhub.pinchesystemback.service.UserService;
+import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public User login(String username, String password, HttpServletRequest request) {
         User user = userMapper.selectByUsername(username);
         if (user == null || user.getPassword().equals(passwordEncoder.encode(password))) {
-            throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD,"用户不存在");
+            throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "用户不存在");
         }
         User safeUser = getSafeUser(user);
         request.getSession().setAttribute("loginUser", safeUser);
@@ -81,18 +79,15 @@ public class UserServiceImpl implements UserService {
     /**
      * 根据userId,修改指定用户的信息(昵称和性别)
      *
-     * @param userId   用户id
-     * @param username 用户名
-     * @param sex      性别
-     * @param password 密码
-     * @param mobile   联系方式
+     * @param userParam 用户信息
      */
     @Override
-    public void modifyInfo(Long userId, String username, String password, String mobile, String sex) {
-        int match = userMapper.updateByPrimaryKey(userId, username, passwordEncoder.encode(password), mobile, sex);
+    public boolean modifyInfo(Long userId, ModifyParam userParam) {
+        int match = userMapper.updateByPrimaryKey(userId, userParam.getUsername(), userParam.getSex(), userParam.getMobile());
         if (match == 0) {
             throw new NotFoundException("userId为" + userId + "的用户不存在");
         }
+        return true;
     }
 
     /**

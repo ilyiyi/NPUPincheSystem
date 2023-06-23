@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     public String handleBindException(BindException e, HttpServletRequest request, Model model) {
         String message = formatBindException(e);
-        handleError(model, request, message);
+        handleError(model, message);
         log.warn(formatException(e, request, message, false));
         return "error";
     }
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public String handleMethodNotAllowed(Exception e, HttpServletRequest request, Model model) {
         log.warn(formatException(e, request, null, false));
-        handleError(model, request, "请求方式不支持");
+        handleError(model, "请求方式不支持");
         return "error";
     }
 
@@ -67,7 +67,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({ServletRequestBindingException.class, MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class})
     public String handleBadRequest(Exception e, HttpServletRequest request, Model model) {
-        handleError(model, request, "请求格式不对");
+        handleError(model, "请求格式不对");
         log.warn(formatException(e, request, null, false));
         return "error";
     }
@@ -78,7 +78,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(AccessDeniedException.class)
     public String handleAccessDeniedException(Exception e, HttpServletRequest request, Model model) {
-        handleError(model, request, "权限不足");
+        handleError(model, "权限不足");
         log.warn(formatException(e, request, null, false));
         return "error";
     }
@@ -88,7 +88,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(IllegalOperationException.class)
     public String handleIllegalOperationException(Exception e, HttpServletRequest request, Model model) {
-        handleError(model, request, "操作非法");
+        handleError(model, "操作非法");
         log.warn(formatException(e, request, null, false));
         return "error";
     }
@@ -98,7 +98,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NotFoundException.class)
     public String handleNotFoundException(Exception e, HttpServletRequest request, Model model) {
-        handleError(model, request, "请求资源不存在");
+        handleError(model, "请求资源不存在");
         log.warn(formatException(e, request, null, true));
         return "error";
     }
@@ -110,7 +110,7 @@ public class GlobalExceptionHandler {
     public String handleBusinessException(BusinessException e, HttpServletRequest request, Model model) {
 
         log.warn(formatException(e, request, null, true));
-        handleError(model, request, e.getMessage());
+        handleError(model, e.getMessage());
         return "error";
     }
 
@@ -120,15 +120,13 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e, HttpServletRequest request, Model model) {
-        handleError(model, request, "服务器内部错误");
+        handleError(model, "服务器内部错误");
         return "error";
     }
 
-    public void handleError(Model model, HttpServletRequest request, String errorMsg) {
+    public void handleError(Model model, String errorMsg) {
         model.addAttribute("errorMessage", errorMsg);
-
-        String previousUrl = (String) request.getAttribute("javax.servlet.forward.request_uri");
-        model.addAttribute("prevPage", "index");
+        model.addAttribute("indexPage", "/index");
     }
 
 
