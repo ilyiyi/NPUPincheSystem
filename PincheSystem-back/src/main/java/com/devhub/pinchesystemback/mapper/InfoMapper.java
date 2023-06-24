@@ -27,4 +27,6 @@ public interface InfoMapper {
 
     List<Long> selectOwnerIdsByInfo();
 
+    List<Long> selectInfoIdsByTime(@Param("begin") Date begin, @Param("end") Date end, @Param("ownerId") Long ownerId);
+
 }

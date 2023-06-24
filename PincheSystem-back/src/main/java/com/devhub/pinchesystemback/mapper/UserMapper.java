@@ -26,5 +26,7 @@ public interface UserMapper {
 
     int updateByPrimaryKey(Long id, String username, String sex, String mobile);
 
+    List<User> selectAllOwners();
+
 
 }

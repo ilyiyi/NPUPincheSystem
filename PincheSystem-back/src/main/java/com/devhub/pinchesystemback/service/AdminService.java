@@ -1,6 +1,7 @@
 package com.devhub.pinchesystemback.service;
 
 import com.devhub.pinchesystemback.domain.Info;
+import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
 
 import java.util.Date;
@@ -20,6 +21,16 @@ public interface AdminService {
      * @return 拼车信息列表
      */
     List<Info> getAllInfosByTime(Date begin, Date end, Long ownerId);
+
+    /**
+     * 查询所有满足条件的订单
+     *
+     * @param begin   开始时间
+     * @param end     结束时间
+     * @param ownerId 车主 id
+     * @return 订单列表
+     */
+    List<Order> getAllRecords(Date begin, Date end, Long ownerId);
 
     /**
      * 生成一段时间内的车主排名

@@ -1,8 +1,10 @@
 package com.devhub.pinchesystemback.service.impl;
 
 import com.devhub.pinchesystemback.domain.Info;
+import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.mapper.InfoMapper;
+import com.devhub.pinchesystemback.mapper.OrderMapper;
 import com.devhub.pinchesystemback.mapper.UserMapper;
 import com.devhub.pinchesystemback.service.AdminService;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -26,6 +28,9 @@ public class AdminServiceImpl implements AdminService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private OrderMapper orderMapper;
+
     /**
      * 查询一段时间内所有拼车订单或者某位车主的所有拼车订单
      *
@@ -39,6 +44,21 @@ public class AdminServiceImpl implements AdminService {
         return mapper.selectInfoList(begin, end, ownerId);
     }
 
+    @Override
+    public List<Order> getAllRecords(Date begin, Date end, Long ownerId) {
+        List<Order> orders = new ArrayList<>();
+        if (begin == null || end == null || begin.after(end)) {
+            return orders;
+        }
+        List<Long> infoIds;
+        if (ownerId != null) {
+            infoIds = mapper.selectInfoIdsByTime(begin, end, ownerId);
+        } else {
+            infoIds = mapper.selectInfoIdsByTime(begin, end, null);
+        }
+        return orderMapper.selectByInfoIds(infoIds);
+    }
+
     /**
      * 生成一段时间内的车主排名
      *
@@ -48,30 +68,37 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public List<User> getOwnerRank(Date begin, Date end) {
-        List<Info> infos = mapper.selectAll();
 
-        String key = "rank";
-        for (Info info : infos) {
-            String id = String.valueOf(info.getOwnerId());
-            Double score = template.opsForZSet().score(key, id);
-            if (score != null) {
-                template.opsForZSet().add(key, id, score + 1);
-            } else {
-                template.opsForZSet().add(key, id, 1);
-            }
+        // 先查出所有车主
+        List<User> owners = userMapper.selectAllOwners();
+        ArrayList<User> rank = new ArrayList<>(owners.size());
+        Map<Double, User> map = new HashMap<>();
+        for (User owner : owners) {
+            List<Order> orderList = getAllRecords(begin, end, owner.getId());
+            double total = accumulatePrice(orderList);
+            map.put(total, owner);
         }
 
-        Set<String> ids = template.opsForZSet().range(key, 0, -1);
+        List<Map.Entry<Double, User>> entries = new ArrayList<>(map.entrySet());
+        entries.sort((entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey()));
 
-        List<User> rankList = new ArrayList<>();
+        for (Map.Entry<Double, User> entry : entries) {
+            rank.add(entry.getValue());
+        }
+        return rank;
+    }
 
-        if (ids != null) {
-            for (String id : ids) {
-                User user = userMapper.selectByPrimaryKey(Long.valueOf(id));
-                rankList.add(user);
+    private double accumulatePrice(List<Order> orderList) {
+        if (orderList == null || orderList.isEmpty()) {
+            return 0d;
+        }
+        double total = 0d;
+        for (Order order : orderList) {
+            Double price = order.getPrice();
+            if (price != null) {
+                total += price;
             }
         }
-
-        return rankList;
+        return total;
     }
 }

@@ -125,5 +125,13 @@
         select distinct(owner_id)
         from info
     </select>
+    <select id="selectInfoIdsByTime" resultType="java.lang.Long">
+        select info_id
+        from info
+        where days between #{begin} and #{end}
+        <if test="owner_id != null">
+            and owner_id = #{ownerId}
+        </if>
+    </select>
 
 </mapper>

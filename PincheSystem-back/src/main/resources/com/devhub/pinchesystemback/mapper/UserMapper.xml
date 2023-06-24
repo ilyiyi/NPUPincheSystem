@@ -88,4 +88,9 @@
             #{id}
         </foreach>
     </select>
+    <select id="selectAllOwners" resultType="com.devhub.pinchesystemback.domain.User">
+        select *
+        from user
+        where role = 1;
+    </select>
 </mapper>
