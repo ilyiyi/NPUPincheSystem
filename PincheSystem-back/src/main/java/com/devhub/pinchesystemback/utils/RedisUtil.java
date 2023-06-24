@@ -46,8 +46,8 @@ public class RedisUtil {
         template.opsForHash().put(key, "role", value.getRole().toString());
         template.opsForHash().put(key, "username", value.getUsername());
         template.opsForHash().put(key, "mobile", value.getMobile());
-        template.opsForHash().put(key, "sex", value.getSex());
 
+        template.opsForHash().put(key, "sex", value.getSex());
 
         return true;
     }

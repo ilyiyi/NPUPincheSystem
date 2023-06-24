@@ -66,9 +66,9 @@ public class UserController {
         String mobile = registerParam.getMobile();
         boolean flag = userService.register(username, password, mobile);
         if (flag) {
-            return "login";
+            return "redirect:/login";
         } else {
-            throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "用户名或密码错误，请重新登录");
+            throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "用户名或密码不满足条件，请重试！");
         }
     }
 

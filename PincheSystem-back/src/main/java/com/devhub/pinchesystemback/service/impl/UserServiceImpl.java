@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
      * @param userParam 用户信息
      */
     @Override
-    public boolean modifyInfo(Long userId, ModifyParam userParam) {
+    public boolean modifyInfo(Long userId, ModifyParam userParam){
         int match = userMapper.updateByPrimaryKey(userId, userParam.getUsername(), userParam.getSex(), userParam.getMobile());
         if (match == 0) {
             throw new NotFoundException("userId为" + userId + "的用户不存在");

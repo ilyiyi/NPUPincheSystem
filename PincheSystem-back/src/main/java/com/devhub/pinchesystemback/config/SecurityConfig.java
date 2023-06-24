@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,7 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .authenticationDetailsSource(authenticationDetailsSource)  //自定义的资源要配置进去
                 .defaultSuccessUrl("/index").permitAll()  // 登录成功后默认页面
                 .and().authorizeRequests()
-                .antMatchers("/", "/hello", "/user/register", "/user/login", "/admin/login", "/assets/**", "/vendor/**").permitAll()  //设置哪些页面和请求不需要登录就能访问
+                .antMatchers("/", "/hello", "/user/register", "/user/login", "/admin/login", "/assets/**", "/vendor/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/user/register").permitAll()//设置哪些页面和请求不需要登录就能访问
                 .anyRequest().authenticated()
                 .and().csrf().disable();  //关闭csrf防护
     }

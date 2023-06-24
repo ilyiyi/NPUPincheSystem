@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="/assets/css/owl.css">
     <link rel="stylesheet" href="/assets/css/animate.css">
     <link rel="stylesheet" href="/assets/css/tooplate.css">
-    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 </head>
 <body class="" style="height: 1100px;margin-top: -200px">
-<div class="container " >
-    <div class="row tm-mt-big" >
+<div class="container ">
+    <div class="row tm-mt-big">
         <div class="col-12 mx-auto tm-login-col">
-            <div class="tm-block"  style="background: white;margin-top: 300px">
+            <div class="tm-block" style="background: white;margin-top: 300px">
                 <div class="row">
                     <div class="col-12 text-center">
                         <i class="fas fa-3x fa-tachometer-alt tm-site-icon text-center"></i>
@@ -31,19 +31,24 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-12" >
+                    <div class="col-12">
                         <form class="tm-login-form" action="/user/login" method="post">
                             <div class="input-group">
-                                <label for="username" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">电话</label>
-                                <input name="username" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" id="username" value="admin" required>
+                                <label for="username"
+                                       class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">呢称</label>
+                                <input name="username" type="text" placeholder="请输入用户名"
+                                       class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" id="username"
+                                        required>
                             </div>
                             <div class="input-group mt-3">
-                                <label for="password" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">密码</label>
-                                <input name="password" type="password" class="form-control validate" id="password" value="1234567" required>
+                                <label for="password"
+                                       class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">密码</label>
+                                <input name="password" type="password" class="form-control validate" id="password"
+                                       placeholder="请输入密码" required>
                             </div>
                             <div class="input-group mt-3">
                                 <button type="submit" class="btn btn-primary d-inline-block mx-auto">Login</button>
-                                <button type="submit" class="btn btn-primary d-inline-block mx-auto">Register</button>
+                                <button class="btn btn-primary d-inline-block mx-auto" onclick="reg()">Register</button>
                             </div>
                         </form>
                     </div>
@@ -52,5 +57,10 @@
         </div>
     </div>
 </div>
+<script>
+    function reg() {
+        document.location.href = encodeURI("/user/register")
+    }
+</script>
 </body>
 </html>

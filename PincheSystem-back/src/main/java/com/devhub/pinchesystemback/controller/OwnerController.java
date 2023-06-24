@@ -169,7 +169,6 @@ public class OwnerController {
     @ResponseBody
     private CommonResult orderReview(@RequestBody OrderReviewParam orderReviewParam) {
         orderService.reviewOrder(orderReviewParam.getOrderId(), orderReviewParam.getOrderState());
-        new CommonResult();
         return CommonResult.success();
     }
 }
