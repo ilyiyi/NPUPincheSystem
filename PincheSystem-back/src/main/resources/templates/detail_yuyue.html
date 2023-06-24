@@ -38,8 +38,9 @@
                 contentType: 'application/json',
                 data: JSON.stringify(genForm),
                 success: function (res) {
-                    if (res.data === 200) {
+                    if (res.code === 200) {
                         alert('发布成功')
+                        window.location.href = encodeURI("/index")
                     } else {
                         alert(res.message)
                     }

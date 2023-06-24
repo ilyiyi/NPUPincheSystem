@@ -50,6 +50,8 @@ public class OrderServiceImpl implements OrderService {
         if (info != null) {
             int remain = info.getRemain() - order.getPassengerNum();
             if (remain >= 0) {
+                info.setRemain((byte) remain);
+                infoMapper.updateByPrimaryKey(info);
                 return mapper.insert(order) > 0;
             } else {
                 throw new BusinessException(ResultCodeEnum.SEAT_NOT_ENOUGH, "座位余量不足，请换车或减少拼车人数！");
@@ -136,9 +138,11 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderState(orderState);
         mapper.updateByOrderId(order);
         /*修改拼车信息*/
-        Info info = infoMapper.selectByPrimaryKey(order.getInfoId());
-        info.setRemain((byte) (info.getRemain() - order.getPassengerNum()));
-        infoMapper.updateByPrimaryKey(info);
+        if (orderState == 1) {
+            Info info = infoMapper.selectByPrimaryKey(order.getInfoId());
+            info.setRemain((byte) (info.getRemain() + order.getPassengerNum()));
+            infoMapper.updateByPrimaryKey(info);
+        }
     }
 
     @Override

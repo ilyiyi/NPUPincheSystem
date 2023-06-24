@@ -68,6 +68,7 @@
                create_time,
                update_time
         from info
+        where remain > 0
     </select>
     <select id="selectByOwner" parameterType="java.lang.Long" resultMap="InfoResultMap">
         select info_id,
