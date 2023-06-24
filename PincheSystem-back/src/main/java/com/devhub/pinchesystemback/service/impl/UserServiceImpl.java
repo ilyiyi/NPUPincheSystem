@@ -12,6 +12,7 @@ import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -83,11 +84,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean modifyInfo(Long userId, ModifyParam userParam){
-        int match = userMapper.updateByPrimaryKey(userId, userParam.getUsername(), userParam.getSex(), userParam.getMobile());
-        if (match == 0) {
-            throw new NotFoundException("userId为" + userId + "的用户不存在");
+        try {
+            int match = userMapper.updateByPrimaryKey(userId, userParam.getUsername(), userParam.getSex(), userParam.getMobile());
+            if (match == 0) {
+                throw new NotFoundException("userId为" + userId + "的用户不存在");
+            }
+            return true;
+        }catch (DataAccessException e){
+            throw new RuntimeException("Bad SqlException");
         }
-        return true;
     }
 
     /**
