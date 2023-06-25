@@ -31,13 +31,13 @@ public class UserServiceImpl implements UserService {
      * 用户注册
      */
     @Override
-    public boolean register(String username, String password, String mobile) {
+    public boolean register(String username, String password, String mobile,Byte role) {
         if (username.length() == 0 || password.length() < 6) {
             return false;
         }
         User user1 = userMapper.selectByUsername(username);
         if (user1 == null) {
-            userMapper.insert(username, passwordEncoder.encode(password), mobile);
+            userMapper.insert(username, passwordEncoder.encode(password), mobile,role);
             return true;
         }
         return false;

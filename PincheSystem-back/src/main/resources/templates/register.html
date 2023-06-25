@@ -54,6 +54,22 @@
                                        placeholder="密码不少于6位" required>
                             </div>
                             <div class="input-group mt-3">
+                                <label for="role"
+                                       class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">角色</label>
+                                <label>
+                                    <select id="role" name="role" required>
+                                        <option value="0">普通用户</option>
+                                        <option value="1">车主</option>
+                                    </select>
+                                </label>
+                                <!--                                <input id="role" type="number" list="selectRole">-->
+                                <!--                                <datalist id="selectRole">-->
+                                <!--                                    <option selected disabled="disabled">请选择</option>-->
+                                <!--                                    <option value="0">普通用户</option>-->
+                                <!--                                    <option value="1">车主</option>-->
+                                <!--                                </datalist>-->
+                            </div>
+                            <div class="input-group mt-3">
                                 <button type="submit" class="btn btn-primary d-inline-block mx-auto">Register</button>
                             </div>
                         </form>
@@ -63,7 +79,7 @@
         </div>
     </div>
 </div>
-<script >
+<script>
 
 </script>
 </body>

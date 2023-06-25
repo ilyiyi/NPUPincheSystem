@@ -54,4 +54,11 @@ public interface OrderService {
     List<Order> getOrderListByUserId(Long userId);
 
     boolean generateOrder(OrderParam param);
+
+    /**
+     * 查询审核过的订单
+     * @param userId 当前用户id
+     * @return
+     */
+    List<Order> listValidOrders(Long userId);
 }

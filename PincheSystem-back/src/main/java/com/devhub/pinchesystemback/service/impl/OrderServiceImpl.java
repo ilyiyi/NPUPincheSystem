@@ -151,7 +151,7 @@ public class OrderServiceImpl implements OrderService {
         if (ids == null || ids.size() == 0) {
             return new ArrayList<>();
         }
-        return mapper.selectByIds(ids);
+        return mapper.selectByIdsAndState(ids, (byte) 0);
     }
 
     @Override
@@ -176,6 +176,21 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return false;
+    }
+
+    /**
+     * 查询审核过的订单
+     *
+     * @param userId 当前用户id
+     * @return
+     */
+    @Override
+    public List<Order> listValidOrders(Long userId) {
+        List<Long> ids = userOrderMapper.getOrderIDsByUserId(userId);
+        if (ids == null || ids.size() == 0) {
+            return new ArrayList<>();
+        }
+        return mapper.selectByIdsAndState(ids, (byte) 2);
     }
 
     public User getCurrentUser() {

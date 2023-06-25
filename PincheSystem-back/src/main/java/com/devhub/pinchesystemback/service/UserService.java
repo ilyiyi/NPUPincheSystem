@@ -13,7 +13,7 @@ public interface UserService {
     /**
      * 用户注册
      */
-    boolean register(String username, String password, String mobile);
+    boolean register(String username, String password, String mobile,Byte role);
 
     /**
      * 用户登录(如果用户名和密码匹配,会返回用户信息)

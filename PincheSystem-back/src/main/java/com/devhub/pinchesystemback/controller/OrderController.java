@@ -40,6 +40,11 @@ public class OrderController {
         return CommonResult.failure("预约失败，请稍后再试");
     }
 
+    /**
+     * 查询需要审核的订单
+     *
+     * @return
+     */
     @GetMapping("/list")
     @Log
     public CommonResult listOrders() {
@@ -47,6 +52,8 @@ public class OrderController {
         List<Order> orders = orderService.getOrderListByUserId(user.getId());
         return CommonResult.success(orders);
     }
+
+
 
     @DeleteMapping("/{id}")
     public CommonResult deleteOrder(@PathVariable("id") Long id) {

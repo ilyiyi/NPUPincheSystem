@@ -27,7 +27,7 @@ public interface OrderMapper {
 
     List<Order> selectAllByInfoId(Long infoId);
 
-    List<Order> selectByIds(List<Long> ids);
+    List<Order> selectByIdsAndState(List<Long> ids,Byte orderState);
 
     List<Order> selectByInfoIds(List<Long> ids);
 }

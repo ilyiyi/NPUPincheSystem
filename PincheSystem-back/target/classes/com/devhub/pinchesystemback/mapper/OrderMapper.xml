@@ -62,11 +62,19 @@
         from orders
         where info_id = #{infoId};
     </select>
-    <select id="selectByIds" resultMap="OrderResultMap">
-        select * from orders where order_state = 0
+    <select id="selectByIdsAndState" resultMap="OrderResultMap">
+        select * from orders where order_state = #{orderState}
         and order_id in
         <foreach collection="ids" item="id" open="(" close=")" separator=",">
             #{id}
+        </foreach>
+    </select>
+    <select id="selectByInfoIds" resultType="com.devhub.pinchesystemback.domain.Order">
+        select *
+        from orders
+        where info_id in
+        <foreach collection="ids" separator="," open="(" close=")" item="infoId">
+            #{infoId}
         </foreach>
     </select>
 </mapper>

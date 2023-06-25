@@ -1,6 +1,7 @@
 package com.devhub.pinchesystemback.pararm;
 
 import lombok.Data;
+
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -26,8 +27,13 @@ public class RegisterParam {
     private String password;
 
     /**
-     *用户电话号码
+     * 用户电话号码
      */
     private String mobile;
+
+    /**
+     * 用户角色
+     */
+    private Byte role;
 
 }

@@ -32,6 +32,7 @@ public class Order implements Serializable {
      * 发车时间
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy年MM月dd日")
     private Date startTime;
     /**
      * 价格

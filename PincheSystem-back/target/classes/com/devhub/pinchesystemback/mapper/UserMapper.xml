@@ -27,8 +27,9 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
     <insert id="insert">
-        insert into user (username, password, mobile)
-        values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR})
+        insert into user (username, password, mobile, role)
+        values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+                #{role,jdbcType=TINYINT})
     </insert>
     <update id="updateByPrimaryKey" parameterType="com.devhub.pinchesystemback.domain.User">
         update user
@@ -87,5 +88,10 @@
         <foreach collection="ids" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
+    </select>
+    <select id="selectAllOwners" resultType="com.devhub.pinchesystemback.domain.User">
+        select *
+        from user
+        where role = 1;
     </select>
 </mapper>

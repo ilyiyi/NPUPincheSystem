@@ -60,10 +60,10 @@
                         <li>
                             <form action="/index"><input type="submit" value="主页"></form>
                         </li>
-                        <li>
+                        <li th:if="${cur.getRole() == 1}">
                             <form action="/orders"><input type="submit" value="审核"></form>
                         </li>
-                        <li>
+                        <li th:if="${cur.getRole() == 1}">
                             <form action="/publish"><input type="submit" value="发布"></form>
                         </li>
                         <li>

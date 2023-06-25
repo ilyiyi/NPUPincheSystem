@@ -14,9 +14,13 @@ public enum UserRoleEnum {
      */
     ORDINARY_USER(0, AuthorityUtils.createAuthorityList("ROLE_USER")),
     /**
+     * 车主
+     */
+    OWNER(1,AuthorityUtils.createAuthorityList("ROLE_OWNER","ROLE_USER")),
+    /**
      * 管理员
      */
-    ADMINISTRATOR(1, AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
+    ADMINISTRATOR(2, AuthorityUtils.createAuthorityList("ROLE_ADMIN","ROLE_OWNER","ROLE_USER"));
     private final int role;
 
     private final List<GrantedAuthority> authorities;

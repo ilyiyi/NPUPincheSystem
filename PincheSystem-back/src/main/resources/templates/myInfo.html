@@ -25,7 +25,7 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="/index" class="logo">
                         <img src="/assets/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
@@ -34,10 +34,10 @@
                         <li>
                             <form action="/index"><input type="submit" value="主页"></form>
                         </li>
-                        <li>
+                        <li th:if="${cur.getRole() == 1}">
                             <form action="/orders"><input type="submit" value="审核"></form>
                         </li>
-                        <li>
+                        <li th:if="${cur.getRole() == 1}">
                             <form action="/publish"><input type="submit" value="发布"></form>
                         </li>
                         <li>
@@ -100,7 +100,7 @@
         </div>
         <div class="row">
             <div class="col-12 text-muted">
-                <form  id="infoForm">
+                <form id="infoForm">
                     <div class="form-group col-style">
                         <label for="name">昵称</label>
                         <input placeholder="请输入用户名" id="name" name="name" type="text"
@@ -153,6 +153,26 @@
         $(".option").removeClass("active");
         $(this).addClass("active");
     });
+
+    let finished = []
+    let unFinished = []
+
+    function getData() {
+        $.ajax({
+            url: '/user/allList',
+            type: 'GET'
+        }).then(res => {
+            if (res.code === 200) {
+                finished = res.data.finished;
+                unFinished = res.data.unFinished;
+                initOrderList()
+            } else {
+                alert('获取数据失败')
+            }
+        })
+    }
+
+
     let pageNoOfOrder = 1
     let pageNoOfCar = 1
     let orderDestination = ["二号线", "六号线", "老校区", "二号线", "六号线", "老校区", "二号线", "六号线", "老校区"]
@@ -160,7 +180,7 @@
     let orderTime = ["2023年4月1日", "2023年4月12日", "2023年6月1日", "2023年4月1日", "2023年4月12日", "2023年6月1日", "2023年4月1日", "2023年4月12日", "2023年6月1日"]
     let carTime = ["2023年4月1日", "2023年4月12日", "2023年6月1日", "2023年4月1日", "2023年4月12日", "2023年6月1日", "2023年4月1日", "2023年4月12日", "2023年6月1日"]
     $(function () {
-        initOrderList()
+        getData()
     })
 
     function clearForm() {
@@ -196,17 +216,19 @@
 
 
     function initOrderList() {
-        let end1 = 5 * pageNoOfOrder > orderDestination.length ? orderDestination.length : 5 * pageNoOfOrder
+        let end1 = 5 * pageNoOfOrder > finished.length ? finished.length : 5 * pageNoOfOrder
         console.log(end1)
         for (var i = (pageNoOfOrder - 1) * 5; i < end1; i++) {
             var li = document.createElement("li")
             li.innerHTML = `
         <a>
-            <i>${orderDestination[i]} </i> <i style="margin-left: 250px"> ${orderTime[i]}</i>
+            <i>${finished[i].ending} </i> <i style="margin-left: 200px">${finished[i].startTime}</i>
           </a>
       `
             li.addEventListener("click", function () {
-                document.location.href = encodeURI("./orderStatement.html")
+
+                // alert(${finished[i]})
+                // document.location.href = encodeURI("./orderStatement")
             })
             document.querySelector("#orderList").appendChild(li)
         }
@@ -224,16 +246,16 @@
         div1.classList.add("changePage")
         document.querySelector("#changePageUl").append(div1)
 
-        let end2 = 5 * pageNoOfCar > carDestination.length ? carDestination.length : 5 * pageNoOfCar
+        let end2 = 5 * pageNoOfCar > unFinished.length ? unFinished.length : 5 * pageNoOfCar
         for (var i = 5 * (pageNoOfCar - 1); i < end2; i++) {
             var li = document.createElement("li")
             li.innerHTML = `
         <a>
-            <i>${carDestination[i]} </i> <i style="margin-left: 250px"> ${orderTime[i]}</i>
+            <i>${unFinished[i].ending} </i> <i style="margin-left: 200px"> ${unFinished[i].startTime}</i>
           </a>
       `
             li.addEventListener("click", function () {
-                document.location.href = encodeURI("./orderStatement.html")
+                // document.location.href = encodeURI("./orderStatement.html")
             })
             document.querySelector("#carList").appendChild(li)
         }
@@ -280,7 +302,7 @@
     }
 
     function backOfOrder() {
-        if ((pageNoOfOrder - 1) * 5 > orderDestination.length) {
+        if ((pageNoOfOrder - 1) * 5 > finished.length) {
             return
         }
         pageNoOfOrder += 1
@@ -292,7 +314,7 @@
     }
 
     function backOfCar() {
-        if ((pageNoOfCar - 1) * 5 > carDestination.length) {
+        if ((pageNoOfCar - 1) * 5 > unFinished.length) {
             return
         }
         console.log(111)

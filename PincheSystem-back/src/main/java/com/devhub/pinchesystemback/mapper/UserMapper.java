@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(String username, String password, String mobile);
+    int insert(String username, String password, String mobile, Byte role);
 
     User selectByPrimaryKey(Long id);
 

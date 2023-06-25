@@ -13,6 +13,7 @@ import com.devhub.pinchesystemback.vo.CommonResult;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,7 @@ public class OwnerController {
      * 拼车信息的发布
      */
     @PostMapping("/info")
+    @PreAuthorize("hasAnyRole('ROLE_OWNER')")
     @ResponseBody
     public CommonResult infoPublish(@RequestBody @Valid InfoParam infoParam) {
         try {
@@ -63,6 +65,7 @@ public class OwnerController {
      * 拼车信息的撤销
      */
     @DeleteMapping("/info/cancel/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_OWNER')")
     @ResponseBody
     public CommonResult infoCancel(@PathVariable("id") long id) {
         System.out.println("hh");
@@ -78,6 +81,7 @@ public class OwnerController {
      * 拼车信息的修改
      */
     @PutMapping("/info/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_OWNER')")
     @ResponseBody
     public void infoModify(@PathVariable long id, @RequestBody InfoParam infoParam) {
         try {
@@ -111,6 +115,7 @@ public class OwnerController {
      * 分页查看自己发布的所有拼车信息
      */
     @GetMapping("/info")
+    @PreAuthorize("hasAnyRole('ROLE_OWNER')")
     @ResponseBody
     public PageInfo<Info> searcherAllInfo(@RequestBody PageParam pageParam) {
         User currentUser = redisUtil.getCurrentUser("cur");
@@ -166,6 +171,7 @@ public class OwnerController {
      * 审核订单
      */
     @PostMapping("/review")
+    @PreAuthorize("hasAnyRole('ROLE_OWNER')")
     @ResponseBody
     private CommonResult orderReview(@RequestBody OrderReviewParam orderReviewParam) {
         orderService.reviewOrder(orderReviewParam.getOrderId(), orderReviewParam.getOrderState());

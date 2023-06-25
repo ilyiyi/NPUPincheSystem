@@ -62,8 +62,8 @@
         from orders
         where info_id = #{infoId};
     </select>
-    <select id="selectByIds" resultMap="OrderResultMap">
-        select * from orders where order_state = 0
+    <select id="selectByIdsAndState" resultMap="OrderResultMap">
+        select * from orders where order_state = #{orderState}
         and order_id in
         <foreach collection="ids" item="id" open="(" close=")" separator=",">
             #{id}

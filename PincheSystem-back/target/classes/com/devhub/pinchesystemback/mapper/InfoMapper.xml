@@ -68,7 +68,7 @@
                create_time,
                update_time
         from info
-        where remain>0
+        where remain > 0
     </select>
     <select id="selectByOwner" parameterType="java.lang.Long" resultMap="InfoResultMap">
         select info_id,
@@ -125,6 +125,14 @@
     <select id="selectOwnerIdsByInfo" resultType="java.lang.Long">
         select distinct(owner_id)
         from info
+    </select>
+    <select id="selectInfoIdsByTime" resultType="java.lang.Long">
+        select info_id
+        from info
+        where days between #{begin} and #{end}
+        <if test="owner_id != null">
+            and owner_id = #{ownerId}
+        </if>
     </select>
 
 </mapper>

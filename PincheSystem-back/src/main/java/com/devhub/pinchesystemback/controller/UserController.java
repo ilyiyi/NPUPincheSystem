@@ -3,12 +3,15 @@ package com.devhub.pinchesystemback.controller;
 import com.devhub.pinchesystemback.advice.annotation.Log;
 import com.devhub.pinchesystemback.constant.ResultCodeEnum;
 import com.devhub.pinchesystemback.constant.UserRoleEnum;
+import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.exception.BusinessException;
 import com.devhub.pinchesystemback.exception.NotFoundException;
 import com.devhub.pinchesystemback.pararm.LoginParam;
 import com.devhub.pinchesystemback.pararm.ModifyParam;
 import com.devhub.pinchesystemback.pararm.RegisterParam;
+import com.devhub.pinchesystemback.service.InfoService;
+import com.devhub.pinchesystemback.service.OrderService;
 import com.devhub.pinchesystemback.service.UserService;
 import com.devhub.pinchesystemback.utils.JwtUtil;
 import com.devhub.pinchesystemback.utils.RedisUtil;
@@ -28,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.*;
 
 /**
  * @author awater
@@ -40,8 +44,17 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @Resource
+    private OrderService orderService;
+
+
     @Autowired
     private RedisUtil redisUtil;
+
+    private List<Order> getOrdersByInfoIds() {
+        User user = redisUtil.getCurrentUser("cur");
+        return orderService.listValidOrders(user.getId());
+    }
 
     @GetMapping("/getCurUserName")
     @ResponseBody
@@ -64,7 +77,8 @@ public class UserController {
         String username = registerParam.getUsername();
         String password = registerParam.getPassword();
         String mobile = registerParam.getMobile();
-        boolean flag = userService.register(username, password, mobile);
+        Byte role = registerParam.getRole();
+        boolean flag = userService.register(username, password, mobile, role);
         if (flag) {
             return "redirect:/login";
         } else {
@@ -93,6 +107,27 @@ public class UserController {
         } else {
             throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "非普通用户账户无法在此登录");
         }
+    }
+
+    @GetMapping("/allList")
+    @ResponseBody
+    @PreAuthorize("hasAnyRole('USER')")
+    public CommonResult getAllList() {
+        List<Order> orderList = getOrdersByInfoIds();
+        List<Order> finished = new ArrayList<>();
+        List<Order> unFinished = new ArrayList<>();
+        Date now = new Date();
+        for (Order order : orderList) {
+            if (order.getStartTime().before(now)) {
+                finished.add(order);
+            } else {
+                unFinished.add(order);
+            }
+        }
+        Map<String, List<Order>> map = new HashMap<>();
+        map.put("finished", finished);
+        map.put("unFinished", unFinished);
+        return CommonResult.success(map);
     }
 
     @GetMapping("/info")
