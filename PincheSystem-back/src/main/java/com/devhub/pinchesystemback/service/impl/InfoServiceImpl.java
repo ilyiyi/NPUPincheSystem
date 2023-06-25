@@ -1,7 +1,6 @@
 package com.devhub.pinchesystemback.service.impl;
 
 import com.devhub.pinchesystemback.domain.Info;
-import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.mapper.InfoMapper;
 import com.devhub.pinchesystemback.mapper.OrderMapper;
 import com.devhub.pinchesystemback.service.InfoService;

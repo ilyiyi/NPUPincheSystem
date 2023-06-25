@@ -1,13 +1,10 @@
 package com.devhub.pinchesystemback.utils;
 
 import com.devhub.pinchesystemback.domain.User;
-import com.google.common.annotations.VisibleForTesting;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**

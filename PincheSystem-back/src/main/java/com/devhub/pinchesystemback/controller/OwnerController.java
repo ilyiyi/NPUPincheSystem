@@ -12,7 +12,10 @@ import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.CommonResult;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -24,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/owner")
 @Slf4j
 public class OwnerController {
@@ -33,10 +36,15 @@ public class OwnerController {
     private InfoService infoService;
 
     @Resource
-    private OrderService orderService;
-
-    @Resource
     private RedisUtil redisUtil;
+
+
+    private static OrderService orderService;
+
+    @Autowired
+    public void setPlanmecaScreenService(OrderService orderService){
+        OwnerController.orderService = orderService;
+    }
 
     /**
      * 拼车信息的发布
@@ -81,7 +89,6 @@ public class OwnerController {
      */
     @PutMapping("/info/{id}")
     @PreAuthorize("hasAnyRole('ROLE_OWNER')")
-    @ResponseBody
     public void infoModify(@PathVariable long id, @RequestBody InfoParam infoParam) {
         try {
             User currentUser = redisUtil.getCurrentUser("cur");
