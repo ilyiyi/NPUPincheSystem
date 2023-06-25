@@ -49,7 +49,7 @@ public interface OrderService {
     /**
      * 审核订单
      */
-    void reviewOrder(Long orderId,Byte orderState);
+    void reviewOrder(Long orderId, Byte orderState);
 
     List<Order> getOrderListByUserId(Long userId);
 
@@ -57,8 +57,17 @@ public interface OrderService {
 
     /**
      * 查询审核过的订单
+     *
      * @param userId 当前用户id
      * @return
      */
     List<Order> listValidOrders(Long userId);
+
+    /**
+     * 根据车主id查询需要审核的订单
+     *
+     * @param ownerId 车主id
+     * @return
+     */
+    List<Order> listReviewOrderList(Long ownerId);
 }

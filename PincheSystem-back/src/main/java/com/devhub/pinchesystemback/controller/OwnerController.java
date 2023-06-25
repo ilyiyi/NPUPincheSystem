@@ -12,11 +12,10 @@ import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.CommonResult;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,13 +29,13 @@ import java.util.List;
 @Slf4j
 public class OwnerController {
 
-    @Autowired
+    @Resource
     private InfoService infoService;
 
-    @Autowired
+    @Resource
     private OrderService orderService;
 
-    @Autowired
+    @Resource
     private RedisUtil redisUtil;
 
     /**

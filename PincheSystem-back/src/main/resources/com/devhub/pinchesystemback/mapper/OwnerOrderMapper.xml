@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devhub.pinchesystemback.mapper.OwnerOrderMapper">
+    <resultMap id="BaseResultMap" type="com.devhub.pinchesystemback.domain.OwnerOrder">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="order_id" jdbcType="BIGINT" property="orderId"/>
+        <result column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from owner_order
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.devhub.pinchesystemback.domain.OwnerOrder"
+            useGeneratedKeys="true">
+        insert into owner_order (order_id, owner_id)
+        values (#{orderId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.devhub.pinchesystemback.domain.OwnerOrder">
+        update owner_order
+        set order_id = #{orderId,jdbcType=BIGINT},
+            owner_id = #{ownerId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select id, order_id, owner_id
+        from owner_order
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, order_id, owner_id
+        from owner_order
+    </select>
+    <select id="selectOrderIdsByOwnerId" resultType="java.lang.Long">
+        select order_id
+        from owner_order
+        where owner_id = #{owner_id}
+    </select>
+</mapper>

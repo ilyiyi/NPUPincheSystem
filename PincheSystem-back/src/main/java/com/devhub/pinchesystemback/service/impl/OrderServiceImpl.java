@@ -1,13 +1,11 @@
 package com.devhub.pinchesystemback.service.impl;
 
 import com.devhub.pinchesystemback.constant.ResultCodeEnum;
-import com.devhub.pinchesystemback.domain.Info;
-import com.devhub.pinchesystemback.domain.Order;
-import com.devhub.pinchesystemback.domain.User;
-import com.devhub.pinchesystemback.domain.UserOrder;
+import com.devhub.pinchesystemback.domain.*;
 import com.devhub.pinchesystemback.exception.BusinessException;
 import com.devhub.pinchesystemback.mapper.InfoMapper;
 import com.devhub.pinchesystemback.mapper.OrderMapper;
+import com.devhub.pinchesystemback.mapper.OwnerOrderMapper;
 import com.devhub.pinchesystemback.mapper.UserOrderMapper;
 import com.devhub.pinchesystemback.pararm.OrderParam;
 import com.devhub.pinchesystemback.service.OrderService;
@@ -34,6 +32,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Resource
     private UserOrderMapper userOrderMapper;
+
+    @Resource
+    private OwnerOrderMapper ownerOrderMapper;
 
     @Resource
     private RedisUtil redisUtil;
@@ -156,9 +157,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean generateOrder(OrderParam param) {
-
+        // 获取当前登录的用户信息
         User currentUser = getCurrentUser();
 
+        // 当前用户生成的订单
         Order order = new Order();
         order.setPassengerNum(param.getPassengerNum());
         order.setEnding(param.getEnding());
@@ -168,11 +170,21 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderState(param.getOrderState());
         order.setRemark(param.getRemark());
 
+        // 根据生成订单的infoId查询对应的车主id
+        Info info = infoMapper.selectByPrimaryKey(param.getInfoId());
+        Long ownerId = info.getOwnerId();
+
+        // 生成订单后，将用户，车主与订单关联
         if (saveOrder(order)) {
             UserOrder userOrder = new UserOrder();
             userOrder.setUserId(currentUser.getId());
             userOrder.setOrderId(order.getOrderId());
-            return userOrderMapper.insert(userOrder) > 0;
+
+            OwnerOrder ownerOrder = new OwnerOrder();
+            ownerOrder.setOwnerId(ownerId);
+            ownerOrder.setOrderId(order.getOrderId());
+
+            return userOrderMapper.insert(userOrder) > 0 && ownerOrderMapper.insert(ownerOrder) > 0;
         }
 
         return false;
@@ -191,6 +203,21 @@ public class OrderServiceImpl implements OrderService {
             return new ArrayList<>();
         }
         return mapper.selectByIdsAndState(ids, (byte) 2);
+    }
+
+    /**
+     * 根据车主id查询需要审核的订单
+     *
+     * @param ownerId 车主id
+     * @return
+     */
+    @Override
+    public List<Order> listReviewOrderList(Long ownerId) {
+        List<Long> ids = ownerOrderMapper.selectOrderIdsByOwnerId(ownerId);
+        if (ids == null || ids.size() == 0) {
+            return new ArrayList<>();
+        }
+        return mapper.selectByIdsAndState(ids, (byte) 0);
     }
 
     public User getCurrentUser() {

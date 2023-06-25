@@ -49,7 +49,7 @@ public class OrderController {
     @Log
     public CommonResult listOrders() {
         User user = redisUtil.getCurrentUser("cur");
-        List<Order> orders = orderService.getOrderListByUserId(user.getId());
+        List<Order> orders = orderService.listReviewOrderList(user.getId());
         return CommonResult.success(orders);
     }
 
