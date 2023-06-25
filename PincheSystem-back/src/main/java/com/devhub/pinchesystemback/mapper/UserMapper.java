@@ -30,5 +30,6 @@ public interface UserMapper {
 
     List<User> selectAllOwners();
 
+    User selectOwnerByMobile(String mobile);
 
 }

@@ -99,4 +99,10 @@
         from user
         where role = 1;
     </select>
+    <select id="selectOwnerByMobile" resultType="com.devhub.pinchesystemback.domain.User">
+        select *
+        from user
+        where mobile = #{mobile}
+          and role = 1;
+    </select>
 </mapper>

@@ -5,11 +5,13 @@ import com.devhub.pinchesystemback.domain.*;
 import com.devhub.pinchesystemback.exception.BusinessException;
 import com.devhub.pinchesystemback.mapper.*;
 import com.devhub.pinchesystemback.pararm.OrderParam;
+import com.devhub.pinchesystemback.pararm.RankParam;
 import com.devhub.pinchesystemback.pararm.SearchParam;
 import com.devhub.pinchesystemback.service.OrderService;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -193,7 +195,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 查询审核过的订单
+     * 用户查询审核过的订单
      *
      * @param userId 当前用户id
      * @return
@@ -209,18 +211,33 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * 查询未审核过的订单
+     * 车主查询未成功的订单
      *
      * @param userId 车主id
      * @return
      */
     @Override
     public List<Order> listUnValidOrders(Long userId) {
-        List<Long> ids = userOrderMapper.getOrderIDsByUserId(userId);
+        List<Long> ids = ownerOrderMapper.selectOrderIdsByOwnerId(userId);
         if (ids == null || ids.size() == 0) {
             return new ArrayList<>();
         }
         return mapper.selectByIdsAndState(ids, (byte) 1);
+    }
+
+    /**
+     * 车主查询成功的订单
+     *
+     * @param userId 车主id
+     * @return
+     */
+    @Override
+    public List<Order> listValidOrdersForOwner(Long userId) {
+        List<Long> ids = ownerOrderMapper.selectOrderIdsByOwnerId(userId);
+        if (ids == null || ids.size() == 0) {
+            return new ArrayList<>();
+        }
+        return mapper.selectByIdsAndState(ids, (byte) 2);
     }
 
     /**
@@ -242,51 +259,65 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 获取
      *
-     * @param begin 开始时间
-     * @param end   结束时间
      * @return
      */
     @Override
-    public List<Map.Entry<Double, User>> getOwnerRank(Date begin, Date end) {
-        if (begin == null || end == null || begin.after(end)) {
-            return new ArrayList<>();
-        }
+    public List<RankParam> getOwnerRank() {
+
         // 先查出所有车主
         List<User> owners = userMapper.selectAllOwners();
-        Map<Double, User> map = new HashMap<>();
+
+        if (owners.size() == 0) {
+            return null;
+        }
+
+        Map<Double, RankParam> map = new HashMap<>();
         for (User owner : owners) {
             Long ownerId = owner.getId();
-            List<Order> validOrders = listValidOrders(ownerId);
+            List<Order> validOrders = listValidOrdersForOwner(ownerId);
             List<Order> unValidOrders = listUnValidOrders(ownerId);
 
             if (validOrders.size() != 0 || unValidOrders.size() != 0) {
                 BigDecimal total = new BigDecimal(validOrders.size() + unValidOrders.size());
                 BigDecimal success = new BigDecimal(validOrders.size());
                 double result = success.divide(total, 2, RoundingMode.HALF_UP).doubleValue();
-                map.put(result, owner);
+                RankParam rankParam = new RankParam();
+                rankParam.setUser(owner);
+                rankParam.setSuccessRate(result);
+                rankParam.setCount(validOrders.size());
+                map.put(result, rankParam);
             }
         }
 
-        List<Map.Entry<Double, User>> entries = new ArrayList<>(map.entrySet());
+        List<Map.Entry<Double, RankParam>> entries = new ArrayList<>(map.entrySet());
         entries.sort((entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey()));
-        return entries;
+        List<RankParam> rank = new ArrayList<>(owners.size());
+        for (Map.Entry<Double, RankParam> entry : entries) {
+            rank.add(entry.getValue());
+        }
+        return rank;
     }
 
     /**
      * 查询满足条件的订单
      *
-     * @param param 搜索参数
      * @return
      */
     @Override
-    public Map.Entry<Double, User> searchOwnerOrders(SearchParam param) {
-        List<Map.Entry<Double, User>> rank = getOwnerRank(param.getBegin(), param.getEnd());
-        for (Map.Entry<Double, User> entry : rank) {
-            if (param.getMobile().equals(entry.getValue().getMobile())) {
-                return entry;
+    public List<RankParam> searchOwnerOrders(String mobile) {
+        List<RankParam> rank = getOwnerRank();
+        if (mobile == null || mobile.trim().length() == 0) {
+            return rank;
+        }
+        List<RankParam> result = new ArrayList<>();
+        for (RankParam rankParam : rank) {
+            String m = rankParam.getUser().getMobile();
+            if (m.equals(mobile)) {
+                result.add(rankParam);
+                break;
             }
         }
-        return null;
+        return result;
     }
 
     public User getCurrentUser() {

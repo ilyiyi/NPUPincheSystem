@@ -95,18 +95,10 @@
                         <div class="col-lg-2">
                             <h4>索 引 条 件: </h4>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-8">
                             <label for="mobile">
                                 <input class="searchInput" id="mobile" placeholder="输入车主的电话">
                             </label>
-                        </div>
-                        <div class="col-lg-2">
-                            <label id="begin" class="form-label">日期</label>
-                            <input type="date" name="begin" class="date" required>
-                        </div>
-                        <div class="col-lg-2">
-                            <label id="end" class="form-label">日期</label>
-                            <input type="date" name="end" class="date" required>
                         </div>
                         <div class="col-lg-2">
                             <fieldset>
@@ -170,8 +162,60 @@
 
 <script>
 
-    function searchOwner() {
+    let searchList = []
+    let rankList = []
 
+    function searchOwner() {
+        let mobile = document.getElementById('mobile').value
+        $.ajax({
+            url: '/admin/search?mobile=' + mobile,
+            type: 'post'
+        }).then(res => {
+            if (res.code === 200) {
+                rankList = res.data
+                initAllDriver()
+                console.log('查询成功')
+            } else {
+                alert(res.message)
+            }
+        })
+        // alert('查询中，请稍后')
+    }
+
+    function getRank() {
+        $.ajax({
+            url: '/admin/rank',
+            type: 'get'
+        }).then(res => {
+            if (res.code === 200) {
+                rankList = res.data
+
+                console.log('查询成功')
+            } else {
+                alert(res.message)
+            }
+        })
+    }
+
+    function prize(index) {
+        let ownerId = rankList[index].user.id;
+        let prizeForm = {
+            ownerId: ownerId,
+            score: 10
+        }
+        $.ajax({
+            url: '/admin/prize',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(prizeForm)
+        }).then(res => {
+            if (res.code === 200) {
+                alert('嘉奖成功')
+            } else {
+                alert(res.message)
+            }
+        })
+        alert('嘉奖中，请稍等')
     }
 
     let diverName = ["李师傅", "杨师傅", "谢师傅", "黄师傅", "黄师傅"]
@@ -186,7 +230,7 @@
     });
 
     $(function () {
-        initAllDriver()
+        searchOwner()
     });
 
     function gofront() {
@@ -199,7 +243,7 @@
     }
 
     function goback() {
-        if (pageNoOfDriver * 4 > diverName.length) {
+        if (pageNoOfDriver * 4 > rankList.length) {
             return
         }
         pageNoOfDriver += 1
@@ -217,7 +261,7 @@
     }
 
     function initAllDriver() {
-        var end = (pageNoOfDriver) * 4 > diverName.length ? diverName.length : (pageNoOfDriver) * 4
+        var end = (pageNoOfDriver) * 4 > rankList.length ? rankList.length : (pageNoOfDriver) * 4
         console.log(end)
         for (let i = (pageNoOfDriver - 1) * 4; i < end; i++) {
             let div = document.createElement("div")
@@ -233,20 +277,20 @@
               <div class="col-lg-6 align-self-center">
                 <div class="content">
                   <span class="info">*Driver</span>
-                  <h4>${diverName[i]}</h4>
+                  <h4>${rankList[i].user.username}</h4>
                   <div class="row">
                     <div class="col-6">
                       <i class="fa fa-clock"></i>
-                      <span class="list">订单数：${diverOrderNum[i]}单</span>
+                      <span class="list">订单数：${rankList[i].count}单</span>
                     </div>
                     <div class="col-6">
                       <i class="fa fa-map"></i>
-                      <span class="list">成功率: ${diverSuccessRate[i]}</span>
+                      <span class="list">成功率: ${rankList[i].successRate}</span>
                     </div>
                   </div>
-                  <p>📞 ： ${driverPhoneNum[i]}</p>
+                  <p>📞 ： ${rankList[i].user.mobile}</p>
                   <div class="main-button" style="color: white">
-                    <a>Prize the Driver</a>
+                    <a onclick="prize(${i})">Prize the Driver</a>
                   </div>
                 </div>
               </div>

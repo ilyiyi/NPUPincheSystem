@@ -1,6 +1,7 @@
 package com.devhub.pinchesystemback.domain;
 
 import com.devhub.pinchesystemback.constant.UserRoleEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,6 +37,18 @@ public class User implements Serializable, UserDetails {
     private Byte isDelete;
 
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", sex='" + sex + '\'' +
+                ", role=" + role +
+                '}';
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -40,4 +40,13 @@ public interface AdminService {
      * @return 车主排名列表
      */
     List<User> getOwnerRank(Date begin, Date end);
+
+    /**
+     * 给司机嘉奖积分
+     *
+     * @param ownerId 司机id
+     * @param score   积分
+     * @return
+     */
+    boolean prizeOwner(Long ownerId, int score);
 }

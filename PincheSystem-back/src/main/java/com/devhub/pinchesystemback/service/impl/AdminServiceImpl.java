@@ -5,6 +5,7 @@ import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.mapper.InfoMapper;
 import com.devhub.pinchesystemback.mapper.OrderMapper;
+import com.devhub.pinchesystemback.mapper.OwnerScoreMapper;
 import com.devhub.pinchesystemback.mapper.UserMapper;
 import com.devhub.pinchesystemback.service.AdminService;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,6 +31,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Resource
     private OrderMapper orderMapper;
+
+    @Resource
+    private OwnerScoreMapper scoreMapper;
 
     /**
      * 查询一段时间内所有拼车订单或者某位车主的所有拼车订单
@@ -86,6 +90,18 @@ public class AdminServiceImpl implements AdminService {
             rank.add(entry.getValue());
         }
         return rank;
+    }
+
+    /**
+     * 给司机嘉奖积分
+     *
+     * @param ownerId 司机id
+     * @param score   积分
+     * @return
+     */
+    @Override
+    public boolean prizeOwner(Long ownerId, int score) {
+        return scoreMapper.addScoreByOwnerId(score, ownerId) > 0;
     }
 
 }

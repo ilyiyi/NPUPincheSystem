@@ -2,11 +2,11 @@ package com.devhub.pinchesystemback.controller;
 
 import com.devhub.pinchesystemback.constant.ResultCodeEnum;
 import com.devhub.pinchesystemback.constant.UserRoleEnum;
-import com.devhub.pinchesystemback.domain.Info;
-import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.exception.BusinessException;
 import com.devhub.pinchesystemback.pararm.LoginParam;
+import com.devhub.pinchesystemback.pararm.PrizeParam;
+import com.devhub.pinchesystemback.pararm.RankParam;
 import com.devhub.pinchesystemback.pararm.SearchParam;
 import com.devhub.pinchesystemback.service.AdminService;
 import com.devhub.pinchesystemback.service.OrderService;
@@ -14,7 +14,6 @@ import com.devhub.pinchesystemback.service.UserService;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.CommonResult;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,15 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
-
-    @Resource
-    private AdminService adminService;
 
     @Resource
     private UserService userService;
@@ -41,6 +36,19 @@ public class AdminController {
 
     @Resource
     private RedisUtil redisUtil;
+
+    @Resource
+    private AdminService adminService;
+
+
+    @PostMapping("/prize")
+    public CommonResult prizeOwner(@RequestBody PrizeParam param) {
+        if (adminService.prizeOwner(param.getOwnerId(), param.getScore())) {
+
+            return CommonResult.success();
+        }
+        return CommonResult.failure("嘉奖失败，请重试");
+    }
 
 
     @PostMapping("/login")
@@ -55,20 +63,15 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/rank")
-    public CommonResult ownerRank(@RequestBody SearchParam param) {
-        Date begin = param.getBegin();
-        Date end = param.getEnd();
-        if (end.before(begin)) {
-            return CommonResult.failure("开始时间晚于结束时间!");
-        }
-        List<Map.Entry<Double, User>> rank = orderService.getOwnerRank(begin, end);
+    @GetMapping("/rank")
+    public CommonResult ownerRank() {
+        List<RankParam> rank = orderService.getOwnerRank();
         return CommonResult.success(rank);
     }
 
     @PostMapping("/search")
-    public CommonResult searchOrders(@RequestBody SearchParam param) {
-        Map.Entry<Double, User> entry = orderService.searchOwnerOrders(param);
-        return CommonResult.success(entry);
+    public CommonResult searchOrders(@RequestParam String mobile) {
+        List<RankParam> rankParams = orderService.searchOwnerOrders(mobile);
+        return CommonResult.success(rankParams);
     }
 }
