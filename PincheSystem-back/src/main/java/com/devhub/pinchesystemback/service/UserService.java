@@ -30,4 +30,11 @@ public interface UserService {
     boolean isDeleted(Long userId);
 
     boolean userLogout(HttpServletRequest request);
+
+    /**
+     * 根据ownerId获取积分
+     * @param ownerId 车主id
+     * @return
+     */
+    int getOwnerScore(Long ownerId);
 }

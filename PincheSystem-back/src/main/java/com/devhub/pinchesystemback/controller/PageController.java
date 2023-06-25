@@ -1,6 +1,8 @@
 package com.devhub.pinchesystemback.controller;
 
 import com.devhub.pinchesystemback.domain.User;
+import com.devhub.pinchesystemback.mapper.OwnerScoreMapper;
+import com.devhub.pinchesystemback.service.UserService;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +18,9 @@ public class PageController {
 
     @Resource
     private RedisUtil redisUtil;
+
+    @Resource
+    private UserService userService;
 
     @GetMapping("/")
     public String index1() {
@@ -69,10 +74,28 @@ public class PageController {
 
     private void setCur(Model model) {
         User currentUser = getCurrentUser();
+        if (currentUser.getRole() == 1) {
+            int score = userService.getOwnerScore(currentUser.getId());
+            model.addAttribute("score", score);
+        }
         model.addAttribute("cur", currentUser);
     }
 
     private User getCurrentUser() {
         return redisUtil.getCurrentUser("cur");
     }
+
+    @GetMapping("/admin/about")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String about() {
+        return "about";
+    }
+
+    @GetMapping("/admin/deals")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String deals() {
+        return "deals";
+    }
+
+
 }

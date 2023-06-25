@@ -105,7 +105,7 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                <form id="reservation-form" name="gs" role="search" >
+                <form id="reservation-form" name="gs" role="search">
                     <div class="row">
                         <div class="col-lg-12">
                             <h4><em>填写拼车信息</em></h4>
@@ -226,15 +226,22 @@
             url: '/owner/info',
             type: 'post',
             contentType: 'application/json',
-            data: JSON.stringify(pubForm),
-            success: function (res) {
-                alert(res.message)
-            },
-            fail: function (res) {
-                alert('发布失败')
-            }
+            data: JSON.stringify(pubForm)
+            // success: function (res) {
+            //     alert(res.message)
+            // },
+            // fail: function (res) {
+            //     alert('发布失败')
+            // }
 
+        }).then(res => {
+            if (res.code === 200) {
+                alert('发布成功')
+            } else {
+                alert(res.messgae)
+            }
         })
+        alert('正在发布，请稍等')
     }
 </script>
 

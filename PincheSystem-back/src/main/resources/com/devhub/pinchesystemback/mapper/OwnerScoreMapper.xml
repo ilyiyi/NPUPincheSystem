@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devhub.pinchesystemback.mapper.OwnerScoreMapper">
+    <resultMap id="BaseResultMap" type="com.devhub.pinchesystemback.domain.OwnerScore">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="owner_id" jdbcType="BIGINT" property="ownerId"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from owner_score
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.devhub.pinchesystemback.domain.OwnerScore"
+            useGeneratedKeys="true">
+        insert into owner_score (owner_id)
+        values (#{ownerId,jdbcType=BIGINT})
+    </insert>
+    <update id="addScoreByOwnerId">
+        update owner_score
+        set score = score + #{score}
+        where owner_id = #{ownerId}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.devhub.pinchesystemback.domain.OwnerScore">
+        update owner_score
+        set owner_id = #{ownerId,jdbcType=BIGINT},
+            score    = #{score,jdbcType=INTEGER}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select id, owner_id, score
+        from owner_score
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, owner_id, score
+        from owner_score
+    </select>
+    <select id="selectScoreByOwnerId" resultType="java.lang.Integer">
+        select score
+        from owner_score
+        where owner_id = #{ownerId}
+    </select>
+</mapper>

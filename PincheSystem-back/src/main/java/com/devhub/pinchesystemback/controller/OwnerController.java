@@ -39,11 +39,12 @@ public class OwnerController {
     private RedisUtil redisUtil;
 
 
-    private static OrderService orderService;
+//    @Resource
+    private OrderService orderService;
 
     @Autowired
-    public void setPlanmecaScreenService(OrderService orderService){
-        OwnerController.orderService = orderService;
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     /**

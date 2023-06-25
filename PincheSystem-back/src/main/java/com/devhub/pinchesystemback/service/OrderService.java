@@ -1,10 +1,15 @@
 package com.devhub.pinchesystemback.service;
 
 import com.devhub.pinchesystemback.domain.Order;
+import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.pararm.OrderParam;
+import com.devhub.pinchesystemback.pararm.SearchParam;
 import com.github.pagehelper.PageInfo;
 
+
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wak
@@ -64,10 +69,37 @@ public interface OrderService {
     List<Order> listValidOrders(Long userId);
 
     /**
+     * 查询未审核过的订单
+     *
+     * @param userId 车主id
+     * @return
+     */
+    List<Order> listUnValidOrders(Long userId);
+
+    /**
      * 根据车主id查询需要审核的订单
      *
      * @param ownerId 车主id
      * @return
      */
     List<Order> listReviewOrderList(Long ownerId);
+
+    /**
+     * 获取车主排名
+     *
+     * @param begin 开始时间
+     * @param end   结束时间
+     * @return
+     */
+    List<Map.Entry<Double, User>> getOwnerRank(Date begin, Date end);
+
+    /**
+     * 查询满足条件的订单
+     *
+     * @param param 搜索参数
+     * @return
+     */
+    Map.Entry<Double, User> searchOwnerOrders(SearchParam param);
+
+
 }

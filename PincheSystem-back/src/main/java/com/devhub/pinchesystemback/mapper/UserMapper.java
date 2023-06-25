@@ -14,6 +14,8 @@ public interface UserMapper {
 
     int insert(String username, String password, String mobile, Byte role);
 
+    int insertUser(User user);
+
     User selectByPrimaryKey(Long id);
 
     UserVO selectVOById(Long id);

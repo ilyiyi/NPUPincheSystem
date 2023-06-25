@@ -43,6 +43,9 @@
                         <li>
                             <form action="/myInfo"><input type="submit" value="我的"></form>
                         </li>
+                        <li th:if="${cur.getRole() == 1}">
+                            <p>我的积分: <span th:text="${score}"></span></p>
+                        </li>
                         <!--            <li><a href="reservation.html">Book Yours</a></li>-->
                     </ul>
                     <a class='menu-trigger'>
@@ -126,11 +129,11 @@
                             </fieldset>
 
                         </div>
-                        <div class="col-12 col-sm-5" style="text-align: right;margin-left: 45px">
-                            <button class="btn btn-danger myButton border border-secondary"
-                                    id="deleteAccount" onclick="clearForm()">清空
-                            </button>
-                        </div>
+<!--                        <div class="col-12 col-sm-5" style="text-align: right;margin-left: 45px">-->
+<!--                            <button class="btn btn-danger myButton border border-secondary"-->
+<!--                                    id="deleteAccount" onclick="clearForm()">清空-->
+<!--                            </button>-->
+<!--                        </div>-->
                     </div>
                 </form>
             </div>
@@ -203,15 +206,23 @@
             type: 'post',
             contentType: 'application/json',
             data: JSON.stringify(editForm),
-            success: function (res) {
-                alert(res.message)
-                console.log('更新成功')
-            },
-            fail: function (res) {
-                console.log(res.message)
+            // success: function (res) {
+            //     alert(res.message)
+            //     console.log('更新成功')
+            // },
+            // fail: function (res) {
+            //     console.log(res.message)
+            // }
+        }).then(res => {
+            if (res.code === 200) {
+                alert('修改成功')
+                location.reload()
+            } else {
+                alert('修改失败，请重试')
             }
         })
-        // alert("修改成功！")
+        alert("正在修改，请稍等！")
+        // location.reload()
     }
 
 

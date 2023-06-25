@@ -16,8 +16,13 @@ public class RedisUtil {
     @Resource
     private RedisTemplate<String, String> template;
 
+    public boolean setValue(String key, String value) {
+        template.opsForValue().set(key, value);
+        return true;
+    }
+
     public String get(String key) {
-        return (String) template.opsForValue().get(key);
+        return template.opsForValue().get(key);
     }
 
     public User getCurrentUser(String key) {
@@ -37,6 +42,7 @@ public class RedisUtil {
 
         return user;
     }
+
 
     public boolean setObject(String key, User value) {
         template.opsForHash().put(key, "userId", value.getId().toString());

@@ -2,9 +2,11 @@ package com.devhub.pinchesystemback.service.impl;
 
 import com.devhub.pinchesystemback.advice.annotation.Idempotent;
 import com.devhub.pinchesystemback.constant.ResultCodeEnum;
+import com.devhub.pinchesystemback.domain.OwnerScore;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.exception.BusinessException;
 import com.devhub.pinchesystemback.exception.NotFoundException;
+import com.devhub.pinchesystemback.mapper.OwnerScoreMapper;
 import com.devhub.pinchesystemback.mapper.UserMapper;
 import com.devhub.pinchesystemback.pararm.ModifyParam;
 import com.devhub.pinchesystemback.service.UserService;
@@ -16,28 +18,42 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
-    @Autowired
+    @Resource
     private PasswordEncoder passwordEncoder;
+
+    @Resource
+    private OwnerScoreMapper scoreMapper;
 
     /**
      * 用户注册
      */
     @Override
-    public boolean register(String username, String password, String mobile,Byte role) {
+    public boolean register(String username, String password, String mobile, Byte role) {
         if (username.length() == 0 || password.length() < 6) {
             return false;
         }
         User user1 = userMapper.selectByUsername(username);
         if (user1 == null) {
-            userMapper.insert(username, passwordEncoder.encode(password), mobile,role);
+            User user = new User();
+            user.setPassword(passwordEncoder.encode(password));
+            user.setMobile(mobile);
+            user.setUsername(username);
+            user.setRole(role);
+            userMapper.insertUser(user);
+            if (role == 1) {
+                OwnerScore ownerScore = new OwnerScore();
+                ownerScore.setOwnerId(user.getId());
+                scoreMapper.insert(ownerScore);
+            }
             return true;
         }
         return false;
@@ -83,14 +99,14 @@ public class UserServiceImpl implements UserService {
      * @param userParam 用户信息
      */
     @Override
-    public boolean modifyInfo(Long userId, ModifyParam userParam){
+    public boolean modifyInfo(Long userId, ModifyParam userParam) {
         try {
             int match = userMapper.updateByPrimaryKey(userId, userParam.getUsername(), userParam.getSex(), userParam.getMobile());
             if (match == 0) {
                 throw new NotFoundException("userId为" + userId + "的用户不存在");
             }
             return true;
-        }catch (DataAccessException e){
+        } catch (DataAccessException e) {
             throw new RuntimeException("Bad SqlException");
         }
     }
@@ -109,5 +125,16 @@ public class UserServiceImpl implements UserService {
     public boolean userLogout(HttpServletRequest request) {
         request.getSession().removeAttribute("loginUser");
         return true;
+    }
+
+    /**
+     * 根据ownerId获取积分
+     *
+     * @param ownerId 车主id
+     * @return
+     */
+    @Override
+    public int getOwnerScore(Long ownerId) {
+        return scoreMapper.selectScoreByOwnerId(ownerId);
     }
 }

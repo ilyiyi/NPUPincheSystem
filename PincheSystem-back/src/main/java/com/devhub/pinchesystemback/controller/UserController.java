@@ -48,7 +48,7 @@ public class UserController {
     private OrderService orderService;
 
 
-    @Autowired
+    @Resource
     private RedisUtil redisUtil;
 
     private List<Order> getOrdersByInfoIds() {

@@ -7,16 +7,15 @@ import com.devhub.pinchesystemback.domain.Order;
 import com.devhub.pinchesystemback.domain.User;
 import com.devhub.pinchesystemback.exception.BusinessException;
 import com.devhub.pinchesystemback.pararm.LoginParam;
+import com.devhub.pinchesystemback.pararm.SearchParam;
 import com.devhub.pinchesystemback.service.AdminService;
 import com.devhub.pinchesystemback.service.OrderService;
 import com.devhub.pinchesystemback.service.UserService;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.devhub.pinchesystemback.vo.CommonResult;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     @Resource
@@ -34,6 +35,9 @@ public class AdminController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private OrderService orderService;
 
     @Resource
     private RedisUtil redisUtil;
@@ -44,35 +48,27 @@ public class AdminController {
         User user = userService.login(loginParam.getUsername(), loginParam.getPassword(), request);
         if (UserRoleEnum.ADMINISTRATOR.getRole() == user.getRole()) {
             response.setHeader("username", user.getUsername());
-            redisUtil.setObject("curAdmin", user);
+            redisUtil.setObject("cur", user);
             return "deals";
         } else {
             throw new BusinessException(ResultCodeEnum.WRONG_USERNAME_OR_PASSWORD, "非普通用户账户无法在此登录");
         }
     }
 
-    /**
-     * 根据开始结束时间或车主id查询全部拼车记录
-     *
-     * @param begin 开始时间
-     * @param end   结束时间
-     * @param id    车主id
-     * @return 拼车记录
-     */
-    @GetMapping("/outRecord")
-    public CommonResult recordsOut(Date begin, Date end, Long id) {
-        List<Order> records = adminService.getAllRecords(begin, end, id);
-        return CommonResult.success(records);
-    }
-
     @PostMapping("/rank")
-    public CommonResult ownerRank(Date begin, Date end) {
-
+    public CommonResult ownerRank(@RequestBody SearchParam param) {
+        Date begin = param.getBegin();
+        Date end = param.getEnd();
         if (end.before(begin)) {
             return CommonResult.failure("开始时间晚于结束时间!");
         }
-
-        List<User> rank = adminService.getOwnerRank(begin, end);
+        List<Map.Entry<Double, User>> rank = orderService.getOwnerRank(begin, end);
         return CommonResult.success(rank);
+    }
+
+    @PostMapping("/search")
+    public CommonResult searchOrders(@RequestBody SearchParam param) {
+        Map.Entry<Double, User> entry = orderService.searchOwnerOrders(param);
+        return CommonResult.success(entry);
     }
 }

@@ -3,11 +3,9 @@ package com.devhub.pinchesystemback.service.impl;
 import com.devhub.pinchesystemback.constant.ResultCodeEnum;
 import com.devhub.pinchesystemback.domain.*;
 import com.devhub.pinchesystemback.exception.BusinessException;
-import com.devhub.pinchesystemback.mapper.InfoMapper;
-import com.devhub.pinchesystemback.mapper.OrderMapper;
-import com.devhub.pinchesystemback.mapper.OwnerOrderMapper;
-import com.devhub.pinchesystemback.mapper.UserOrderMapper;
+import com.devhub.pinchesystemback.mapper.*;
 import com.devhub.pinchesystemback.pararm.OrderParam;
+import com.devhub.pinchesystemback.pararm.SearchParam;
 import com.devhub.pinchesystemback.service.OrderService;
 import com.devhub.pinchesystemback.utils.RedisUtil;
 import com.github.pagehelper.PageHelper;
@@ -15,8 +13,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.*;
 
 /**
  * @author wak
@@ -35,6 +34,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Resource
     private OwnerOrderMapper ownerOrderMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     @Resource
     private RedisUtil redisUtil;
@@ -205,6 +207,22 @@ public class OrderServiceImpl implements OrderService {
         return mapper.selectByIdsAndState(ids, (byte) 2);
     }
 
+
+    /**
+     * 查询未审核过的订单
+     *
+     * @param userId 车主id
+     * @return
+     */
+    @Override
+    public List<Order> listUnValidOrders(Long userId) {
+        List<Long> ids = userOrderMapper.getOrderIDsByUserId(userId);
+        if (ids == null || ids.size() == 0) {
+            return new ArrayList<>();
+        }
+        return mapper.selectByIdsAndState(ids, (byte) 1);
+    }
+
     /**
      * 根据车主id查询需要审核的订单
      *
@@ -218,6 +236,57 @@ public class OrderServiceImpl implements OrderService {
             return new ArrayList<>();
         }
         return mapper.selectByIdsAndState(ids, (byte) 0);
+    }
+
+
+    /**
+     * 获取
+     *
+     * @param begin 开始时间
+     * @param end   结束时间
+     * @return
+     */
+    @Override
+    public List<Map.Entry<Double, User>> getOwnerRank(Date begin, Date end) {
+        if (begin == null || end == null || begin.after(end)) {
+            return new ArrayList<>();
+        }
+        // 先查出所有车主
+        List<User> owners = userMapper.selectAllOwners();
+        Map<Double, User> map = new HashMap<>();
+        for (User owner : owners) {
+            Long ownerId = owner.getId();
+            List<Order> validOrders = listValidOrders(ownerId);
+            List<Order> unValidOrders = listUnValidOrders(ownerId);
+
+            if (validOrders.size() != 0 || unValidOrders.size() != 0) {
+                BigDecimal total = new BigDecimal(validOrders.size() + unValidOrders.size());
+                BigDecimal success = new BigDecimal(validOrders.size());
+                double result = success.divide(total, 2, RoundingMode.HALF_UP).doubleValue();
+                map.put(result, owner);
+            }
+        }
+
+        List<Map.Entry<Double, User>> entries = new ArrayList<>(map.entrySet());
+        entries.sort((entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey()));
+        return entries;
+    }
+
+    /**
+     * 查询满足条件的订单
+     *
+     * @param param 搜索参数
+     * @return
+     */
+    @Override
+    public Map.Entry<Double, User> searchOwnerOrders(SearchParam param) {
+        List<Map.Entry<Double, User>> rank = getOwnerRank(param.getBegin(), param.getEnd());
+        for (Map.Entry<Double, User> entry : rank) {
+            if (param.getMobile().equals(entry.getValue().getMobile())) {
+                return entry;
+            }
+        }
+        return null;
     }
 
     public User getCurrentUser() {

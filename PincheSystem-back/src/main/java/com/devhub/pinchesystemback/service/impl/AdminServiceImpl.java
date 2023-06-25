@@ -72,33 +72,20 @@ public class AdminServiceImpl implements AdminService {
         // 先查出所有车主
         List<User> owners = userMapper.selectAllOwners();
         ArrayList<User> rank = new ArrayList<>(owners.size());
-        Map<Double, User> map = new HashMap<>();
+        Map<Integer, User> map = new HashMap<>();
         for (User owner : owners) {
             List<Order> orderList = getAllRecords(begin, end, owner.getId());
-            double total = accumulatePrice(orderList);
+            int total = orderList.size();
             map.put(total, owner);
         }
 
-        List<Map.Entry<Double, User>> entries = new ArrayList<>(map.entrySet());
+        List<Map.Entry<Integer, User>> entries = new ArrayList<>(map.entrySet());
         entries.sort((entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey()));
 
-        for (Map.Entry<Double, User> entry : entries) {
+        for (Map.Entry<Integer, User> entry : entries) {
             rank.add(entry.getValue());
         }
         return rank;
     }
 
-    private double accumulatePrice(List<Order> orderList) {
-        if (orderList == null || orderList.isEmpty()) {
-            return 0d;
-        }
-        double total = 0d;
-        for (Order order : orderList) {
-            Double price = order.getPrice();
-            if (price != null) {
-                total += price;
-            }
-        }
-        return total;
-    }
 }
