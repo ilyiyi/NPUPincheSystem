@@ -57,7 +57,7 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a href="deals.html">Home</a></li>
+                        <li><a href="/admin/deals">Home</a></li>
                         <!--                        <li><a href="about.html">About</a></li>-->
                         <!--                        <li><a href="deals.html" class="active">Deals</a></li>-->
                         <!--                        <li><a href="../npu拼车系统用户/reservation.html">Reservation</a></li>-->
@@ -95,14 +95,14 @@
                         <div class="col-lg-2">
                             <h4>索 引 条 件: </h4>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-6">
                             <label for="mobile">
                                 <input class="searchInput" id="mobile" placeholder="输入车主的电话">
                             </label>
                         </div>
                         <div class="col-lg-2">
                             <fieldset>
-                                <button class="border-button" style="color: white" onclick="searchOwner()">搜 索
+                                <button class="border-button" style="color: white" onclick="searchOwner(event)">搜 索
                                 </button>
                             </fieldset>
                         </div>
@@ -161,12 +161,14 @@
 <script src="/assets/js/custom.js"></script>
 
 <script>
-
-    let searchList = []
     let rankList = []
 
-    function searchOwner() {
+    function searchOwner(event) {
         let mobile = document.getElementById('mobile').value
+        removeAll()
+        if (mobile) {
+            event.preventDefault()
+        }
         $.ajax({
             url: '/admin/search?mobile=' + mobile,
             type: 'post'
@@ -182,14 +184,14 @@
         // alert('查询中，请稍后')
     }
 
-    function getRank() {
+    function getRank(event) {
+        // event.preventDefault()
         $.ajax({
             url: '/admin/rank',
             type: 'get'
         }).then(res => {
             if (res.code === 200) {
                 rankList = res.data
-
                 console.log('查询成功')
             } else {
                 alert(res.message)
@@ -300,8 +302,8 @@
       `
             div.classList.add("col-lg-6")
             div.classList.add("col-sm-6")
-
             document.querySelector("#driverDataShow").appendChild(div)
+
         }
         let div1 = document.createElement("div")
         div1.innerHTML = `
