@@ -1,7 +1,7 @@
 # 项目配置文件
 server:
   #  服务器启动的端口号
-  port: 8080
+  port: 82
 spring:
   thymeleaf:
     enabled: true
@@ -17,7 +17,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://localhost/pinche?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://60.204.151.229/pinche?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
   #  配置Json序列化,不要改动
   jackson:
     date-format: yyyy-MM-dd
@@ -38,7 +38,7 @@ spring:
         enabled: true
   # redis配置
   redis:
-    host: localhost
+    host: 60.204.151.229
     port: 6379
     password: 123456
 

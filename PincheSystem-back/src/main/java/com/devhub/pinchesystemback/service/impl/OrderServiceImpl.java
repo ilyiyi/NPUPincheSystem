@@ -267,11 +267,11 @@ public class OrderServiceImpl implements OrderService {
         // 先查出所有车主
         List<User> owners = userMapper.selectAllOwners();
 
-        if (owners.size() == 0) {
+        if (owners == null || owners.size() == 0) {
             return null;
         }
 
-        Map<Double, RankParam> map = new HashMap<>();
+        Map<Double, List<RankParam>> map = new HashMap<>();
         for (User owner : owners) {
             Long ownerId = owner.getId();
             List<Order> validOrders = listValidOrdersForOwner(ownerId);
@@ -285,15 +285,20 @@ public class OrderServiceImpl implements OrderService {
                 rankParam.setUser(owner);
                 rankParam.setSuccessRate(result);
                 rankParam.setCount(validOrders.size());
-                map.put(result, rankParam);
+                List<RankParam> list = map.getOrDefault(result, new ArrayList<>());
+                list.add(rankParam);
+                map.put(result, list);
             }
+
         }
 
-        List<Map.Entry<Double, RankParam>> entries = new ArrayList<>(map.entrySet());
+        List<Map.Entry<Double, List<RankParam>>> entries = new ArrayList<>(map.entrySet());
         entries.sort((entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey()));
         List<RankParam> rank = new ArrayList<>(owners.size());
-        for (Map.Entry<Double, RankParam> entry : entries) {
-            rank.add(entry.getValue());
+        for (Map.Entry<Double, List<RankParam>> entry : entries) {
+            List<RankParam> paramList = entry.getValue();
+            paramList.sort((o1, o2) -> o2.getCount() - o1.getCount());
+            rank.addAll(paramList);
         }
         return rank;
     }
